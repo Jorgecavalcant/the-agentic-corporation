@@ -1,0 +1,65 @@
+id: nova-feature-completa
+name: "Pipeline Completo — Nova Feature"
+squad: jc-tecnologia-squad
+description: >
+  Pipeline completo para implementação de nova feature:
+  arquitetura → backend → frontend → banco → segurança → deploy.
+  Garante que todas as dimensões técnicas sejam cobertas antes do deploy em produção.
+
+trigger:
+  manual: true
+  conditions:
+    - feature_definida_pelo_produto: true
+    - discovery_concluido: true
+
+steps:
+  - id: step-1-arquitetura
+    name: "Arquitetura da Feature"
+    agent: orchestrator
+    task: arquitetura-feature
+    output: arquitetura_doc
+    blocking: true  # próximos passos dependem deste
+
+  - id: step-2-implementacao
+    name: "Implementação Paralela"
+    parallel: true
+    steps:
+      - id: step-2a-backend
+        agent: dev-backend
+        task: implementar-api
+        input: arquitetura_doc
+
+      - id: step-2b-frontend
+        agent: dev-frontend
+        task: implementar-api
+        input: arquitetura_doc
+
+      - id: step-2c-banco
+        agent: dba
+        task: criar-migration
+        input: arquitetura_doc
+
+  - id: step-3-seguranca
+    name: "Auditoria de Segurança"
+    agent: especialista-seguranca
+    task: auditoria-seguranca
+    blocking: true
+    checkpoint:
+      label: "Segurança aprovada?"
+      required: true
+
+  - id: step-4-deploy
+    name: "Deploy em Produção"
+    agent: devops
+    task: deploy-producao
+    pre_conditions:
+      - seguranca_aprovada: true
+      - checklist_qa_assinado: true
+
+checkpoints:
+  - after: step-3-seguranca
+    label: "Revisão de Segurança"
+    description: "Confirmar que auditoria não encontrou bloqueantes"
+    required: true
+
+estimated_duration: "1-3 sprints (dependendo do tamanho da feature)"

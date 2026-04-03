@@ -1,0 +1,67 @@
+squad: jc-operacoes-squad
+description: Roteamento de demandas operacionais para o agente correto
+
+domains:
+  orchestrator:
+    agent: orchestrator
+    keywords:
+      - processo operacional
+      - sla
+      - coordenação
+      - status geral
+      - incidente
+      - eficiência operacional
+
+  monitor:
+    agent: monitor
+    keywords:
+      - container
+      - unhealthy
+      - disco
+      - memória
+      - cpu
+      - logs
+      - servidor
+      - vps
+      - saúde do sistema
+      - uptime
+
+  integrations-engineer:
+    agent: integrations-engineer
+    keywords:
+      - asaas
+      - whatsapp api
+      - meta api
+      - open banking
+      - bcb
+      - webhook
+      - oauth
+      - integração
+      - api externa
+      - cerbasi webhook
+
+  n8n-specialist:
+    agent: n8n-specialist
+    keywords:
+      - n8n
+      - workflow
+      - automação
+      - cron
+      - trigger
+      - fluxo automático
+      - backup
+      - notificação automática
+      - bacen atualização
+
+  chatbot-developer:
+    agent: chatbot-developer
+    keywords:
+      - chatbot
+      - bot
+      - whatsapp
+      - chatwoot
+      - câmara
+      - fluxo de atendimento
+      - mensagem automática
+      - onboarding chat
+      - prompt de bot

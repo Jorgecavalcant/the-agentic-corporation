@@ -1,0 +1,35 @@
+name: jc-financas-squad
+description: >
+  Squad Financeiro da JC Tecnologia.
+  Responsável por receita, custos, planejamento financeiro, MRR/ARR, unit economics,
+  análise de viabilidade e relatórios financeiros da empresa e dos produtos.
+  Domínios: MRR, ARR, churn, LTV, CAC, precificação, integração Asaas.
+
+tier: 0
+orchestrator: orchestrator
+idioma: pt-BR
+
+agents:
+  - id: orchestrator
+    file: agents/orchestrator.md
+    role: orchestrator
+    tier: 0
+    name: jc-cfo
+    description: CFO — saúde financeira da empresa, MRR, precificação, viabilidade
+
+  - id: analista-financeiro
+    file: agents/analista-financeiro.md
+    role: specialist
+    tier: 1
+    name: jc-analista-financeiro
+    description: Analista Financeiro — MRR/ARR, churn, LTV/CAC, relatórios, cohorts
+
+  - id: analista-receita
+    file: agents/analista-receita.md
+    role: specialist
+    tier: 1
+    name: jc-analista-receita
+    description: Analista de Receita — pricing, unit economics, modelos de receita
+
+routing:
+  catalog: data/routing-catalog.yaml

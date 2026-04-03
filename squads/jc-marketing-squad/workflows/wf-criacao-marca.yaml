@@ -1,0 +1,57 @@
+name: wf-criacao-marca
+description: Workflow para criar ou reformular a identidade completa de uma marca JC
+version: "1.0.0"
+
+trigger:
+  comando: "*jc-marketing:marca"
+  entradas_obrigatorias:
+    - produto_ou_marca
+    - objetivo  # criar do zero, reformular, ou auditar
+
+steps:
+
+  - id: estrategia_marca
+    agente: estrategista-marca
+    acao: "Definir propósito, arquétipo, posicionamento e naming"
+    entradas: [produto_ou_marca, objetivo, concorrentes]
+    saidas: [brand_strategy, arquetipo, proposta_valor, posicionamento]
+    tipo: sequencial
+
+  - id: identidade_narrativa
+    tipo: paralelo
+    depende: [estrategia_marca]
+    steps:
+      - id: narrativa_marca
+        agente: especialista-storytelling
+        acao: "Criar o storytelling central da marca"
+        entradas: [brand_strategy, arquetipo]
+        saidas: [historia_marca, narrativa_fundador, tagline_candidates]
+
+      - id: identidade_verbal
+        agente: gerente-marketing
+        acao: "Criar guia de tom de voz e identidade verbal"
+        entradas: [brand_strategy, arquetipo]
+        saidas: [tom_de_voz, vocabulario_marca, exemplos_corretos]
+
+  - id: identidade_visual
+    agente: designer
+    acao: "Criar especificações de identidade visual completa"
+    entradas: [brand_strategy, arquetipo, narrativa_marca]
+    saidas: [paleta_cores, tipografia, elementos_visuais, exemplos_uso]
+    tipo: sequencial
+    depende: [identidade_narrativa]
+
+  - id: brand_book
+    agente: gerente-marketing
+    acao: "Consolidar tudo em um Brand Book oficial"
+    entradas: [todos os outputs anteriores]
+    saidas: [brand_book_completo]
+    tipo: sequencial
+    depende: [identidade_visual]
+
+entregaveis:
+  - Brand Strategy Document (propósito, arquétipo, posicionamento)
+  - Storytelling central da marca
+  - Guia de tom de voz
+  - Especificações de identidade visual
+  - Brand Book consolidado

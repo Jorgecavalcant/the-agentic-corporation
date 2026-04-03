@@ -1,0 +1,49 @@
+name: jc-operacoes-squad
+description: >
+  Squad de Operações da JC Tecnologia.
+  Responsável por processos operacionais, infraestrutura, monitoramento, integrações
+  externas e garantia de qualidade de entrega. Garante que os produtos funcionam
+  continuamente e que os processos da empresa operam com eficiência.
+
+tier: 0
+orchestrator: orchestrator
+idioma: pt-BR
+
+agents:
+  - id: orchestrator
+    file: agents/orchestrator.md
+    role: orchestrator
+    tier: 0
+    name: jc-coo
+    description: COO — processos operacionais, SLAs, coordenação entre squads
+
+  - id: monitor
+    file: agents/monitor.md
+    role: specialist
+    tier: 1
+    name: jc-monitor
+    description: Monitor — saúde VPS, containers, alertas, diagnóstico em tempo real
+
+  - id: integrations-engineer
+    file: agents/integrations-engineer.md
+    role: specialist
+    tier: 1
+    name: jc-integrations-engineer
+    description: Engenheiro de Integrações — Asaas, Meta/WhatsApp, BCB, Open Banking, webhooks
+
+  - id: n8n-specialist
+    file: agents/n8n-specialist.md
+    role: specialist
+    tier: 1
+    name: jc-n8n-specialist
+    description: Especialista N8N — workflows de automação, fluxos WhatsApp, backups, notificações
+
+  - id: chatbot-developer
+    file: agents/chatbot-developer.md
+    role: specialist
+    tier: 1
+    name: jc-chatbot-developer
+    description: Desenvolvedor Chatbot — fluxos conversacionais, câmaras Chatwoot, prompts de bot
+
+routing:
+  catalog: data/routing-catalog.yaml

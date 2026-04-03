@@ -1,0 +1,35 @@
+name: jc-estrategia-squad
+description: >
+  Squad de Estratégia e Compliance da JC Tecnologia.
+  Responsável pela visão estratégica da empresa, compliance legal (CVM 175, LGPD, BCB),
+  assessoria jurídica e governança. Garante que a JC cresce de forma sustentável,
+  legal e com propósito claro.
+
+tier: 0
+orchestrator: orchestrator
+idioma: pt-BR
+
+agents:
+  - id: orchestrator
+    file: agents/orchestrator.md
+    role: orchestrator
+    tier: 0
+    name: jc-agent-manager
+    description: Agent Manager — porta de entrada, distribui para C-Level correto
+
+  - id: cco
+    file: agents/cco.md
+    role: specialist
+    tier: 0
+    name: jc-cco
+    description: CCO — compliance LGPD, CVM 175, BCB, contratos, privacidade
+
+  - id: compliance-officer
+    file: agents/compliance-officer.md
+    role: specialist
+    tier: 1
+    name: jc-compliance-officer
+    description: Compliance Officer técnico — revisão de código e features para LGPD/CVM
+
+routing:
+  catalog: data/routing-catalog.yaml

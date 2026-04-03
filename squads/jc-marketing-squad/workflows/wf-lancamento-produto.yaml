@@ -1,0 +1,67 @@
+name: wf-lancamento-produto
+description: Workflow completo para lançamento de produto ou feature JC
+version: "1.0.0"
+
+trigger:
+  comando: "*jc-marketing:lancamento"
+  entradas_obrigatorias:
+    - produto
+    - data_lancamento
+    - objetivo
+
+steps:
+
+  - id: briefing
+    agente: gerente-marketing
+    acao: "Criar briefing estratégico do lançamento"
+    entradas: [produto, data_lancamento, objetivo, publico_alvo]
+    saidas: [briefing_estrategico, cronograma_base]
+    tipo: sequencial
+
+  - id: narrativa
+    agente: especialista-storytelling
+    acao: "Criar conceito narrativo e roteiros de vídeo"
+    entradas: [briefing_estrategico]
+    saidas: [conceito_narrativo, roteiro_lancamento]
+    tipo: sequencial
+    depende: [briefing]
+
+  - id: copy_e_visual
+    tipo: paralelo
+    steps:
+      - id: copy
+        agente: redator
+        acao: "Escrever todos os textos do lançamento"
+        entradas: [briefing_estrategico, conceito_narrativo]
+        saidas: [copy_emails, copy_posts, copy_anuncios, copy_landing]
+
+      - id: visual
+        agente: designer
+        acao: "Criar especificações visuais e prompts de imagem"
+        entradas: [briefing_estrategico, conceito_narrativo]
+        saidas: [brief_visual, prompts_imagem, especificacoes_formato]
+
+  - id: midia_paga
+    agente: gestor-trafego
+    acao: "Estruturar campanhas pagas do lançamento"
+    entradas: [briefing_estrategico, copy_anuncios, brief_visual]
+    saidas: [estrutura_campanha, segmentacao, meta_cpa]
+    tipo: sequencial
+    depende: [copy_e_visual]
+
+  - id: revisao_cmo
+    agente: orchestrator
+    acao: "Revisar consistência e qualidade do pacote completo"
+    entradas: [todos os outputs anteriores]
+    saidas: [pacote_lancamento_aprovado]
+    tipo: sequencial
+    depende: [midia_paga]
+    checklist: checklist-qualidade-marketing.md
+
+entregaveis:
+  - Cronograma detalhado D-30 até D+7
+  - Copy completo (emails, posts, anúncios, landing page)
+  - Briefing visual por formato
+  - Estrutura de campanhas pagas
+  - Roteiro(s) de vídeo
+  - KPIs e metas do lançamento

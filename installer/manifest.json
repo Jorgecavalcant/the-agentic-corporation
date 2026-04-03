@@ -1,0 +1,137 @@
+{
+  "name": "jc-super-plugin",
+  "version": "1.0.0.1",
+  "description": "Empresa virtual de agentes de IA — 63 profissionais especializados organizados em 9 squads. Acione com: acionar jc-agent-manager",
+  "author": "Jorge Cavalcante — JC Tecnologia LTDA",
+  "license": "MIT",
+  "repository": "https://github.com/jc-tecnologia/jc-super-plugin",
+  "install_target": "~/.claude/agents/",
+  "total_squads": 9,
+  "total_agents": 59,
+  "activation_command": "acionar jc-agent-manager",
+  "compatible_ides": ["claude-code", "antigravity", "codex", "cursor", "vscode"],
+  "changelog": "v1.0.0.1 — 03/04/2026: +9 novos agentes, renomeação para português hierárquico, plugin genérico",
+  "squads": [
+    {
+      "id": "jc-estrategia-squad",
+      "name": "Estratégia e Compliance",
+      "tier": 0,
+      "agents": [
+        { "file": "squads/jc-estrategia-squad/agents/orchestrator.md", "name": "jc-agent-manager", "role": "orchestrator", "descricao": "Orquestrador Master — porta de entrada obrigatória de todas as demandas do CEO" },
+        { "file": "squads/jc-estrategia-squad/agents/cco.md", "name": "diretor-juridico", "role": "specialist", "descricao": "Diretor Jurídico (CCO) — compliance LGPD, CVM 175, BCB, contratos, privacidade" },
+        { "file": "squads/jc-estrategia-squad/agents/compliance-officer.md", "name": "compliance-officer", "role": "specialist", "descricao": "Compliance Officer técnico — revisão de código e features para LGPD/CVM" }
+      ]
+    },
+    {
+      "id": "jc-financas-squad",
+      "name": "Finanças",
+      "tier": 1,
+      "agents": [
+        { "file": "squads/jc-financas-squad/agents/orchestrator.md", "name": "diretor-financeiro", "role": "orchestrator", "descricao": "Diretor Financeiro (CFO) — saúde financeira da empresa, MRR, precificação, viabilidade" },
+        { "file": "squads/jc-financas-squad/agents/analista-financeiro.md", "name": "analista-financeiro", "role": "specialist", "descricao": "Analista Financeiro — MRR/ARR, custos de infra, relatórios financeiros, viabilidade de projetos" },
+        { "file": "squads/jc-financas-squad/agents/analista-receita.md", "name": "analista-receita", "role": "specialist", "descricao": "Analista de Receita SaaS — pricing, unit economics, elasticidade, modelos de receita" },
+        { "file": "squads/jc-financas-squad/agents/analista-dados.md", "name": "analista-dados", "role": "specialist", "descricao": "Analista de Dados — BI, dashboards, análise de cohort, funis de conversão, SQL" }
+      ]
+    },
+    {
+      "id": "jc-juridico-squad",
+      "name": "Jurídico",
+      "tier": 1,
+      "agents": [
+        { "file": "squads/jc-juridico-squad/agents/orchestrator.md", "name": "diretor-juridico", "role": "orchestrator", "descricao": "Diretor Jurídico — orquestra o Departamento Jurídico, sintetiza pareceres" },
+        { "file": "squads/jc-juridico-squad/agents/adv-tributarista.md", "name": "advogado-tributarista", "role": "specialist", "descricao": "Advogado Tributarista — Simples Nacional, CNAEs, imunidade e-books, split fiscal" },
+        { "file": "squads/jc-juridico-squad/agents/adv-digital-lgpd.md", "name": "advogado-digital-lgpd", "role": "specialist", "descricao": "Advogado Digital e LGPD — proteção de dados, Marco Civil, consentimento, ANPD" },
+        { "file": "squads/jc-juridico-squad/agents/adv-empresarial.md", "name": "advogado-empresarial", "role": "specialist", "descricao": "Advogado Empresarial — contratos comerciais, societário, parcerias, startups, M&A" },
+        { "file": "squads/jc-juridico-squad/agents/adv-regulatorio-fintech.md", "name": "advogado-regulatorio-fintech", "role": "specialist", "descricao": "Advogado Regulatório FinTech — CVM 175, BACEN, Open Finance, PIX, sandbox" },
+        { "file": "squads/jc-juridico-squad/agents/adv-trabalhista.md", "name": "advogado-trabalhista", "role": "specialist", "descricao": "Advogado Trabalhista — CLT, PJ, MEI, vínculo empregatício, trabalho remoto" },
+        { "file": "squads/jc-juridico-squad/agents/adv-propriedade-intelectual.md", "name": "advogado-propriedade-intelectual", "role": "specialist", "descricao": "Advogado de PI — registro de software, marcas INPI, direitos autorais, licenciamento" },
+        { "file": "squads/jc-juridico-squad/agents/adv-consumidor-saas.md", "name": "advogado-consumidor-saas", "role": "specialist", "descricao": "Advogado Consumidor + SaaS — CDC, EULA, Termos de Uso, reembolso, cancelamento" },
+        { "file": "squads/jc-juridico-squad/agents/adv-analista-contratos.md", "name": "analista-contratos", "role": "specialist", "descricao": "Analista de Contratos — análise técnica e forense, cláusulas abusivas, renegociação" },
+        { "file": "squads/jc-juridico-squad/agents/adv-entretenimento-musical.md", "name": "advogado-entretenimento-musical", "role": "specialist", "descricao": "Advogado Entretenimento e Musical — contratos artísticos, ECAD, distribuição, licenciamento" }
+      ]
+    },
+    {
+      "id": "jc-marketing-squad",
+      "name": "Marketing",
+      "tier": 1,
+      "agents": [
+        { "file": "squads/jc-marketing-squad/agents/orchestrator.md", "name": "diretor-marketing", "role": "orchestrator", "descricao": "Diretor de Marketing (CMO) — estratégia, campanhas, posicionamento, comanda o Dept. Marketing" },
+        { "file": "squads/jc-marketing-squad/agents/gerente-marketing.md", "name": "gerente-marketing", "role": "specialist", "descricao": "Gerente de Marketing Digital — SEO, redes sociais, campanhas, growth hacking, funis" },
+        { "file": "squads/jc-marketing-squad/agents/redator.md", "name": "redator-copywriter", "role": "specialist", "descricao": "Redator e Copywriter — textos persuasivos, landing pages, emails, CTAs. Ogilvy + Halbert" },
+        { "file": "squads/jc-marketing-squad/agents/designer.md", "name": "designer-visual", "role": "specialist", "descricao": "Designer Visual — layouts, paletas, componentes, HTML/CSS, assets visuais, Canva/DALL-E" },
+        { "file": "squads/jc-marketing-squad/agents/gestor-trafego.md", "name": "gestor-trafego", "role": "specialist", "descricao": "Gestor de Tráfego Pago — Meta Ads, Google Ads, segmentação, ROAS, remarketing" },
+        { "file": "squads/jc-marketing-squad/agents/estrategista-marca.md", "name": "estrategista-marca", "role": "specialist", "descricao": "Estrategista de Marca — arquétipos, naming, propósito, diferenciação. Golden Circle" },
+        { "file": "squads/jc-marketing-squad/agents/especialista-storytelling.md", "name": "especialista-storytelling", "role": "specialist", "descricao": "Especialista em Storytelling — narrativas, Jornada do Herói, StoryBrand, pitch deck" },
+        { "file": "squads/jc-marketing-squad/agents/especialista-conteudo.md", "name": "especialista-conteudo", "role": "specialist", "descricao": "Especialista em Conteúdo Editorial — e-books completos, guias, artigos. CNAE 5811" }
+      ]
+    },
+    {
+      "id": "jc-operacoes-squad",
+      "name": "Operações",
+      "tier": 1,
+      "agents": [
+        { "file": "squads/jc-operacoes-squad/agents/orchestrator.md", "name": "diretor-operacoes", "role": "orchestrator", "descricao": "Diretor de Operações (COO) — processos, SLAs, coordenação entre squads, qualidade" },
+        { "file": "squads/jc-operacoes-squad/agents/monitor.md", "name": "monitor-sistema", "role": "specialist", "descricao": "Monitor de Sistema — saúde VPS, containers, CPU/memória/disco, alertas em tempo real" },
+        { "file": "squads/jc-operacoes-squad/agents/integrations-engineer.md", "name": "engenheiro-integracoes", "role": "specialist", "descricao": "Engenheiro de Integrações — Asaas, Meta, BCB, Open Banking, OAuth, webhooks" },
+        { "file": "squads/jc-operacoes-squad/agents/n8n-specialist.md", "name": "especialista-n8n", "role": "specialist", "descricao": "Especialista N8N — automações, WhatsApp, backups automáticos, notificações, triggers" },
+        { "file": "squads/jc-operacoes-squad/agents/chatbot-developer.md", "name": "desenvolvedor-chatbot", "role": "specialist", "descricao": "Desenvolvedor de Chatbot — Chatwoot, câmaras de atendimento, fluxos WhatsApp" },
+        { "file": "squads/jc-operacoes-squad/agents/gestor-atendimento.md", "name": "gestor-atendimento", "role": "specialist", "descricao": "Gestor de Atendimento — tickets, SLA, escalação 4 níveis, CSAT. CNAE 6209" },
+        { "file": "squads/jc-operacoes-squad/agents/auditor-infraestrutura.md", "name": "auditor-infraestrutura", "role": "specialist", "descricao": "Auditor de Infraestrutura — inventário real do servidor vs documentação, detecta gaps" },
+        { "file": "squads/jc-operacoes-squad/agents/tecnico-limpeza.md", "name": "tecnico-limpeza", "role": "specialist", "descricao": "Técnico de Limpeza — remove containers parados, volumes órfãos, imagens antigas, logs" },
+        { "file": "squads/jc-operacoes-squad/agents/historiador.md", "name": "historiador", "role": "specialist", "descricao": "Historiador — recupera contexto de conversas, LOGs e decisões passadas. Previne retrabalho" },
+        { "file": "squads/jc-operacoes-squad/agents/conferente-entrega.md", "name": "conferente-entrega", "role": "specialist", "descricao": "Conferente de Entrega — verifica 100% de completude antes de chegar ao CEO" }
+      ]
+    },
+    {
+      "id": "jc-pessoas-squad",
+      "name": "Pessoas e Cultura",
+      "tier": 0,
+      "agents": [
+        { "file": "squads/jc-pessoas-squad/agents/orchestrator.md", "name": "diretor-pessoas", "role": "orchestrator", "descricao": "Diretor de Pessoas (CHRO) — gestão dos agentes como colaboradores, onboarding, cultura" },
+        { "file": "squads/jc-pessoas-squad/agents/documentador.md", "name": "documentador", "role": "specialist", "descricao": "Documentador — documentação técnica, wikis, changelogs, ADRs, guias de uso" },
+        { "file": "squads/jc-pessoas-squad/agents/qa-lead.md", "name": "qa-lead", "role": "specialist", "descricao": "QA Lead — validação funcional antes de produção, casos de teste, checklist pré-deploy" }
+      ]
+    },
+    {
+      "id": "jc-produto-squad",
+      "name": "Produto",
+      "tier": 1,
+      "agents": [
+        { "file": "squads/jc-produto-squad/agents/orchestrator.md", "name": "diretor-produto", "role": "orchestrator", "descricao": "Diretor de Produto (CPO) — roadmap dos produtos, priorização, product-market fit" },
+        { "file": "squads/jc-produto-squad/agents/gestor-metodo-planejar.md", "name": "gerente-metodo-planejar", "role": "specialist", "descricao": "Gerente do Método Planejar — portal Next.js, agentes IA, RAG, Chatwoot, white-label" },
+        { "file": "squads/jc-produto-squad/agents/gestor-agrocredit.md", "name": "gerente-agrocredit", "role": "specialist", "descricao": "Gerente do AgroCredit — tecnologia de crédito rural, análise de risco agrícola" },
+        { "file": "squads/jc-produto-squad/agents/gestor-fiado-pro.md", "name": "gerente-fiado-pro", "role": "specialist", "descricao": "Gerente do Fiado Pro — Smart Credit Tracker para lojistas, cobranças automáticas" },
+        { "file": "squads/jc-produto-squad/agents/pesquisador.md", "name": "pesquisador", "role": "specialist", "descricao": "Pesquisador — discovery, benchmarks, análise de concorrentes, tendências técnicas" }
+      ]
+    },
+    {
+      "id": "jc-tecnologia-squad",
+      "name": "Tecnologia e Engenharia",
+      "tier": 1,
+      "agents": [
+        { "file": "squads/jc-tecnologia-squad/agents/orchestrator.md", "name": "diretor-tecnologia", "role": "orchestrator", "descricao": "Diretor de Tecnologia (CTO) — arquitetura, decisões técnicas, orquestra o squad de engenharia" },
+        { "file": "squads/jc-tecnologia-squad/agents/dev-backend.md", "name": "desenvolvedor-backend", "role": "specialist", "descricao": "Desenvolvedor Backend — FastAPI, Node.js, APIs REST, autenticação, workers, BullMQ" },
+        { "file": "squads/jc-tecnologia-squad/agents/dev-frontend.md", "name": "desenvolvedor-frontend", "role": "specialist", "descricao": "Desenvolvedor Frontend — Next.js 14, React, Tailwind CSS, Zustand, React Query" },
+        { "file": "squads/jc-tecnologia-squad/agents/dba.md", "name": "administrador-banco-dados", "role": "specialist", "descricao": "Administrador de Banco de Dados — PostgreSQL 16, pgvector, migrations, performance" },
+        { "file": "squads/jc-tecnologia-squad/agents/devops.md", "name": "engenheiro-devops", "role": "specialist", "descricao": "Engenheiro DevOps — Docker, Caddy, SSL, deploy, scripts de automação, CI/CD" },
+        { "file": "squads/jc-tecnologia-squad/agents/ia-engineer.md", "name": "engenheiro-ia", "role": "specialist", "descricao": "Engenheiro de IA — RAG, pgvector, embeddings, Claude API, prompts de agentes" },
+        { "file": "squads/jc-tecnologia-squad/agents/especialista-seguranca.md", "name": "especialista-seguranca", "role": "specialist", "descricao": "Especialista em Segurança — OWASP Top 10, pentest, secrets management, auditoria" },
+        { "file": "squads/jc-tecnologia-squad/agents/revisor-tecnico.md", "name": "revisor-tecnico", "role": "specialist", "descricao": "Revisor Técnico — qualidade interna do código antes do deploy: segurança, padrões, performance" }
+      ]
+    },
+    {
+      "id": "jc-vendas-squad",
+      "name": "Vendas e Receita",
+      "tier": 1,
+      "agents": [
+        { "file": "squads/jc-vendas-squad/agents/orchestrator.md", "name": "diretor-vendas", "role": "orchestrator", "descricao": "Diretor de Vendas — estratégia de receita, MRR, RevOps, escala comercial" },
+        { "file": "squads/jc-vendas-squad/agents/especialista-ofertas.md", "name": "especialista-ofertas", "role": "specialist", "descricao": "Especialista em Ofertas — ofertas irresistíveis, value stacking, pricing. $100M Offers" },
+        { "file": "squads/jc-vendas-squad/agents/especialista-leads.md", "name": "especialista-leads", "role": "specialist", "descricao": "Especialista em Leads — geração, qualificação BANT/MEDDIC, ICP, lead scoring" },
+        { "file": "squads/jc-vendas-squad/agents/especialista-conversao.md", "name": "especialista-conversao", "role": "specialist", "descricao": "Especialista em Conversão — SPIN Selling, Challenger Sale, tratamento de objeções" },
+        { "file": "squads/jc-vendas-squad/agents/especialista-retencao.md", "name": "especialista-retencao", "role": "specialist", "descricao": "Especialista em Retenção — customer success, churn, LTV, NPS, expansão de receita" },
+        { "file": "squads/jc-vendas-squad/agents/analista-receita.md", "name": "analista-receita", "role": "specialist", "descricao": "Analista de Receita de Vendas — MRR, ARR, unit economics, elasticidade de preço" },
+        { "file": "squads/jc-vendas-squad/agents/gestor-loja-digital.md", "name": "gestor-loja-digital", "role": "specialist", "descricao": "Gestor de Loja Digital — produtos digitais, checkout, entrega automática, afiliados. CNAE 5811+4761" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+name: jc-vendas-squad
+version: "1.0.0"
+short-title: "Departamento de Vendas JC"
+description: >
+  Departamento de Vendas virtual da JC TECNOLOGIA LTDA.
+  6 super-profissionais cobrindo estratégia de receita, criação de ofertas,
+  geração de leads, conversão, retenção de clientes e análise de receita.
+  Absorveu os melhores frameworks de Alex Hormozi, SPIN Selling,
+  Challenger Sale e Customer Success.
+author: "Jorge Cavalcante — JC TECNOLOGIA LTDA"
+license: MIT
+slashPrefix: "jc-vendas"
+idioma: "pt-BR"
+
+aios:
+  minVersion: "4.0.0"
+  type: squad
+
+tags:
+  - vendas
+  - receita
+  - mrr
+  - leads
+  - conversao
+  - retencao
+  - churn
+  - ofertas
+  - pricing
+  - saas
+  - b2b
+  - b2c
+
+components:
+  agents:
+    - orchestrator.md              # jc-dir-vendas — Diretor de Vendas (Tier-0)
+    - especialista-ofertas.md      # Criação de Ofertas (Hormozi $100M Offers)
+    - especialista-leads.md        # Geração e Qualificação de Leads
+    - especialista-conversao.md    # Conversão e Fechamento (SPIN, Challenger)
+    - especialista-retencao.md     # Retenção, Churn e Customer Success
+    - analista-receita.md          # MRR, ARR, Métricas de Receita e Pricing
+
+  tasks:
+    - criar-oferta.md
+    - qualificar-lead.md
+    - planejar-pipeline.md
+    - reduzir-churn.md
+    - definir-pricing.md
+    - diagnostico-vendas.md
+
+  workflows:
+    - wf-funil-vendas.yaml
+    - wf-lancamento-oferta.yaml
+    - wf-recuperacao-churn.yaml
+
+  checklists:
+    - checklist-qualidade-vendas.md
+
+hierarchy:
+  superior: jc-agent-manager
+  reporta_para: jc-dir-vendas
+  pares: [jc-marketing-squad, jc-financas-squad, jc-produto-squad]
+  nota: >
+    Subordinado ao jc-agent-manager.
+    O jc-dir-vendas é o Diretor de Vendas e orquestrador do squad.
+    Alinha com jc-marketing-squad para funis de aquisição
+    e com jc-financas-squad para metas de MRR/ARR.
+
+config:
+  extends: jc-agents-kit
+  modelo_padrao: sonnet
+  idioma: pt-BR

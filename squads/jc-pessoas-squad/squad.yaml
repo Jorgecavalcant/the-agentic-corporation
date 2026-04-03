@@ -1,0 +1,35 @@
+name: jc-pessoas-squad
+description: >
+  Squad de Pessoas e Cultura da JC Tecnologia.
+  Responsável pela gestão dos agentes de IA como "colaboradores", onboarding de novos
+  agentes, cultura da empresa, propósito estratégico e alinhamento de valores.
+  A JC tem agentes como equipe — este squad garante que funcionam com excelência e propósito.
+
+tier: 0
+orchestrator: orchestrator
+idioma: pt-BR
+
+agents:
+  - id: orchestrator
+    file: agents/orchestrator.md
+    role: orchestrator
+    tier: 0
+    name: jc-chro
+    description: CHRO — gestão dos agentes como colaboradores, cultura, onboarding
+
+  - id: documentador
+    file: agents/documentador.md
+    role: specialist
+    tier: 1
+    name: jc-documentador
+    description: Documentador — documentação técnica, wikis, changelogs, guias de uso
+
+  - id: qa-lead
+    file: agents/qa-lead.md
+    role: specialist
+    tier: 1
+    name: jc-qa-lead
+    description: QA Lead — validação de entregas, casos de teste, checklist pré-deploy, revisão de código
+
+routing:
+  catalog: data/routing-catalog.yaml

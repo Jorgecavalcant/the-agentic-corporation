@@ -1,0 +1,78 @@
+name: jc-juridico-squad
+version: "1.0.0"
+short-title: "Departamento Jurídico JC"
+description: >
+  Escritório de advocacia virtual da JC TECNOLOGIA LTDA.
+  7 advogados super-especialistas cobrindo todas as áreas do direito
+  relevantes para uma empresa de tecnologia e educação financeira no Brasil.
+  O Diretor Jurídico (jc-cco) orquestra e sintetiza pareceres.
+author: "Jorge Cavalcante — JC TECNOLOGIA LTDA"
+license: MIT
+slashPrefix: "jc-juridico"
+idioma: "pt-BR"
+
+aios:
+  minVersion: "4.0.0"
+  type: squad
+
+tags:
+  - juridico
+  - advocacia
+  - direito
+  - compliance
+  - lgpd
+  - tributario
+  - cvm
+  - contratos
+  - trabalhista
+  - propriedade-intelectual
+  - startups
+  - saas
+  - fintechs
+
+components:
+  agents:
+    - orchestrator.md              # jc-cco — Diretor Jurídico (Tier-0)
+    - adv-tributarista.md          # Direito Tributário (Simples Nacional, split fiscal, CNAE)
+    - adv-digital-lgpd.md          # Direito Digital + LGPD + Proteção de Dados
+    - adv-empresarial.md           # Direito Empresarial (contratos, societário, M&A)
+    - adv-regulatorio-fintech.md   # Direito Regulatório (CVM 175, BACEN, FinTech)
+    - adv-trabalhista.md           # Direito Trabalhista (CLT, PJ, MEI, bancário)
+    - adv-propriedade-intelectual.md # Direito PI (software, marca, patente, copyright)
+    - adv-consumidor-saas.md       # Direito do Consumidor + SaaS (EULA, ToS, CDC)
+    - adv-analista-contratos.md    # Análise técnica e forense de contratos (qualquer área)
+    - adv-entretenimento-musical.md # Direito do Entretenimento, Música, Procuração Artística
+
+  tasks:
+    - analisar-contrato.md
+    - validar-conformidade-lgpd.md
+    - calcular-split-fiscal.md
+    - validar-fronteira-cvm.md
+    - revisar-termos-uso.md
+    - blindagem-conflito-interesse.md
+    - parecer-trabalhista.md
+    - registrar-marca-software.md
+    - diagnostico-juridico.md
+
+  workflows:
+    - wf-analise-juridica-completa.yaml
+    - wf-validacao-novo-produto.yaml
+    - wf-revisao-contrato.yaml
+    - wf-auditoria-lgpd.yaml
+
+  checklists:
+    - checklist-qualidade-juridica.md
+
+hierarchy:
+  superior: jc-agent-manager
+  reporta_para: jc-cco
+  pares: [jc-cfo, jc-cto, jc-chro]
+  nota: >
+    Subordinado ao jc-agent-manager.
+    O jc-cco é o Diretor Jurídico e orquestrador do squad.
+    Nunca emite pareceres sem fundamentação legal citada.
+
+config:
+  extends: jc-agents-kit
+  modelo_padrao: sonnet
+  idioma: pt-BR
