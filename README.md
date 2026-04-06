@@ -218,4 +218,4 @@ MIT — Livre para usar, modificar e distribuir.
 
 ---
 
-*Feito com 🤖 por [JC Tecnologia](https://github.com/Jorgecavalcant) — Versão 1.0.0.1*
+*Feito com 🤖 por [JC Tecnologia](https://github.com/Jorgecavalcant) — Versão 1.0.0.2*
