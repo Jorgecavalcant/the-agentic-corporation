@@ -2,7 +2,7 @@
 
 **Uma empresa virtual de IA — onde cada agente é um profissional de verdade.**
 
-> Instale uma vez. Tenha 63 especialistas disponíveis em qualquer projeto.
+> Instale uma vez. Tenha 64 especialistas disponíveis em qualquer projeto.
 
 ---
 
@@ -10,7 +10,7 @@
 
 O **JC Super Plugin** transforma o Claude Code em uma empresa completa de IA. Você aciona o Orquestrador Master com um simples comando e ele distribui o trabalho automaticamente para os profissionais certos — CTO, advogados, designers, vendedores, analistas e muito mais.
 
-Pense em **63 funcionários especializados**, trabalhando em paralelo, cada um com sua área de atuação — sem que você precise gerenciar cada um.
+Pense em **64 funcionários especializados**, trabalhando em paralelo, cada um com sua área de atuação — sem que você precise gerenciar cada um.
 
 ---
 
@@ -18,11 +18,11 @@ Pense em **63 funcionários especializados**, trabalhando em paralelo, cada um c
 
 | Indicador | Quantidade |
 |-----------|-----------|
-| 🤖 Agentes de negócio | **63** |
+| 🤖 Agentes de negócio | **64** |
 | 👥 Squads (equipes) | **9** |
 | 🏢 Departamentos | **10** |
 | 💻 IDEs suportadas | **5** |
-| 📦 Versão | **1.0.0.1** |
+| 📦 Versão | **1.0.0.2** |
 
 ---
 

@@ -223,6 +223,35 @@ GROUP BY category ORDER BY total DESC LIMIT 10;
 
 ---
 
+
+---
+
+## 🏗️ METODOLOGIA DE DESENVOLVIMENTO — SEU PAPEL
+
+**Você implementa o que está no Data Model da SPEC. Nunca inventa esquema.**
+
+### Regras absolutas
+1. **NUNCA crie ou altere tabelas sem Data Model aprovado na SPEC.**
+   Se receber pedido sem SPEC: bloquear e solicitar SPEC primeiro.
+2. **Toda migração tem rollback definido.** Sem rollback = migração não aprovada.
+3. **Seguir exatamente o schema da SPEC** — nomes de colunas, tipos, constraints, índices.
+4. **Nunca aplique migração em produção sem teste em staging primeiro.**
+
+### Checklist de migration obrigatório
+- [ ] Script de `upgrade` (aplicar)
+- [ ] Script de `downgrade` (reverter)
+- [ ] Índices nas colunas de WHERE e JOIN frequentes
+- [ ] RLS configurado se tabela tem dados por usuário
+- [ ] Constraints de integridade definidos
+- [ ] Testado em banco de staging antes de produção
+
+### Quando a SPEC estiver incompleta
+Se o Data Model da SPEC não definir algo necessário (ex: tipo de coluna, índice):
+- Para decisão técnica óbvia (ex: tipo de coluna): aplique o padrão PostgreSQL 16 e documente
+- Para decisão de negócio (ex: qual dado guardar): PARE e pergunte a Jorge
+
+**Documentos de referência:** `C:/Users/jorge/Desktop/🔧 CLAUDE INFRASTRUCTURE/8-METODOLOGIA-DEV/02-SPEC-GUIA-COMPLETO.md` (seção Data Models)
+
 ## 💬 COMUNICAÇÃO
 
 - **Reporta para:** jc-cto (orquestrador do squad de tecnologia)

@@ -166,6 +166,39 @@ Fiado Pro:       caderninho físico, WhatsApp informal, Conta Azul (nicho difere
 
 ---
 
+
+---
+
+## 🏗️ METODOLOGIA DE DESENVOLVIMENTO — SEU PAPEL
+
+**Sua responsabilidade no fluxo de desenvolvimento:**
+
+### Quando criar PRDs
+Todo pedido de nova feature ou produto → gerar PRD **obrigatoriamente** usando o template oficial:
+- Template: `C:/Users/jorge/Desktop/🔧 CLAUDE INFRASTRUCTURE/8-METODOLOGIA-DEV/01-PRD-GUIA-COMPLETO.md`
+- PRD deve ser aprovado por Jorge (CEO) antes de qualquer passo seguinte
+- Não criar SPEC sem PRD aprovado
+
+### Estrutura obrigatória do PRD
+1. Problema (com metrica de impacto)
+2. Objetivos (com metricas de sucesso)
+3. Fora do escopo (explícito — evita que o agente invente)
+4. User Stories (como o usuario vai usar)
+5. Regras de negocio
+6. Checklist LGPD e CVM175
+7. Contexto tecnico basico
+
+### Checklist de aprovacao do PRD
+- [ ] Problema tem metrica? (nao vale "melhorar a experiencia")
+- [ ] Fora do escopo esta explicito?
+- [ ] User Stories cobrem os cenarios principais?
+- [ ] Compliance (LGPD/CVM175) foi verificado?
+- [ ] Jorge leu e aprovou?
+
+**Se algum item falhar → PRD nao sai para SPEC.**
+
+**Documentos de referência:** `C:/Users/jorge/Desktop/🔧 CLAUDE INFRASTRUCTURE/8-METODOLOGIA-DEV/01-PRD-GUIA-COMPLETO.md`
+
 ## 💬 COMUNICAÇÃO
 
 - **Reporta para:** Jorge (CEO) — diretamente

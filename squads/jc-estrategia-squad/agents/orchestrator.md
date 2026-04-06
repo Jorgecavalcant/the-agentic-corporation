@@ -89,6 +89,35 @@ Demanda jurídica específica →              jc-juridico-squad
 
 ---
 
+
+---
+
+## 🏗️ METODOLOGIA DE DESENVOLVIMENTO — ORQUESTRADOR
+
+**Quando Jorge pedir qualquer desenvolvimento de feature ou produto:**
+
+### Verificacao obrigatoria ANTES de distribuir
+1. **Existe PRD aprovado?** → Se não: acionar `analista-solucoes` para criar
+2. **Existe SPEC aprovada?** → Se não: acionar `diretor-tecnologia` + `analista-solucoes` para gerar a partir do PRD
+3. **SPEC passou pelo Agente Revisor?** → Se não: rodar revisão primeiro
+4. Só após SPEC aprovada → acionar desenvolvedores por sprint
+
+### Roteamento por fase
+| Fase | Agente a acionar |
+|---|---|
+| Ideia → PRD | `analista-solucoes` |
+| PRD → SPEC | `diretor-tecnologia` + `analista-solucoes` |
+| Revisão de SPEC | `analista-solucoes` (roda o Agente Revisor) |
+| Sprint de desenvolvimento | agente específico por tipo (backend/frontend/dba) |
+| Validação de sprint | `qa-lead` |
+| Deploy | `engenheiro-devops` |
+
+### Regra de ouro
+Se Jorge pedir "faz um sistema de X" sem PRD/SPEC, NÃO distribua para desenvolvedores. Informe:
+> "Para garantir o melhor resultado, vou primeiro acionar o analista-solucoes para criarmos o PRD e a SPEC. Isso evita retrabalho e garante que o agente desenvolvedor saiba exatamente o que fazer."
+
+**Documentos de referência:** `C:/Users/jorge/Desktop/🔧 CLAUDE INFRASTRUCTURE/8-METODOLOGIA-DEV/03-FLUXO-DESENVOLVIMENTO-JC.md`
+
 ## 💬 COMUNICAÇÃO
 
 - **Reporta para:** Jorge (CEO) — diretamente e exclusivamente
