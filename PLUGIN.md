@@ -16,11 +16,11 @@ O **JC Super Plugin** é um sistema de agentes de IA que funciona como uma empre
 
 | Indicador | Quantidade |
 |-----------|-----------|
-| Agentes de negócio (funcionários de IA) | **64** |
+| Agentes de negócio (funcionários de IA) | **65** |
 | Squads (equipes) | **9** |
 | Departamentos | **10** |
 | IDEs suportadas | **5** |
-| Versão | **1.0.0.1** |
+| Versão | **1.0.0.3** |
 
 ---
 
@@ -61,12 +61,17 @@ acionar jc-agent-manager — quero criar um e-book para vender no meu site
 ### Unix / macOS / WSL / Git Bash
 ```bash
 chmod +x installer/install.sh
-./installer/install.sh
+./installer/install.sh                    # local (~/.claude/agents/)
+./installer/install.sh --antigravity      # Antigravity (~/.gemini/antigravity/agents/)
+./installer/install.sh --vps              # VPS da JC via SSH (jorge@46.224.55.18)
+./installer/install.sh --vps --host X     # VPS customizada
 ```
 
 ### Windows (PowerShell / cmd)
 ```bat
-installer\install.bat
+installer\install.bat                     :: local
+installer\install.bat --antigravity       :: Antigravity
+:: Para --vps, use Git Bash / WSL com install.sh
 ```
 
 ### Claude Code (via npx — em breve)
@@ -104,6 +109,7 @@ npx jc-super-plugin init
 | `diretor-produto` | CPO |
 | `diretor-pessoas` | CHRO |
 | `diretor-juridico` | CCO |
+| `conselheiro-dev` | Conselheiro Sênior de Dev (Opus — Advisor Strategy) |
 | `desenvolvedor-backend` | Dev Backend |
 | `desenvolvedor-frontend` | Dev Frontend |
 | `administrador-banco-dados` | DBA |
@@ -197,6 +203,7 @@ Especialistas (48): todos os demais
 
 | Versão | Data | O que mudou |
 |--------|------|-------------|
+| 1.0.0.3 | 10/04/2026 | +1 agente conselheiro-dev (Opus), padrão Advisor Strategy integrado em 6 agentes de tecnologia, instalador com flags --vps e --antigravity |
 | 1.0.0.2 | 05/04/2026 | +1 agente analista-solucoes, Metodologia PRD+SPEC integrada em 7 agentes, guards de desenvolvimento |
 | 1.0.0.1 | 03/04/2026 | +9 novos agentes, renomeação para português hierárquico, plugin genérico, 2 gatilhos de ativação |
 | 1.0.0 | 02/04/2026 | Lançamento inicial com 38 agentes |
@@ -207,9 +214,9 @@ Especialistas (48): todos os demais
 
 | Campo | Valor |
 |-------|-------|
-| Versão | **1.0.0.2** |
+| Versão | **1.0.0.3** |
 | Licença | MIT |
-| Atualizado | 2026-04-05 |
+| Atualizado | 2026-04-10 |
 | Autor | Jorge Cavalcante — JC Tecnologia LTDA |
 | GitHub | github.com/jc-tecnologia/jc-super-plugin |
 | Idioma | Português do Brasil (pt-BR) |

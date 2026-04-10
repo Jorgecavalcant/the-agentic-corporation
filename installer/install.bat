@@ -2,29 +2,53 @@
 :: =============================================================================
 :: JC Super Plugin — Instalador (Windows)
 :: =============================================================================
-:: Uso: Duplo clique em install.bat  OU  execute pelo terminal
+:: Uso:
+::   install.bat                 Instala em %USERPROFILE%\.claude\agents\
+::   install.bat --antigravity   Instala em %USERPROFILE%\.gemini\antigravity\agents\
+::   install.bat --vps           Instala na VPS via SSH (use Git Bash / WSL)
 ::
-:: O que faz:
-::   Copia todos os agentes dos squads para %USERPROFILE%\.claude\agents\
-::   usando o campo "name:" do frontmatter como nome do arquivo destino.
+:: Observação: para --vps, recomenda-se usar install.sh no Git Bash ou WSL,
+:: já que o SSH é mais estável lá. O .bat encaminha para install.sh quando possível.
 :: =============================================================================
 
-:: Usar PowerShell para toda a lógica (mais confiável no Windows)
+setlocal
+
+set "TARGET_MODE=local"
+if /I "%~1"=="--antigravity" set "TARGET_MODE=antigravity"
+if /I "%~1"=="--vps" set "TARGET_MODE=vps"
+
+if "%TARGET_MODE%"=="vps" (
+  echo.
+  echo Para instalar na VPS via SSH, use o Git Bash ou WSL:
+  echo   ./installer/install.sh --vps
+  echo.
+  exit /b 0
+)
+
+if "%TARGET_MODE%"=="antigravity" (
+  set "TARGET_PATH=%USERPROFILE%\.gemini\antigravity\agents"
+  set "TARGET_LABEL=Antigravity"
+) else (
+  set "TARGET_PATH=%USERPROFILE%\.claude\agents"
+  set "TARGET_LABEL=Claude Code (local)"
+)
+
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "$ErrorActionPreference = 'Stop';" ^
 "$installerDir = Split-Path -Parent '%~f0';" ^
 "$pluginDir = Split-Path -Parent $installerDir;" ^
 "$squadsDir = Join-Path $pluginDir 'squads';" ^
-"$targetDir = Join-Path $env:USERPROFILE '.claude\agents';" ^
+"$targetDir = '%TARGET_PATH%';" ^
+"$targetLabel = '%TARGET_LABEL%';" ^
 "" ^
 "Write-Host '';" ^
 "Write-Host '╔══════════════════════════════════════════════════════════╗' -ForegroundColor Cyan;" ^
-"Write-Host '║        JC SUPER PLUGIN — INSTALADOR v1.0.0.1             ║' -ForegroundColor Cyan;" ^
+"Write-Host '║        JC SUPER PLUGIN — INSTALADOR v1.0.0.3             ║' -ForegroundColor Cyan;" ^
 "Write-Host '║        github.com/jc-tecnologia/jc-super-plugin         ║' -ForegroundColor Cyan;" ^
 "Write-Host '╚══════════════════════════════════════════════════════════╝' -ForegroundColor Cyan;" ^
 "Write-Host '';" ^
 "Write-Host \"  Plugin:  $pluginDir\";" ^
-"Write-Host \"  Destino: $targetDir\";" ^
+"Write-Host \"  Destino: $targetDir ($targetLabel)\";" ^
 "Write-Host '';" ^
 "" ^
 "if (-not (Test-Path $squadsDir)) {" ^
@@ -33,7 +57,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "}" ^
 "" ^
 "if (-not (Test-Path $targetDir)) {" ^
-"  Write-Host 'Criando pasta de agentes...' -ForegroundColor Yellow;" ^
+"  Write-Host 'Criando pasta de destino...' -ForegroundColor Yellow;" ^
 "  New-Item -ItemType Directory -Path $targetDir -Force | Out-Null;" ^
 "}" ^
 "" ^
@@ -81,7 +105,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "Write-Host '';" ^
 "$totalInstalados = $instalados + $atualizados;" ^
 "if ($totalInstalados -gt 0) {" ^
-"  Write-Host \"✅ Instalacao concluida! $totalInstalados agente(s) disponivel(is)\" -ForegroundColor Green;" ^
+"  Write-Host \"✅ Instalacao concluida! $totalInstalados agente(s) em $targetLabel\" -ForegroundColor Green;" ^
 "  Write-Host '';" ^
 "  Write-Host '  Para usar, inicie uma nova sessao do Claude Code e chame:';" ^
 "  Write-Host '  acionar jc-agent-manager  ou  /jc' -ForegroundColor Cyan;" ^
@@ -92,3 +116,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "Write-Host '';"
 
 pause
+endlocal

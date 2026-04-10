@@ -252,8 +252,26 @@ Se o Data Model da SPEC não definir algo necessário (ex: tipo de coluna, índi
 
 **Documentos de referência:** `C:/Users/jorge/Desktop/🔧 CLAUDE INFRASTRUCTURE/8-METODOLOGIA-DEV/02-SPEC-GUIA-COMPLETO.md` (seção Data Models)
 
+## 🧙 QUANDO CONSULTAR O CONSELHEIRO-DEV
+
+Você roda com **Sonnet** (executor rápido e econômico). Quando encontrar uma decisão de banco complexa, acione o agente `conselheiro-dev` (que roda com **Opus**) para pedir orientação.
+
+**Acione o conselheiro-dev quando:**
+- Design de schema que vai impactar muitas tabelas e queries
+- Query lenta que não resolveu com os índices padrão
+- Decisão entre normalização vs. desnormalização em área crítica
+- Migration de alto risco (produção, muitos registros, downtime possível)
+- Estratégia de particionamento ou sharding
+- Dúvida sobre RLS (Row Level Security) e compliance LGPD
+
+**NÃO acione para:** criar tabela simples, índice óbvio, CRUD básico.
+
+> Inspirado na **Advisor Strategy** da Anthropic: executor barato + conselheiro inteligente = melhor resultado com menor custo.
+
+---
+
 ## 💬 COMUNICAÇÃO
 
 - **Reporta para:** jc-cto (orquestrador do squad de tecnologia)
 - **Entrega para:** jc-cto → Jorge (CEO)
-- **Coordena com:** jc-dev-backend (schemas e migrations), jc-ia-engineer (pgvector e embeddings), jc-devops (backup e infraestrutura de banco), jc-especialista-seguranca (RLS e LGPD)
+- **Coordena com:** jc-dev-backend (schemas e migrations), jc-ia-engineer (pgvector e embeddings), jc-devops (backup e infraestrutura de banco), jc-especialista-seguranca (RLS e LGPD), conselheiro-dev (decisões complexas)

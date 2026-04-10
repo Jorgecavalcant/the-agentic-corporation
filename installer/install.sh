@@ -4,10 +4,13 @@
 # =============================================================================
 # Uso:
 #   chmod +x install.sh
-#   ./install.sh
+#   ./install.sh                      # Instala localmente em ~/.claude/agents/
+#   ./install.sh --antigravity        # Instala em ~/.gemini/antigravity/agents/
+#   ./install.sh --vps                # Instala na VPS via SSH (jorge@46.224.55.18)
+#   ./install.sh --vps --host user@ip # Instala em VPS customizada
 #
 # O que faz:
-#   Copia todos os agentes dos squads para ~/.claude/agents/
+#   Copia todos os agentes dos squads para o destino escolhido,
 #   usando o campo "name:" do frontmatter como nome do arquivo destino.
 # =============================================================================
 
@@ -21,21 +24,71 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
+# ── Argumentos ─────────────────────────────────────────────────────────────
+TARGET_MODE="local"           # local | antigravity | vps
+VPS_HOST="jorge@46.224.55.18" # padrão da JC Tecnologia
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --vps)
+      TARGET_MODE="vps"
+      shift
+      ;;
+    --antigravity)
+      TARGET_MODE="antigravity"
+      shift
+      ;;
+    --host)
+      VPS_HOST="$2"
+      shift 2
+      ;;
+    -h|--help)
+      echo "Uso: $0 [--vps | --antigravity] [--host user@ip]"
+      echo ""
+      echo "  (sem flag)      Instala em ~/.claude/agents/"
+      echo "  --antigravity   Instala em ~/.gemini/antigravity/agents/"
+      echo "  --vps           Instala na VPS via SSH ($VPS_HOST)"
+      echo "  --host X        Customiza host SSH (use com --vps)"
+      exit 0
+      ;;
+    *)
+      echo -e "${RED}Flag desconhecida: $1${RESET}"
+      echo "Use --help para ver opções."
+      exit 1
+      ;;
+  esac
+done
+
 # ── Caminhos ───────────────────────────────────────────────────────────────
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
 SQUADS_DIR="$PLUGIN_DIR/squads"
-TARGET_DIR="$HOME/.claude/agents"
+
+case "$TARGET_MODE" in
+  local)
+    TARGET_DIR="$HOME/.claude/agents"
+    DESTINO_LABEL="$TARGET_DIR (local)"
+    ;;
+  antigravity)
+    TARGET_DIR="$HOME/.gemini/antigravity/agents"
+    DESTINO_LABEL="$TARGET_DIR (Antigravity)"
+    ;;
+  vps)
+    TARGET_DIR="~/.claude/agents"
+    DESTINO_LABEL="$VPS_HOST:$TARGET_DIR (VPS via SSH)"
+    ;;
+esac
 
 # ── Cabeçalho ──────────────────────────────────────────────────────────────
 echo ""
 echo -e "${CYAN}${BOLD}╔══════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${CYAN}${BOLD}║        JC SUPER PLUGIN — INSTALADOR v1.0.0.1               ║${RESET}"
+echo -e "${CYAN}${BOLD}║        JC SUPER PLUGIN — INSTALADOR v1.0.0.3             ║${RESET}"
 echo -e "${CYAN}${BOLD}║        github.com/jc-tecnologia/jc-super-plugin         ║${RESET}"
 echo -e "${CYAN}${BOLD}╚══════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 echo -e "  Plugin:  ${BOLD}$PLUGIN_DIR${RESET}"
-echo -e "  Destino: ${BOLD}$TARGET_DIR${RESET}"
+echo -e "  Destino: ${BOLD}$DESTINO_LABEL${RESET}"
+echo -e "  Modo:    ${BOLD}$TARGET_MODE${RESET}"
 echo ""
 
 # ── Verificações ───────────────────────────────────────────────────────────
@@ -44,10 +97,25 @@ if [ ! -d "$SQUADS_DIR" ]; then
   exit 1
 fi
 
-# Criar pasta de agentes se não existir
-if [ ! -d "$TARGET_DIR" ]; then
-  echo -e "${YELLOW}Criando pasta $TARGET_DIR ...${RESET}"
-  mkdir -p "$TARGET_DIR"
+# ── Preparar destino ───────────────────────────────────────────────────────
+if [ "$TARGET_MODE" = "vps" ]; then
+  # Testar conexão SSH
+  echo -e "${YELLOW}Testando conexão SSH com $VPS_HOST ...${RESET}"
+  if ! ssh -o ConnectTimeout=10 -o BatchMode=no "$VPS_HOST" "echo ok" >/dev/null 2>&1; then
+    echo -e "${RED}ERRO: Não foi possível conectar em $VPS_HOST via SSH.${RESET}"
+    echo -e "${YELLOW}Verifique sua chave SSH, rede e se o host está correto.${RESET}"
+    exit 1
+  fi
+  # Criar pasta remota
+  ssh "$VPS_HOST" "mkdir -p ~/.claude/agents"
+  echo -e "${GREEN}Conexão OK, pasta remota pronta.${RESET}"
+  echo ""
+else
+  # Criar pasta local se não existir
+  if [ ! -d "$TARGET_DIR" ]; then
+    echo -e "${YELLOW}Criando pasta $TARGET_DIR ...${RESET}"
+    mkdir -p "$TARGET_DIR"
+  fi
 fi
 
 # ── Instalação ─────────────────────────────────────────────────────────────
@@ -59,6 +127,13 @@ INSTALADOS=0
 ATUALIZADOS=0
 IGNORADOS=0
 declare -A NOMES_INSTALADOS
+
+# Pasta temporária para preparar arquivos antes do upload (modo vps)
+TMP_STAGE=""
+if [ "$TARGET_MODE" = "vps" ]; then
+  TMP_STAGE="$(mktemp -d)"
+  trap 'rm -rf "$TMP_STAGE"' EXIT
+fi
 
 for AGENT_FILE in "$SQUADS_DIR"/*/agents/*.md; do
   [ -f "$AGENT_FILE" ] || continue
@@ -73,26 +148,43 @@ for AGENT_FILE in "$SQUADS_DIR"/*/agents/*.md; do
     continue
   fi
 
-  DEST="$TARGET_DIR/$AGENT_NAME.md"
-
-  # Detectar duplicata (mesmo nome, arquivo diferente)
+  # Detectar duplicata
   if [ -n "${NOMES_INSTALADOS[$AGENT_NAME]+x}" ]; then
     echo -e "  ${YELLOW}⚠  $AGENT_NAME — duplicata detectada (${NOMES_INSTALADOS[$AGENT_NAME]} vs $(basename "$AGENT_FILE")), usando o mais recente${RESET}"
   fi
-
   NOMES_INSTALADOS[$AGENT_NAME]="$(basename "$AGENT_FILE")"
 
-  # Verificar se já existe (atualização vs instalação nova)
-  if [ -f "$DEST" ]; then
-    cp "$AGENT_FILE" "$DEST"
-    echo -e "  ${CYAN}↻  $AGENT_NAME${RESET}"
-    ATUALIZADOS=$((ATUALIZADOS + 1))
-  else
-    cp "$AGENT_FILE" "$DEST"
-    echo -e "  ${GREEN}✓  $AGENT_NAME${RESET}"
+  if [ "$TARGET_MODE" = "vps" ]; then
+    # Copia com nome correto para a staging area
+    cp "$AGENT_FILE" "$TMP_STAGE/$AGENT_NAME.md"
+    echo -e "  ${GREEN}✓  $AGENT_NAME (preparado)${RESET}"
     INSTALADOS=$((INSTALADOS + 1))
+  else
+    # Instalação local
+    DEST="$TARGET_DIR/$AGENT_NAME.md"
+    if [ -f "$DEST" ]; then
+      cp "$AGENT_FILE" "$DEST"
+      echo -e "  ${CYAN}↻  $AGENT_NAME${RESET}"
+      ATUALIZADOS=$((ATUALIZADOS + 1))
+    else
+      cp "$AGENT_FILE" "$DEST"
+      echo -e "  ${GREEN}✓  $AGENT_NAME${RESET}"
+      INSTALADOS=$((INSTALADOS + 1))
+    fi
   fi
 done
+
+# ── Upload para VPS (se modo vps) ──────────────────────────────────────────
+if [ "$TARGET_MODE" = "vps" ] && [ -n "$TMP_STAGE" ]; then
+  echo ""
+  echo -e "${YELLOW}Enviando arquivos para $VPS_HOST via SCP ...${RESET}"
+  if scp -q "$TMP_STAGE"/*.md "$VPS_HOST:~/.claude/agents/"; then
+    echo -e "${GREEN}✅ Upload concluído.${RESET}"
+  else
+    echo -e "${RED}ERRO: Falha no upload via SCP.${RESET}"
+    exit 1
+  fi
+fi
 
 # ── Resumo ─────────────────────────────────────────────────────────────────
 echo ""
@@ -106,7 +198,8 @@ echo ""
 
 TOTAL_INSTALADOS=$((INSTALADOS + ATUALIZADOS))
 if [ "$TOTAL_INSTALADOS" -gt 0 ]; then
-  echo -e "${GREEN}${BOLD}✅ Instalação concluída! $TOTAL_INSTALADOS agente(s) disponível(is) em ~/.claude/agents/${RESET}"
+  echo -e "${GREEN}${BOLD}✅ Instalação concluída! $TOTAL_INSTALADOS agente(s) disponível(is) em:${RESET}"
+  echo -e "   ${BOLD}$DESTINO_LABEL${RESET}"
   echo ""
   echo -e "  Para usar, inicie uma nova sessão do Claude Code e chame:"
   echo -e "  ${CYAN}\"acionar jc-agent-manager\"${RESET}  ou  ${CYAN}\"/jc\"${RESET}"

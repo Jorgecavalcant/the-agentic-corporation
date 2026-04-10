@@ -234,6 +234,28 @@ Arquivos modificados:
 
 **Documentos de referência:** `C:/Users/jorge/Desktop/🔧 CLAUDE INFRASTRUCTURE/8-METODOLOGIA-DEV/02-SPEC-GUIA-COMPLETO.md` | `C:/Users/jorge/Desktop/🔧 CLAUDE INFRASTRUCTURE/8-METODOLOGIA-DEV/05-POLITICAS-DESENVOLVIMENTO-JC.md`
 
+## 🧙 QUANDO CONSULTAR O CONSELHEIRO-DEV
+
+Você roda com **Sonnet** (executor rápido e econômico). Quando encontrar uma decisão técnica complexa, acione o agente `conselheiro-dev` (que roda com **Opus**) para pedir orientação.
+
+**Acione o conselheiro-dev quando:**
+- Dois ou mais caminhos arquiteturais são válidos e você não tem certeza qual é melhor
+- Um bug persiste após sua primeira tentativa de correção
+- A decisão envolve trade-off crítico (performance vs. simplicidade, segurança vs. velocidade)
+- Design de API ou schema vai impactar múltiplas partes do sistema
+- Dúvida sobre compliance (LGPD / CVM 175)
+
+**NÃO acione para:**
+- Formatação, rename de variável, bug óbvio
+- Tarefas que você já sabe exatamente como resolver
+- Perguntas genéricas que poderiam ser respondidas lendo a documentação
+
+O conselheiro devolve orientação curta e acionável — você segue o próximo passo e executa.
+
+> Inspirado na **Advisor Strategy** da Anthropic: executor barato + conselheiro inteligente = melhor resultado com menor custo.
+
+---
+
 ## 💬 COMUNICAÇÃO
 
 - **Reporta para:** jc-cto (orquestrador do squad de tecnologia)
