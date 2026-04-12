@@ -2,7 +2,7 @@
 
 **Uma empresa virtual de IA — onde cada agente é um profissional de verdade.**
 
-> Instale uma vez. Tenha 64 especialistas disponíveis em qualquer projeto.
+> Instale uma vez. Tenha 65 especialistas disponíveis em qualquer projeto.
 
 ---
 
@@ -10,7 +10,7 @@
 
 O **JC Super Plugin** transforma o Claude Code em uma empresa completa de IA. Você aciona o Orquestrador Master com um simples comando e ele distribui o trabalho automaticamente para os profissionais certos — CTO, advogados, designers, vendedores, analistas e muito mais.
 
-Pense em **64 funcionários especializados**, trabalhando em paralelo, cada um com sua área de atuação — sem que você precise gerenciar cada um.
+Pense em **65 funcionários especializados**, trabalhando em paralelo, cada um com sua área de atuação — sem que você precise gerenciar cada um.
 
 ---
 
@@ -18,11 +18,11 @@ Pense em **64 funcionários especializados**, trabalhando em paralelo, cada um c
 
 | Indicador | Quantidade |
 |-----------|-----------|
-| 🤖 Agentes de negócio | **64** |
+| 🤖 Agentes de negócio | **65** |
 | 👥 Squads (equipes) | **9** |
 | 🏢 Departamentos | **10** |
 | 💻 IDEs suportadas | **5** |
-| 📦 Versão | **1.0.0.2** |
+| 📦 Versão | **1.0.0.3** |
 
 ---
 
@@ -64,17 +64,44 @@ acionar jc-agent-manager — quero criar um e-book para vender no meu site
 git clone https://github.com/Jorgecavalcant/jc-super-plugin.git
 cd jc-super-plugin
 chmod +x installer/install.sh
-./installer/install.sh
+
+./installer/install.sh                    # local (~/.claude/agents/)
+./installer/install.sh --antigravity      # Google Antigravity
+./installer/install.sh --vps              # VPS via SSH (padrão: jorge@46.224.55.18)
+./installer/install.sh --vps --host X     # VPS customizada
 ```
 
 ### Windows (PowerShell / cmd)
 ```bat
 git clone https://github.com/Jorgecavalcant/jc-super-plugin.git
 cd jc-super-plugin
-installer\install.bat
+installer\install.bat                     :: local
+installer\install.bat --antigravity       :: Google Antigravity
+:: Para VPS, use Git Bash com install.sh --vps
 ```
 
-O instalador copia todos os agentes para `~/.claude/agents/` automaticamente. Inicie uma nova sessão do Claude Code e os agentes já estarão disponíveis.
+O instalador copia todos os agentes para o destino escolhido automaticamente. Inicie uma nova sessão do Claude Code e os agentes já estarão disponíveis.
+
+---
+
+## 🧙 Advisor Strategy — Executor + Conselheiro
+
+A partir da v1.0.0.3, o plugin implementa o padrão **Advisor Strategy** da Anthropic:
+
+- **Agentes executores** (Sonnet — rápido e econômico) fazem o trabalho diário
+- **`conselheiro-dev`** (Opus — mais inteligente) é consultado automaticamente quando os executores encontram decisões técnicas complexas
+
+```
+Você pede algo ao desenvolvedor-backend
+    ↓ (Sonnet — barato)
+Encontra decisão difícil
+    ↓
+Consulta conselheiro-dev (Opus — inteligente)
+    ↓
+Recebe orientação → executa
+    ↓
+Você recebe resultado melhor, pagando menos 💰
+```
 
 ---
 
@@ -96,8 +123,8 @@ Gerentes (5):
   gerente-metodo-planejar · gerente-agrocredit · gerente-fiado-pro
   gerente-marketing · gerente-design-ux
      ↓
-Especialistas (49):
-  Jurídico (9) · Tecnologia (8) · Marketing (6) · Vendas (5)
+Especialistas (50):
+  Jurídico (9) · Tecnologia (10) · Marketing (6) · Vendas (5)
   Financeiro (3) · Operações (9) · Produto (3) · Pessoas (3)
 ```
 
@@ -107,7 +134,7 @@ Especialistas (49):
 
 | Squad | Liderado por | O que cobre |
 |-------|-------------|-------------|
-| `jc-tecnologia-squad` | diretor-tecnologia | Dev, DevOps, IA, Segurança, DBA, Chatbot |
+| `jc-tecnologia-squad` | diretor-tecnologia | Dev, DevOps, IA, Segurança, DBA, Chatbot, **Conselheiro (Opus)** |
 | `jc-marketing-squad` | diretor-marketing | Copy, Design, Tráfego, Branding, Storytelling, Conteúdo |
 | `jc-vendas-squad` | diretor-vendas | Ofertas, Leads, Fechamento, Retenção, Loja Digital |
 | `jc-produto-squad` | diretor-produto | Roadmap, Features, Produtos, Pesquisa |
@@ -119,7 +146,7 @@ Especialistas (49):
 
 ---
 
-## 📋 Todos os 63 agentes
+## 📋 Todos os 65 agentes
 
 <details>
 <summary>Ver lista completa</summary>
@@ -135,6 +162,7 @@ Especialistas (49):
 | `diretor-pessoas` | CHRO |
 | `diretor-juridico` | CCO / Diretor Jurídico |
 | `diretor-vendas` | Diretor de Vendas |
+| `conselheiro-dev` | 🧙 Conselheiro Sênior de Dev (Opus — Advisor Strategy) |
 | `desenvolvedor-backend` | Dev Backend (FastAPI/Node) |
 | `desenvolvedor-frontend` | Dev Frontend (Next.js/React) |
 | `administrador-banco-dados` | DBA PostgreSQL |
@@ -143,6 +171,7 @@ Especialistas (49):
 | `especialista-seguranca` | Segurança / OWASP |
 | `revisor-tecnico` | Code Review Técnico |
 | `desenvolvedor-chatbot` | Chatbot / Fluxos WhatsApp |
+| `analista-solucoes` | Analista de Soluções / PRD+SPEC |
 | `advogado-tributarista` | Direito Tributário |
 | `advogado-trabalhista` | Direito Trabalhista |
 | `advogado-empresarial` | Direito Empresarial |
@@ -183,9 +212,9 @@ Especialistas (49):
 | `gerente-infraestrutura` | Infraestrutura / VPS |
 | `gerente-integracoes` | Integrações / APIs Externas |
 | `pesquisador` | Research / Discovery |
-| `diretor-pessoas` | CHRO |
 | `documentador` | Documentação Técnica |
 | `qa-lead` | QA Funcional |
+| `diretor-pessoas` | CHRO |
 
 </details>
 
@@ -193,13 +222,13 @@ Especialistas (49):
 
 ## 💻 Compatibilidade
 
-| IDE | Status |
-|-----|--------|
-| Claude Code | ✅ Disponível |
-| Google Antigravity | ✅ Disponível |
-| OpenAI Codex | ✅ Disponível |
-| Cursor | ✅ Disponível |
-| VS Code + Copilot | ✅ Disponível |
+| IDE | Status | Como instalar |
+|-----|--------|---------------|
+| Claude Code | ✅ Disponível | `install.sh` ou `install.bat` |
+| Google Antigravity | ✅ Disponível | `install.sh --antigravity` |
+| VPS (SSH) | ✅ Disponível | `install.sh --vps` |
+| OpenAI Codex | ✅ Disponível | `install.sh` |
+| Cursor | ✅ Disponível | `install.sh` |
 
 ---
 
@@ -207,6 +236,8 @@ Especialistas (49):
 
 | Versão | Data | O que mudou |
 |--------|------|-------------|
+| **1.0.0.3** | 10/04/2026 | +1 agente `conselheiro-dev` (Opus), padrão Advisor Strategy em 6 agentes de tecnologia, instalador com flags `--vps` e `--antigravity` |
+| **1.0.0.2** | 05/04/2026 | +1 agente `analista-solucoes`, Metodologia PRD+SPEC integrada em 7 agentes, guards de desenvolvimento |
 | **1.0.0.1** | 03/04/2026 | +9 novos agentes, nomes em português hierárquico, plugin genérico, 2 gatilhos de ativação |
 | **1.0.0** | 02/04/2026 | Lançamento inicial com 38 agentes |
 
@@ -218,4 +249,4 @@ MIT — Livre para usar, modificar e distribuir.
 
 ---
 
-*Feito com 🤖 por [JC Tecnologia](https://github.com/Jorgecavalcant) — Versão 1.0.0.2*
+*Feito com 🤖 por [JC Tecnologia](https://github.com/Jorgecavalcant) — Versão 1.0.0.3*
