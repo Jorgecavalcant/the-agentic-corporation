@@ -1,6 +1,6 @@
 ﻿{
   "name": "jc-super-plugin",
-  "version": "1.0.0.4",
+  "version": "1.0.0.5",
   "description": "Empresa virtual de agentes de IA — 72 profissionais especializados organizados em 9 squads (inclui sub-squad de Negociação com assistência AO VIVO em viva-voz). Acione com: acionar jc-agent-manager",
   "author": "Jorge Cavalcante — Tech 42 LTDA",
   "license": "MIT",
@@ -10,7 +10,7 @@
   "total_agents": 66,
   "activation_command": "acionar jc-agent-manager",
   "compatible_ides": ["claude-code", "antigravity", "codex", "cursor", "vscode"],
-  "changelog": "v1.0.0.4 — 18/04/2026: +7 novos agentes formando o sub-squad de Negociação dentro de jc-vendas-squad (diretor-negociacao, estrategista-preparacao, coach-negociacao-live, especialista-objecoes, analista-contraparte, redator-propostas-nego, analista-pos-negociacao). Assistência AO VIVO em viva-voz + preparação + pós-análise + redação de propostas. Doutrina Voss/Harvard/Diamond/Cialdini/Camp/Ury. | v1.0.0.1 — 03/04/2026: +9 novos agentes, renomeação para português hierárquico, plugin genérico",
+  "changelog": "v1.0.0.5 — 18/04/2026: fix instalador — strip de BOM (UTF-8 EF BB BF) após cada cópia de agente em install.sh e install.bat. Resolvia bug onde 55/96 agentes eram rejeitados silenciosamente pelo Claude Code por começarem com bytes inválidos antes do frontmatter YAML. | v1.0.0.4 — 18/04/2026: +7 novos agentes formando o sub-squad de Negociação dentro de jc-vendas-squad (diretor-negociacao, estrategista-preparacao, coach-negociacao-live, especialista-objecoes, analista-contraparte, redator-propostas-nego, analista-pos-negociacao). Assistência AO VIVO em viva-voz + preparação + pós-análise + redação de propostas. Doutrina Voss/Harvard/Diamond/Cialdini/Camp/Ury. | v1.0.0.1 — 03/04/2026: +9 novos agentes, renomeação para português hierárquico, plugin genérico",
   "squads": [
     {
       "id": "jc-estrategia-squad",

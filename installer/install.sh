@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 # =============================================================================
 # JC Super Plugin — Instalador (Unix / macOS / Git Bash no Windows)
 # =============================================================================
@@ -24,9 +24,17 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
+# ── Strip de BOM (UTF-8 EF BB BF) ──────────────────────────────────────────
+strip_bom() {
+  local file="$1"
+  if [ "$(head -c 3 "$file" | od -An -tx1 | tr -d ' \n')" = "efbbbf" ]; then
+    tail -c +4 "$file" > "${file}.nobom" && mv "${file}.nobom" "$file"
+  fi
+}
+
 # ── Argumentos ─────────────────────────────────────────────────────────────
 TARGET_MODE="local"           # local | antigravity | vps
-VPS_HOST="jorge@46.224.55.18" # padrão da JC Tecnologia
+VPS_HOST="jorge@46.224.55.18" # padrão da Tech 42
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -82,7 +90,7 @@ esac
 # ── Cabeçalho ──────────────────────────────────────────────────────────────
 echo ""
 echo -e "${CYAN}${BOLD}╔══════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${CYAN}${BOLD}║        JC SUPER PLUGIN — INSTALADOR v1.0.0.3             ║${RESET}"
+echo -e "${CYAN}${BOLD}║        JC SUPER PLUGIN — INSTALADOR v1.0.0.5             ║${RESET}"
 echo -e "${CYAN}${BOLD}║        github.com/jc-tecnologia/jc-super-plugin         ║${RESET}"
 echo -e "${CYAN}${BOLD}╚══════════════════════════════════════════════════════════╝${RESET}"
 echo ""
@@ -155,8 +163,9 @@ for AGENT_FILE in "$SQUADS_DIR"/*/agents/*.md; do
   NOMES_INSTALADOS[$AGENT_NAME]="$(basename "$AGENT_FILE")"
 
   if [ "$TARGET_MODE" = "vps" ]; then
-    # Copia com nome correto para a staging area
+    # Copia com nome correto para a staging area e remove BOM
     cp "$AGENT_FILE" "$TMP_STAGE/$AGENT_NAME.md"
+    strip_bom "$TMP_STAGE/$AGENT_NAME.md"
     echo -e "  ${GREEN}✓  $AGENT_NAME (preparado)${RESET}"
     INSTALADOS=$((INSTALADOS + 1))
   else
@@ -164,10 +173,12 @@ for AGENT_FILE in "$SQUADS_DIR"/*/agents/*.md; do
     DEST="$TARGET_DIR/$AGENT_NAME.md"
     if [ -f "$DEST" ]; then
       cp "$AGENT_FILE" "$DEST"
+      strip_bom "$DEST"
       echo -e "  ${CYAN}↻  $AGENT_NAME${RESET}"
       ATUALIZADOS=$((ATUALIZADOS + 1))
     else
       cp "$AGENT_FILE" "$DEST"
+      strip_bom "$DEST"
       echo -e "  ${GREEN}✓  $AGENT_NAME${RESET}"
       INSTALADOS=$((INSTALADOS + 1))
     fi

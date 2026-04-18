@@ -43,7 +43,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "" ^
 "Write-Host '';" ^
 "Write-Host '╔══════════════════════════════════════════════════════════╗' -ForegroundColor Cyan;" ^
-"Write-Host '║        JC SUPER PLUGIN — INSTALADOR v1.0.0.3             ║' -ForegroundColor Cyan;" ^
+"Write-Host '║        JC SUPER PLUGIN — INSTALADOR v1.0.0.5             ║' -ForegroundColor Cyan;" ^
 "Write-Host '║        github.com/jc-tecnologia/jc-super-plugin         ║' -ForegroundColor Cyan;" ^
 "Write-Host '╚══════════════════════════════════════════════════════════╝' -ForegroundColor Cyan;" ^
 "Write-Host '';" ^
@@ -86,10 +86,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "  $dest = Join-Path $targetDir \"$agentName.md\";" ^
 "  if (Test-Path $dest) {" ^
 "    Copy-Item $file.FullName $dest -Force;" ^
+"    $raw = [IO.File]::ReadAllBytes($dest); if($raw.Count -ge 3 -and $raw[0] -eq 239 -and $raw[1] -eq 187 -and $raw[2] -eq 191){ [IO.File]::WriteAllBytes($dest,$raw[3..($raw.Count-1)]) };" ^
 "    Write-Host \"  ↻  $agentName\" -ForegroundColor Cyan;" ^
 "    $atualizados++;" ^
 "  } else {" ^
 "    Copy-Item $file.FullName $dest -Force;" ^
+"    $raw = [IO.File]::ReadAllBytes($dest); if($raw.Count -ge 3 -and $raw[0] -eq 239 -and $raw[1] -eq 187 -and $raw[2] -eq 191){ [IO.File]::WriteAllBytes($dest,$raw[3..($raw.Count-1)]) };" ^
 "    Write-Host \"  ✓  $agentName\" -ForegroundColor Green;" ^
 "    $instalados++;" ^
 "  }" ^
