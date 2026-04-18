@@ -24,12 +24,12 @@ Departamento de Vendas virtual da **Tech 42 LTDA**.
 
 ### Sub-squad de Negociação
 ```
-*jc-nego:preparar [cliente]   → Briefing completo pré-call (BATNA, ZOPA, ancoragem)
-*jc-nego:live [frase]         → Resposta AO VIVO em viva-voz (≤15 segundos)
-*jc-nego:objecao [objeção]    → 3 respostas prontas (empática, técnica, reenquadramento)
-*jc-nego:perfil [cliente]     → Dossiê DISC + histórico + BATNA da contraparte
-*jc-nego:proposta [contexto]  → Contraproposta / e-mail / WhatsApp pronto
-*jc-nego:pos [resultado]      → Análise pós-call + lições + próximo passo
+*negociador:preparar [cliente]   → Briefing completo pré-call (BATNA, ZOPA, ancoragem)
+*negociador:live [frase]         → Resposta AO VIVO em viva-voz (≤15 segundos)
+*negociador:objecao [objeção]    → 3 respostas prontas (empática, técnica, reenquadramento)
+*negociador:perfil [cliente]     → Dossiê DISC + histórico + BATNA da contraparte
+*negociador:proposta [contexto]  → Contraproposta / e-mail / WhatsApp pronto
+*negociador:pos [resultado]      → Análise pós-call + lições + próximo passo
 ```
 
 ---

@@ -89,14 +89,14 @@ sub_squads:
       - analista-contraparte.md
       - redator-propostas-nego.md
       - analista-pos-negociacao.md
-    slashPrefix: "jc-nego"
+    slashPrefix: "negociador"
     commands:
-      - "*jc-nego:preparar"   # Briefing completo pré-call
-      - "*jc-nego:live"       # Resposta em tempo real (≤15s)
-      - "*jc-nego:objecao"    # Resposta pronta para objeção
-      - "*jc-nego:perfil"     # Perfil da contraparte
-      - "*jc-nego:proposta"   # Redigir contraproposta/e-mail
-      - "*jc-nego:pos"        # Análise pós-call
+      - "*negociador:preparar"   # Briefing completo pré-call
+      - "*negociador:live"       # Resposta em tempo real (≤15s)
+      - "*negociador:objecao"    # Resposta pronta para objeção
+      - "*negociador:perfil"     # Perfil da contraparte
+      - "*negociador:proposta"   # Redigir contraproposta/e-mail
+      - "*negociador:pos"        # Análise pós-call
     docs:
       - D:/TECH42/EMPRESA/AGENTES/documentacao/negociacao/01-doutrina-negociacao.md
       - D:/TECH42/EMPRESA/AGENTES/documentacao/negociacao/02-playbook-renegociacao-contrato.md

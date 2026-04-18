@@ -168,12 +168,12 @@ Resultado: [ganhou / perdeu / parcial / pendente]
 
 | Comando | Ação |
 |---------|------|
-| `*jc-nego:preparar [cliente]` | Briefing completo pré-call |
-| `*jc-nego:live [frase do cliente]` | Resposta em tempo real (≤15s) |
-| `*jc-nego:objecao [objeção]` | Resposta pronta para objeção |
-| `*jc-nego:perfil [cliente]` | Perfil da contraparte |
-| `*jc-nego:proposta [contexto]` | Redigir contraproposta/e-mail |
-| `*jc-nego:pos [resultado]` | Análise pós-call |
+| `*negociador:preparar [cliente]` | Briefing completo pré-call |
+| `*negociador:live [frase do cliente]` | Resposta em tempo real (≤15s) |
+| `*negociador:objecao [objeção]` | Resposta pronta para objeção |
+| `*negociador:perfil [cliente]` | Perfil da contraparte |
+| `*negociador:proposta [contexto]` | Redigir contraproposta/e-mail |
+| `*negociador:pos [resultado]` | Análise pós-call |
 
 ---
 
