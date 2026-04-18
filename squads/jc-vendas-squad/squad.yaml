@@ -1,13 +1,16 @@
 name: jc-vendas-squad
-version: "1.0.0"
+version: "1.1.0"
 short-title: "Departamento de Vendas JC"
 description: >
-  Departamento de Vendas virtual da JC TECNOLOGIA LTDA.
-  6 super-profissionais cobrindo estratégia de receita, criação de ofertas,
-  geração de leads, conversão, retenção de clientes e análise de receita.
-  Absorveu os melhores frameworks de Alex Hormozi, SPIN Selling,
-  Challenger Sale e Customer Success.
-author: "Jorge Cavalcante — JC TECNOLOGIA LTDA"
+  Departamento de Vendas virtual da Tech 42 LTDA.
+  13 super-profissionais cobrindo estratégia de receita, criação de ofertas,
+  geração de leads, conversão, retenção, análise de receita E um sub-squad
+  completo de NEGOCIAÇÃO (preparação, assistência ao vivo em viva-voz,
+  banco de objeções, perfil da contraparte, redação de propostas e análise
+  pós-negociação). Absorveu Alex Hormozi, SPIN Selling, Challenger Sale,
+  Customer Success, Chris Voss (FBI), Harvard/Fisher-Ury, Stuart Diamond,
+  Cialdini, Jim Camp e William Ury.
+author: "Jorge Cavalcante — Tech 42 LTDA"
 license: MIT
 slashPrefix: "jc-vendas"
 idioma: "pt-BR"
@@ -29,15 +32,31 @@ tags:
   - saas
   - b2b
   - b2c
+  - negociacao
+  - renegociacao
+  - contratos
+  - voss
+  - harvard
+  - diamond
 
 components:
   agents:
+    # --- Núcleo original de Vendas (6) ---
     - orchestrator.md              # jc-dir-vendas — Diretor de Vendas (Tier-0)
     - especialista-ofertas.md      # Criação de Ofertas (Hormozi $100M Offers)
     - especialista-leads.md        # Geração e Qualificação de Leads
     - especialista-conversao.md    # Conversão e Fechamento (SPIN, Challenger)
     - especialista-retencao.md     # Retenção, Churn e Customer Success
     - analista-receita.md          # MRR, ARR, Métricas de Receita e Pricing
+
+    # --- Sub-squad de Negociação (7) ---
+    - diretor-negociacao.md        # Orquestrador do sub-squad jc-negociacao (Tier-0)
+    - estrategista-preparacao.md   # Briefing pré-call: BATNA, ZOPA, ancoragem
+    - coach-negociacao-live.md     # Teleprompter AO VIVO em viva-voz (≤15s)
+    - especialista-objecoes.md     # Respostas prontas para objeções clássicas
+    - analista-contraparte.md      # Perfil DISC, gatilhos, histórico do cliente
+    - redator-propostas-nego.md    # Contrapropostas, e-mails, WhatsApp, termos
+    - analista-pos-negociacao.md   # Análise pós-call, aprendizados, próximo passo
 
   tasks:
     - criar-oferta.md
@@ -55,6 +74,34 @@ components:
   checklists:
     - checklist-qualidade-vendas.md
 
+sub_squads:
+  jc-negociacao:
+    orchestrator: diretor-negociacao.md
+    description: >
+      Sub-squad de negociação dentro do departamento de vendas.
+      Apoia Jorge em preparação pré-call, assistência AO VIVO em viva-voz,
+      redação de propostas e análise pós-negociação. Foco primário em
+      renegociação de contratos (churn, downgrade, reajuste, upgrade).
+    members:
+      - estrategista-preparacao.md
+      - coach-negociacao-live.md
+      - especialista-objecoes.md
+      - analista-contraparte.md
+      - redator-propostas-nego.md
+      - analista-pos-negociacao.md
+    slashPrefix: "jc-nego"
+    commands:
+      - "*jc-nego:preparar"   # Briefing completo pré-call
+      - "*jc-nego:live"       # Resposta em tempo real (≤15s)
+      - "*jc-nego:objecao"    # Resposta pronta para objeção
+      - "*jc-nego:perfil"     # Perfil da contraparte
+      - "*jc-nego:proposta"   # Redigir contraproposta/e-mail
+      - "*jc-nego:pos"        # Análise pós-call
+    docs:
+      - D:/TECH42/EMPRESA/AGENTES/documentacao/negociacao/01-doutrina-negociacao.md
+      - D:/TECH42/EMPRESA/AGENTES/documentacao/negociacao/02-playbook-renegociacao-contrato.md
+      - D:/TECH42/EMPRESA/AGENTES/documentacao/negociacao/03-banco-objecoes.md
+
 hierarchy:
   superior: jc-agent-manager
   reporta_para: jc-dir-vendas
@@ -62,6 +109,8 @@ hierarchy:
   nota: >
     Subordinado ao jc-agent-manager.
     O jc-dir-vendas é o Diretor de Vendas e orquestrador do squad.
+    O diretor-negociacao é orquestrador do sub-squad jc-negociacao
+    e reporta ao jc-dir-vendas.
     Alinha com jc-marketing-squad para funis de aquisição
     e com jc-financas-squad para metas de MRR/ARR.
 

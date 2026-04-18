@@ -1,4 +1,4 @@
-# 🚀 JC Super Plugin
+﻿# 🚀 JC Super Plugin
 
 **Uma empresa virtual de IA — onde cada agente é um profissional de verdade.**
 
@@ -8,7 +8,7 @@
 
 O **JC Super Plugin** é um sistema de agentes de IA que funciona como uma empresa completa em versão digital. Você aciona o Orquestrador Master e ele distribui o trabalho automaticamente para os profissionais certos.
 
-> Pense em 64 funcionários especializados, trabalhando em paralelo, cada um com sua área de atuação — sem que você precise gerenciar cada um.
+> Pense em 72 funcionários especializados, trabalhando em paralelo, cada um com sua área de atuação — sem que você precise gerenciar cada um.
 
 ---
 
@@ -16,11 +16,11 @@ O **JC Super Plugin** é um sistema de agentes de IA que funciona como uma empre
 
 | Indicador | Quantidade |
 |-----------|-----------|
-| Agentes de negócio (funcionários de IA) | **65** |
+| Agentes de negócio (funcionários de IA) | **72** |
 | Squads (equipes) | **9** |
 | Departamentos | **10** |
 | IDEs suportadas | **5** |
-| Versão | **1.0.0.3** |
+| Versão | **1.0.0.4** |
 
 ---
 
@@ -203,6 +203,7 @@ Especialistas (48): todos os demais
 
 | Versão | Data | O que mudou |
 |--------|------|-------------|
+| 1.0.0.4 | 18/04/2026 | +7 agentes formando o sub-squad de Negociação (diretor-negociacao, estrategista-preparacao, coach-negociacao-live, especialista-objecoes, analista-contraparte, redator-propostas-nego, analista-pos-negociacao). Assistência AO VIVO em viva-voz. Doutrina Chris Voss + Harvard + Diamond + Cialdini + Camp + Ury |
 | 1.0.0.3 | 10/04/2026 | +1 agente conselheiro-dev (Opus), padrão Advisor Strategy integrado em 6 agentes de tecnologia, instalador com flags --vps e --antigravity |
 | 1.0.0.2 | 05/04/2026 | +1 agente analista-solucoes, Metodologia PRD+SPEC integrada em 7 agentes, guards de desenvolvimento |
 | 1.0.0.1 | 03/04/2026 | +9 novos agentes, renomeação para português hierárquico, plugin genérico, 2 gatilhos de ativação |
@@ -214,10 +215,10 @@ Especialistas (48): todos os demais
 
 | Campo | Valor |
 |-------|-------|
-| Versão | **1.0.0.3** |
+| Versão | **1.0.0.4** |
 | Licença | MIT |
-| Atualizado | 2026-04-10 |
-| Autor | Jorge Cavalcante — JC Tecnologia LTDA |
+| Atualizado | 2026-04-18 |
+| Autor | Jorge Cavalcante — Tech 42 LTDA |
 | GitHub | github.com/jc-tecnologia/jc-super-plugin |
 | Idioma | Português do Brasil (pt-BR) |
 

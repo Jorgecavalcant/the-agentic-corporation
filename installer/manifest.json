@@ -1,16 +1,16 @@
-{
+﻿{
   "name": "jc-super-plugin",
-  "version": "1.0.0.1",
-  "description": "Empresa virtual de agentes de IA — 63 profissionais especializados organizados em 9 squads. Acione com: acionar jc-agent-manager",
-  "author": "Jorge Cavalcante — JC Tecnologia LTDA",
+  "version": "1.0.0.4",
+  "description": "Empresa virtual de agentes de IA — 72 profissionais especializados organizados em 9 squads (inclui sub-squad de Negociação com assistência AO VIVO em viva-voz). Acione com: acionar jc-agent-manager",
+  "author": "Jorge Cavalcante — Tech 42 LTDA",
   "license": "MIT",
   "repository": "https://github.com/jc-tecnologia/jc-super-plugin",
   "install_target": "~/.claude/agents/",
   "total_squads": 9,
-  "total_agents": 59,
+  "total_agents": 66,
   "activation_command": "acionar jc-agent-manager",
   "compatible_ides": ["claude-code", "antigravity", "codex", "cursor", "vscode"],
-  "changelog": "v1.0.0.1 — 03/04/2026: +9 novos agentes, renomeação para português hierárquico, plugin genérico",
+  "changelog": "v1.0.0.4 — 18/04/2026: +7 novos agentes formando o sub-squad de Negociação dentro de jc-vendas-squad (diretor-negociacao, estrategista-preparacao, coach-negociacao-live, especialista-objecoes, analista-contraparte, redator-propostas-nego, analista-pos-negociacao). Assistência AO VIVO em viva-voz + preparação + pós-análise + redação de propostas. Doutrina Voss/Harvard/Diamond/Cialdini/Camp/Ury. | v1.0.0.1 — 03/04/2026: +9 novos agentes, renomeação para português hierárquico, plugin genérico",
   "squads": [
     {
       "id": "jc-estrategia-squad",
@@ -130,7 +130,14 @@
         { "file": "squads/jc-vendas-squad/agents/especialista-conversao.md", "name": "especialista-conversao", "role": "specialist", "descricao": "Especialista em Conversão — SPIN Selling, Challenger Sale, tratamento de objeções" },
         { "file": "squads/jc-vendas-squad/agents/especialista-retencao.md", "name": "especialista-retencao", "role": "specialist", "descricao": "Especialista em Retenção — customer success, churn, LTV, NPS, expansão de receita" },
         { "file": "squads/jc-vendas-squad/agents/analista-receita.md", "name": "analista-receita", "role": "specialist", "descricao": "Analista de Receita de Vendas — MRR, ARR, unit economics, elasticidade de preço" },
-        { "file": "squads/jc-vendas-squad/agents/gestor-loja-digital.md", "name": "gestor-loja-digital", "role": "specialist", "descricao": "Gestor de Loja Digital — produtos digitais, checkout, entrega automática, afiliados. CNAE 5811+4761" }
+        { "file": "squads/jc-vendas-squad/agents/gestor-loja-digital.md", "name": "gestor-loja-digital", "role": "specialist", "descricao": "Gestor de Loja Digital — produtos digitais, checkout, entrega automática, afiliados. CNAE 5811+4761" },
+        { "file": "squads/jc-vendas-squad/agents/diretor-negociacao.md", "name": "diretor-negociacao", "role": "orchestrator", "descricao": "Diretor de Negociação — orquestra sub-squad jc-negociacao (4 modos: PREP/LIVE/WRITE/POST). Foco em renegociação de contratos. Chris Voss + Harvard + Diamond" },
+        { "file": "squads/jc-vendas-squad/agents/estrategista-preparacao.md", "name": "estrategista-preparacao", "role": "specialist", "descricao": "Estrategista de Preparação — briefing pré-call com BATNA, ZOPA, ancoragem, matriz de concessões, accusation audit e perguntas calibradas" },
+        { "file": "squads/jc-vendas-squad/agents/coach-negociacao-live.md", "name": "coach-negociacao-live", "role": "specialist", "descricao": "Coach de Negociação AO VIVO — teleprompter em viva-voz, resposta em ≤15s com leitura/fala/pergunta/armadilha. Chris Voss (mirroring, labeling, calibrated Q)" },
+        { "file": "squads/jc-vendas-squad/agents/especialista-objecoes.md", "name": "especialista-objecoes", "role": "specialist", "descricao": "Especialista em Objeções — banco de 10 objeções clássicas com 3 respostas cada (empática/técnica/reenquadramento)" },
+        { "file": "squads/jc-vendas-squad/agents/analista-contraparte.md", "name": "analista-contraparte", "role": "specialist", "descricao": "Analista de Contraparte — dossiê DISC, gatilhos, histórico do cliente, BATNA provável, probabilidade de churn" },
+        { "file": "squads/jc-vendas-squad/agents/redator-propostas-nego.md", "name": "redator-propostas-nego", "role": "specialist", "descricao": "Redator de Propostas de Negociação — contrapropostas, e-mails, WhatsApp com tom Cerbasi + ancoragem + pedido de troca recíproca" },
+        { "file": "squads/jc-vendas-squad/agents/analista-pos-negociacao.md", "name": "analista-pos-negociacao", "role": "specialist", "descricao": "Analista Pós-Negociação — avalia resultado, identifica Black Swans, extrai lições e alimenta o dossiê da contraparte" }
       ]
     }
   ]
