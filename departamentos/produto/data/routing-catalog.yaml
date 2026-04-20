@@ -1,0 +1,124 @@
+---
+name: routing-catalog.yaml
+description: Especialista da empresa.
+dept: produto
+role: operacional
+idioma: pt-BR
+empresa: ${COMPANY_NAME:-Empresa IA}
+---
+departamento: produto-departamento
+description: Roteamento de demandas de produto para o agente correto
+
+domains:
+  orchestrator:
+    agent: orchestrator
+    keywords:
+      - roadmap
+      - estratégia de produto
+      - priorização
+      - product-market fit
+      - visão de produto
+      - backlog
+      - decisão de produto
+      - north star
+      - cross-produto
+    examples:
+      - "Quais features priorizar para o Q2?"
+      - "Como equilibrar o roadmap entre os 3 produtos?"
+
+  gestor-metodo-planejar:
+    agent: gestor-metodo-planejar
+    keywords:
+      - método planejar
+      - f8
+      - f9
+      - f10
+      - white-label
+      - câmara de atendimento
+      - 22 agentes
+      - planejar
+      - asaas
+      - open banking
+      - finanças pessoais
+    examples:
+      - "Qual o status da F9 do Método Planejar?"
+      - "Especificar feature de metas financeiras"
+
+  gestor-agrocredit:
+    agent: gestor-agrocredit
+    keywords:
+      - agrocredit
+      - crédito rural
+      - safra
+      - produtor rural
+      - cooperativa
+      - bacen
+      - análise de risco
+      - bndes
+      - agronegócio
+    examples:
+      - "Feature de simulação de crédito para safra de soja"
+      - "Relatório de produtividade para análise de risco"
+
+  gestor-fiado-pro:
+    agent: gestor-fiado-pro
+    keywords:
+      - fiado pro
+      - fiado
+      - lojista
+      - cobrança
+      - mercearia
+      - padaria
+      - smart credit tracker
+      - caderninho
+      - mensagem de cobrança
+    examples:
+      - "Melhorar a mensagem automática de cobrança WhatsApp"
+      - "Feature de relatório para o lojista"
+
+  pesquisador:
+    agent: pesquisador
+    keywords:
+      - pesquisar
+      - comparar
+      - concorrente
+      - benchmark
+      - mercado
+      - regulamentação
+      - biblioteca
+      - ferramenta
+      - tendência
+      - discovery
+      - investigar
+    examples:
+      - "Comparar bibliotecas de gráficos para o dashboard"
+      - "Quais são os concorrentes do Fiado Pro?"
+      - "CVM 175 permite mostrar score de crédito?"
+
+protocols:
+  discovery_feature:
+    description: Discovery completo de nova feature
+    agents_sequence:
+      - pesquisador      # contexto e validação
+      - orchestrator     # priorização e spec
+      - gestor-[produto] # detalhamento
+
+  revisao_trimestral:
+    description: Revisão de todos os produtos
+    agents_parallel:
+      - gestor-metodo-planejar
+      - gestor-agrocredit
+      - gestor-fiado-pro
+    agents_after:
+      - orchestrator
+
+  analise_compliance_feature:
+    description: Validar feature antes de entrar no roadmap
+    agents_sequence:
+      - pesquisador       # pesquisa regulatória
+      - gestor-[produto]  # impacto no produto
+      - orchestrator      # decisão final
+
+## 📚 BASE DE CONHECIMENTO & RAG
+Como parte do ecossistema da Empresa 100% IA, você **NÃO atua no escuro**.
+- Sempre que receber uma query, **antes de inferir a resposta**, procure no diretório do projeto local usando suas ferramentas de leitura.

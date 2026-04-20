@@ -1,252 +1,80 @@
-# 🚀 JC Super Plugin
+# 🚀 The Agentic Corporation
 
-**Uma empresa virtual de IA — onde cada agente é um profissional de verdade.**
+**Uma infraestrutura corporativa de agentes de IA — Transformando sua IDE em uma empresa com 96+ especialistas profissionais.**
 
-> Instale uma vez. Tenha 65 especialistas disponíveis em qualquer projeto.
-
----
-
-## ✨ O que é este plugin?
-
-O **JC Super Plugin** transforma o Claude Code em uma empresa completa de IA. Você aciona o Orquestrador Master com um simples comando e ele distribui o trabalho automaticamente para os profissionais certos — CTO, advogados, designers, vendedores, analistas e muito mais.
-
-Pense em **65 funcionários especializados**, trabalhando em paralelo, cada um com sua área de atuação — sem que você precise gerenciar cada um.
+> Configure uma vez. Tenha departamentos inteiros trabalhando em seus projetos.
 
 ---
 
-## 📊 Números
+## ✨ O que é a The Agentic Corporation?
 
-| Indicador | Quantidade |
-|-----------|-----------|
-| 🤖 Agentes de negócio | **65** |
-| 👥 Squads (equipes) | **9** |
-| 🏢 Departamentos | **10** |
-| 💻 IDEs suportadas | **5** |
-| 📦 Versão | **1.0.0.3** |
+É um ecossistema de agentes corporativos projetado para alta performance e segurança. Diferente de prompts genéricos, aqui cada agente possui um **Papel, Responsabilidade e Contexto (RPI)** definido. Através do Orquestrador Master (`agent-manager`), o sistema identifica demandas complexas e as roteia para os departamentos especialistas: Tecnologia, Marketing, Jurídico, Vendas, Finanças, e mais.
 
 ---
 
-## ⚡ Como ativar
+## 🏗️ Estrutura Organizacional v1.0.0.0
 
-Após instalar, use qualquer um dos dois gatilhos em qualquer sessão do Claude Code:
+A empresa é organizada em **9 Departamentos Estratégicos** e **96+ Agentes**:
 
-```
-acionar jc-agent-manager
-```
-```
-/jc
-```
-
-Ambos ativam o **Orquestrador Master**, que lê a sua demanda e chama o agente certo automaticamente.
+| Departamento | Foco principal |
+|--------------|----------------|
+| **Estratégia** | Orquestração Master, Governança e Compliance C-Level |
+| **Tecnologia** | Backend, Frontend, DevOps, IA, DBA e Segurança |
+| **Marketing** | Copywriting, Design, Tráfego Pago e Branding |
+| **Vendas** | Negociação, Geração de Leads e Retenção |
+| **Produto** | Discovery, Roadmap e SPEC/PRD |
+| **Finanças** | Planejamento, BI e Análise de Receita |
+| **Operações** | Automação (N8N), Integrações e Infraestrutura |
+| **Pessoas** | Cultura, Documentação e QA |
+| **Jurídico** | Tributário, Digital/LGPD, Fintech/CVM e Propriedade Intelectual |
 
 ---
 
-## 🎯 Exemplos de uso
+## 🎯 Como Utilizar
 
+Após a instalação, você pode interagir com o Orquestrador Central usando o gatilho padrão:
+
+```text
+acionar agent-manager
 ```
-acionar jc-agent-manager — preciso de uma estratégia de lançamento de produto
 
-/jc — analise a estrutura fiscal da empresa e sugira otimizações
-
-acionar jc-agent-manager — crie uma campanha completa de Instagram
-
-/jc — revise o código do endpoint de pagamentos por segurança
-
-acionar jc-agent-manager — quero criar um e-book para vender no meu site
-```
+Ele triará sua demanda e acionará os especialistas necessários de forma autônoma.
 
 ---
 
 ## 🛠️ Instalação
 
-### Unix / macOS / WSL / Git Bash
+### Windows (PowerShell)
+```powershell
+installer\install.bat                     # Instalação para Claude Code
+installer\install.bat --antigravity       # Instalação para Google Antigravity
+```
+
+### macOS / Linux / Git Bash
 ```bash
-git clone https://github.com/Jorgecavalcant/jc-super-plugin.git
-cd jc-super-plugin
 chmod +x installer/install.sh
-
-./installer/install.sh                    # local (~/.claude/agents/)
-./installer/install.sh --antigravity      # Google Antigravity
-./installer/install.sh --vps              # VPS via SSH (padrão: jorge@46.224.55.18)
-./installer/install.sh --vps --host X     # VPS customizada
-```
-
-### Windows (PowerShell / cmd)
-```bat
-git clone https://github.com/Jorgecavalcant/jc-super-plugin.git
-cd jc-super-plugin
-installer\install.bat                     :: local
-installer\install.bat --antigravity       :: Google Antigravity
-:: Para VPS, use Git Bash com install.sh --vps
-```
-
-O instalador copia todos os agentes para o destino escolhido automaticamente. Inicie uma nova sessão do Claude Code e os agentes já estarão disponíveis.
-
----
-
-## 🧙 Advisor Strategy — Executor + Conselheiro
-
-A partir da v1.0.0.3, o plugin implementa o padrão **Advisor Strategy** da Anthropic:
-
-- **Agentes executores** (Sonnet — rápido e econômico) fazem o trabalho diário
-- **`conselheiro-dev`** (Opus — mais inteligente) é consultado automaticamente quando os executores encontram decisões técnicas complexas
-
-```
-Você pede algo ao desenvolvedor-backend
-    ↓ (Sonnet — barato)
-Encontra decisão difícil
-    ↓
-Consulta conselheiro-dev (Opus — inteligente)
-    ↓
-Recebe orientação → executa
-    ↓
-Você recebe resultado melhor, pagando menos 💰
+./installer/install.sh                    # Local
+./installer/install.sh --vps              # Servidor Remoto (via SSH)
 ```
 
 ---
 
-## 🏗️ Hierarquia de ativação
+## 🧙 Advisor Strategy (Execução Inteligente)
 
-```
-Você (CEO — humano)
-     ↓
-acionar jc-agent-manager  OU  /jc
-     ↓
-jc-agent-manager (Orquestrador Master)
-     ↓
-C-Level (8):
-  diretor-tecnologia · diretor-operacoes · diretor-marketing
-  diretor-financeiro · diretor-produto · diretor-pessoas
-  diretor-juridico · diretor-vendas
-     ↓
-Gerentes (5):
-  gerente-metodo-planejar · gerente-agrocredit · gerente-fiado-pro
-  gerente-marketing · gerente-design-ux
-     ↓
-Especialistas (50):
-  Jurídico (9) · Tecnologia (10) · Marketing (6) · Vendas (5)
-  Financeiro (3) · Operações (9) · Produto (3) · Pessoas (3)
-```
+Utilizamos o padrão **Advisor**, onde agentes técnicos operam com modelos eficientes (ex: Gemini Flash/Sonnet) e consultam automaticamente o **Conselheiro Especialista** para decisões de alta complexidade, garantindo qualidade superior com economia de recursos.
 
 ---
 
-## 👥 Squads disponíveis
+## 🔒 Segurança e Compliance
 
-| Squad | Liderado por | O que cobre |
-|-------|-------------|-------------|
-| `jc-tecnologia-squad` | diretor-tecnologia | Dev, DevOps, IA, Segurança, DBA, Chatbot, **Conselheiro (Opus)** |
-| `jc-marketing-squad` | diretor-marketing | Copy, Design, Tráfego, Branding, Storytelling, Conteúdo |
-| `jc-vendas-squad` | diretor-vendas | Ofertas, Leads, Fechamento, Retenção, Loja Digital |
-| `jc-produto-squad` | diretor-produto | Roadmap, Features, Produtos, Pesquisa |
-| `jc-financas-squad` | diretor-financeiro | Finanças, Métricas SaaS, Receita, BI/Analytics |
-| `jc-operacoes-squad` | diretor-operacoes | Infra, Integrações, N8N, Atendimento, Limpeza, Auditoria |
-| `jc-juridico-squad` | diretor-juridico | 9 advogados: tributário, trabalhista, empresarial, LGPD, PI, FinTech, entretenimento, contratos, consumidor |
-| `jc-pessoas-squad` | diretor-pessoas | Cultura, Documentação, QA, Compliance |
-| `jc-estrategia-squad` | jc-agent-manager | Orquestração central, histórico, conferência |
-
----
-
-## 📋 Todos os 65 agentes
-
-<details>
-<summary>Ver lista completa</summary>
-
-| Agente | Cargo |
-|--------|-------|
-| `jc-agent-manager` | Orquestrador Master |
-| `diretor-tecnologia` | CTO |
-| `diretor-operacoes` | COO |
-| `diretor-marketing` | CMO |
-| `diretor-financeiro` | CFO |
-| `diretor-produto` | CPO |
-| `diretor-pessoas` | CHRO |
-| `diretor-juridico` | CCO / Diretor Jurídico |
-| `diretor-vendas` | Diretor de Vendas |
-| `conselheiro-dev` | 🧙 Conselheiro Sênior de Dev (Opus — Advisor Strategy) |
-| `desenvolvedor-backend` | Dev Backend (FastAPI/Node) |
-| `desenvolvedor-frontend` | Dev Frontend (Next.js/React) |
-| `administrador-banco-dados` | DBA PostgreSQL |
-| `engenheiro-devops` | DevOps / Docker / VPS |
-| `engenheiro-ia` | IA Engineer / RAG |
-| `especialista-seguranca` | Segurança / OWASP |
-| `revisor-tecnico` | Code Review Técnico |
-| `desenvolvedor-chatbot` | Chatbot / Fluxos WhatsApp |
-| `analista-solucoes` | Analista de Soluções / PRD+SPEC |
-| `advogado-tributarista` | Direito Tributário |
-| `advogado-trabalhista` | Direito Trabalhista |
-| `advogado-empresarial` | Direito Empresarial |
-| `advogado-digital-lgpd` | LGPD / Direito Digital |
-| `advogado-consumidor-saas` | CDC / SaaS |
-| `advogado-propriedade-intelectual` | PI / Software |
-| `advogado-regulatorio-fintech` | FinTech / CVM / BCB |
-| `analista-contratos` | Análise Forense de Contratos |
-| `advogado-entretenimento-musical` | Entretenimento / ECAD |
-| `gerente-marketing` | Marketing Digital |
-| `redator-copywriter` | Copy / Persuasão |
-| `designer-visual` | Design / UX |
-| `gestor-trafego` | Tráfego Pago (Meta/Google) |
-| `estrategista-marca` | Branding / Arquétipos |
-| `especialista-storytelling` | Narrativa / StoryBrand |
-| `especialista-conteudo` | E-books / Editorial |
-| `especialista-ofertas` | Criação de Ofertas |
-| `especialista-leads` | Geração de Leads |
-| `especialista-conversao` | Fechamento / SPIN |
-| `especialista-retencao` | Retenção / CS / Churn |
-| `gestor-loja-digital` | Loja Digital / Checkout |
-| `analista-financeiro` | Finanças / MRR / ARR |
-| `analista-receita` | Pricing / Unit Economics |
-| `analista-dados` | BI / Dashboards / SQL |
-| `monitor-sistema` | Monitoramento de Servidor |
-| `engenheiro-integracoes` | APIs / Webhooks |
-| `especialista-n8n` | Automações N8N |
-| `gestor-atendimento` | Suporte / SLA / Tickets |
-| `auditor-infraestrutura` | Auditoria de Infra |
-| `tecnico-limpeza` | Limpeza de Servidor |
-| `historiador` | Contexto / Memória de Projetos |
-| `conferente-entrega` | QA de Entregas |
-| `compliance-officer` | Compliance Técnico / LGPD |
-| `gerente-metodo-planejar` | Produto: Método Planejar |
-| `gerente-agrocredit` | Produto: AgroCredit |
-| `gerente-fiado-pro` | Produto: Fiado Pro |
-| `gerente-design-ux` | Design System / UX |
-| `gerente-infraestrutura` | Infraestrutura / VPS |
-| `gerente-integracoes` | Integrações / APIs Externas |
-| `pesquisador` | Research / Discovery |
-| `documentador` | Documentação Técnica |
-| `qa-lead` | QA Funcional |
-| `diretor-pessoas` | CHRO |
-
-</details>
-
----
-
-## 💻 Compatibilidade
-
-| IDE | Status | Como instalar |
-|-----|--------|---------------|
-| Claude Code | ✅ Disponível | `install.sh` ou `install.bat` |
-| Google Antigravity | ✅ Disponível | `install.sh --antigravity` |
-| VPS (SSH) | ✅ Disponível | `install.sh --vps` |
-| OpenAI Codex | ✅ Disponível | `install.sh` |
-| Cursor | ✅ Disponível | `install.sh` |
-
----
-
-## 📝 Changelog
-
-| Versão | Data | O que mudou |
-|--------|------|-------------|
-| **1.0.0.3** | 10/04/2026 | +1 agente `conselheiro-dev` (Opus), padrão Advisor Strategy em 6 agentes de tecnologia, instalador com flags `--vps` e `--antigravity` |
-| **1.0.0.2** | 05/04/2026 | +1 agente `analista-solucoes`, Metodologia PRD+SPEC integrada em 7 agentes, guards de desenvolvimento |
-| **1.0.0.1** | 03/04/2026 | +9 novos agentes, nomes em português hierárquico, plugin genérico, 2 gatilhos de ativação |
-| **1.0.0** | 02/04/2026 | Lançamento inicial com 38 agentes |
+- **Zero Hardcoded Data:** Todas as credenciais são injetadas via variáveis de ambiente (`.env`).
+- **White-Label:** Nenhuma informação pessoal ou caminhos locais de desenvolvimento estão presentes na base de agentes.
+- **RAG-First:** Os agentes priorizam a consulta da base de conhecimento local antes de realizar inferências.
 
 ---
 
 ## 📄 Licença
 
-MIT — Livre para usar, modificar e distribuir.
+Distribuído sob a licença MIT. Veja `LICENSE` para mais detalhes.
 
----
-
-*Feito com 🤖 por [JC Tecnologia](https://github.com/Jorgecavalcant) — Versão 1.0.0.3*
+*Gerado pela infraestrutura The Agentic Corporation — Versão 1.0.0.0*

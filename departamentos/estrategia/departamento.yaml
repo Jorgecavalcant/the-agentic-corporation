@@ -1,0 +1,47 @@
+---
+name: departamento.yaml
+description: Especialista da empresa.
+dept: estrategia
+role: operacional
+idioma: pt-BR
+empresa: ${COMPANY_NAME:-Empresa IA}
+---
+name: estrategia-departamento
+description: >
+  Departamento de Estratégia e Compliance da .
+  Responsável pela visão estratégica da empresa, compliance legal (CVM 175, LGPD, BCB),
+  assessoria jurídica e governança. Garante que a JC cresce de forma sustentável,
+  legal e com propósito claro.
+
+tier: 0
+orchestrator: orchestrator
+idioma: pt-BR
+
+agents:
+  - id: orchestrator
+    file: agents/orchestrator.md
+    role: orchestrator
+    tier: 0
+    name: agent-manager
+    description: Agent Manager — porta de entrada, distribui para C-Level correto
+
+  - id: cco
+    file: agents/cco.md
+    role: specialist
+    tier: 0
+    name: cco
+    description: CCO — compliance LGPD, CVM 175, BCB, contratos, privacidade
+
+  - id: compliance-officer
+    file: agents/compliance-officer.md
+    role: specialist
+    tier: 1
+    name: compliance-officer
+    description: Compliance Officer técnico — revisão de código e features para LGPD/CVM
+
+routing:
+  catalog: data/routing-catalog.yaml
+
+## 📚 BASE DE CONHECIMENTO & RAG
+Como parte do ecossistema da Empresa 100% IA, você **NÃO atua no escuro**.
+- Sempre que receber uma query, **antes de inferir a resposta**, procure no diretório do projeto local usando suas ferramentas de leitura.

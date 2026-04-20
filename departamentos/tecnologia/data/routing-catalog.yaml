@@ -1,0 +1,247 @@
+---
+name: routing-catalog.yaml
+description: Especialista da empresa.
+dept: tecnologia
+role: operacional
+idioma: pt-BR
+empresa: ${COMPANY_NAME:-Empresa IA}
+---
+departamento: empresa-ia-departamento
+description: Roteamento de demandas técnicas para o agente correto
+
+# Domínios de cada especialista
+domains:
+  orchestrator:
+    agent: orchestrator
+    keywords:
+      - arquitetura
+      - decisão técnica
+      - stack
+      - roadmap técnico
+      - incidente crítico
+      - qual tecnologia
+      - monorepo
+      - revisão geral
+      - planejamento de sprint
+      - trade-off técnico
+    examples:
+      - "Qual a melhor arquitetura para o novo módulo de relatórios?"
+      - "Como estruturar o monorepo dos 3 produtos?"
+      - "O sistema está lento em produção — o que fazer?"
+
+  dev-backend:
+    agent: dev-backend
+    keywords:
+      - api
+      - endpoint
+      - fastapi
+      - node
+      - worker
+      - bullmq
+      - autenticação
+      - jwt
+      - integração
+      - asaas
+      - webhook
+      - backend
+      - serviço
+      - lógica de negócio
+      - python
+      - middleware
+    examples:
+      - "Criar endpoint para listar transações do usuário"
+      - "Implementar worker de notificação de cobrança no Fiado Pro"
+      - "Integrar webhook do Asaas para confirmar pagamento"
+
+  dev-frontend:
+    agent: dev-frontend
+    keywords:
+      - nextjs
+      - next.js
+      - react
+      - componente
+      - tela
+      - interface
+      - ui
+      - dashboard
+      - formulário
+      - tailwind
+      - frontend
+      - página
+      - mobile
+      - responsivo
+      - visual
+    examples:
+      - "Criar dashboard de gastos para o Método Planejar"
+      - "Implementar tela de onboarding no Fiado Pro"
+      - "Corrigir layout quebrado no mobile"
+
+  dba:
+    agent: dba
+    keywords:
+      - banco de dados
+      - postgresql
+      - migration
+      - schema
+      - query
+      - índice
+      - lento
+      - pgvector
+      - embedding
+      - sql
+      - tabela
+      - coluna
+      - backup
+      - restore
+      - performance
+      - analyze
+    examples:
+      - "Criar migration para tabela de metas financeiras"
+      - "Otimizar query de relatório mensal (4s para < 200ms)"
+      - "Adicionar índice vetorial HNSW para busca semântica"
+
+  devops:
+    agent: devops
+    keywords:
+      - docker
+      - deploy
+      - container
+      - vps
+      - servidor
+      - caddy
+      - ssl
+      - domínio
+      - nginx
+      - ci/cd
+      - produção
+      - staging
+      - logs
+      - disco
+      - memória
+      - cpu
+      - unhealthy
+    examples:
+      - "Fazer deploy da nova versão do Método Planejar"
+      - "Configurar subdomínio para o AgroCredit"
+      - "Container do N8N ficou unhealthy — o que fazer?"
+
+  ia-engineer:
+    agent: ia-engineer
+    keywords:
+      - rag
+      - embedding
+      - pgvector
+      - prompt
+      - llm
+      - claude
+      - gpt
+      - gemini
+      - agente de ia
+      - RAG corporativo
+      - busca semântica
+      - indexação
+      - inteligência artificial
+      - chunk
+      - modelo
+    examples:
+      - "Melhorar a qualidade das respostas da câmara de finanças pessoais"
+      - "O agente está fugindo do DNA Executivo — revisar prompt"
+
+  especialista-seguranca:
+    agent: especialista-seguranca
+    keywords:
+      - segurança
+      - vulnerabilidade
+      - owasp
+      - lgpd
+      - cvm
+      - compliance
+      - brecha
+      - sql injection
+      - xss
+      - token
+      - credencial
+      - auditoria
+      - pentest
+      - dados sensíveis
+      - privacidade
+      - secrets
+    examples:
+      - "Revisar segurança do endpoint de login antes do deploy"
+      - "Auditoria LGPD do módulo de conexão bancária"
+      - "Encontrei uma chave API no código — o que fazer?"
+
+# Protocolos multi-agente (workflows pré-definidos)
+protocols:
+  nova_feature:
+    description: Feature nova completa — arquitetura até deploy
+    trigger_keywords:
+      - nova feature
+      - novo módulo
+      - implementar
+      - construir do zero
+    agents_sequence:
+      - orchestrator   # arquitetura
+      - parallel:
+          - dev-backend
+          - dev-frontend
+          - dba
+      - especialista-seguranca  # auditoria
+      - devops                  # deploy
+
+  correcao_bug_critico:
+    description: Bug em produção com impacto em usuários
+    trigger_keywords:
+      - bug em produção
+      - fora do ar
+      - erro 500
+      - usuários reclamando
+      - incidente
+    agents_sequence:
+      - orchestrator            # diagnóstico rápido
+      - dev-backend             # ou dev-frontend conforme diagnóstico
+      - especialista-seguranca  # verificar se é brecha de segurança
+      - devops                  # deploy da correção
+
+  auditoria_pre_lancamento:
+    description: Revisão completa antes de lançar produto ou feature
+    trigger_keywords:
+      - auditoria completa
+      - pré-lançamento
+      - antes de lançar
+      - checklist de lançamento
+    agents_parallel:
+      - especialista-seguranca  # OWASP + LGPD + CVM
+      - dba                     # performance e segurança do banco
+      - ia-engineer             # qualidade dos agentes de IA
+      - devops                  # infraestrutura e deploy
+
+  sprint_ia:
+    description: Desenvolvimento de nova feature de IA
+    trigger_keywords:
+      - feature de ia
+      - novo agente
+      - melhorar rag
+      - prompt
+    agents_sequence:
+      - orchestrator    # design da solução
+      - ia-engineer     # implementação
+      - dba             # banco vetorial
+      - especialista-seguranca  # compliance CVM/LGPD
+
+  diagnostico_performance:
+    description: Sistema lento ou com problemas de performance
+    trigger_keywords:
+      - lento
+      - performance
+      - timeout
+      - latência
+    agents_parallel:
+      - dba     # queries e índices
+      - devops  # recursos do servidor
+    agents_after:
+      - orchestrator  # síntese e plano de ação
+
+## 📚 BASE DE CONHECIMENTO & RAG
+Como parte do ecossistema da Empresa 100% IA, você **NÃO atua no escuro**.
+- Sempre que receber uma query, **antes de inferir a resposta**, procure no diretório do projeto local usando suas ferramentas de leitura.

@@ -1,16 +1,14 @@
-﻿#!/usr/bin/env bash
-# =============================================================================
-# JC Super Plugin — Instalador (Unix / macOS / Git Bash no Windows)
+# THE AGENTIC CORPORATION — Instalador (Unix / macOS)
 # =============================================================================
 # Uso:
 #   chmod +x install.sh
 #   ./install.sh                      # Instala localmente em ~/.claude/agents/
 #   ./install.sh --antigravity        # Instala em ~/.gemini/antigravity/agents/
-#   ./install.sh --vps                # Instala na VPS via SSH (jorge@46.224.55.18)
+#   ./install.sh --vps                # Instala na VPS via SSH (@)
 #   ./install.sh --vps --host user@ip # Instala em VPS customizada
 #
 # O que faz:
-#   Copia todos os agentes dos squads para o destino escolhido,
+#   Copia todos os agentes dos departamentos para o destino escolhido,
 #   usando o campo "name:" do frontmatter como nome do arquivo destino.
 # =============================================================================
 
@@ -32,9 +30,25 @@ strip_bom() {
   fi
 }
 
+# ── Carregar Configurações (.env) ──────────────────────────────────────────
+# Prioridade: .env na raiz do projeto ou .env na pasta do instalador
+ENV_FILE=""
+if [ -f "$PLUGIN_DIR/.env" ]; then
+  ENV_FILE="$PLUGIN_DIR/.env"
+elif [ -f "$SCRIPT_DIR/../.env" ]; then
+  ENV_FILE="$SCRIPT_DIR/../.env"
+fi
+
+if [ -n "$ENV_FILE" ]; then
+  set -a
+  source "$ENV_FILE"
+  set +a
+fi
+
 # ── Argumentos ─────────────────────────────────────────────────────────────
-TARGET_MODE="local"           # local | antigravity | vps
-VPS_HOST="jorge@46.224.55.18" # padrão da Tech 42
+TARGET_MODE="local"
+# VPS_HOST agora vem do .env ou via parâmetro --host
+VPS_HOST="${VPS_HOST:-user@vps_nao_configurada}"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -70,7 +84,7 @@ done
 # ── Caminhos ───────────────────────────────────────────────────────────────
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
-SQUADS_DIR="$PLUGIN_DIR/squads"
+DEPARTAMENTOS_DIR="$PLUGIN_DIR/departamentos"
 
 case "$TARGET_MODE" in
   local)
@@ -89,10 +103,10 @@ esac
 
 # ── Cabeçalho ──────────────────────────────────────────────────────────────
 echo ""
-echo -e "${CYAN}${BOLD}╔══════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${CYAN}${BOLD}║        JC SUPER PLUGIN — INSTALADOR v1.0.0.5             ║${RESET}"
-echo -e "${CYAN}${BOLD}║        github.com/jc-tecnologia/jc-super-plugin         ║${RESET}"
-echo -e "${CYAN}${BOLD}╚══════════════════════════════════════════════════════════╝${RESET}"
+echo -e "${CYAN}${BOLD}============================================================${RESET}"
+echo -e "${CYAN}${BOLD}      THE AGENTIC CORPORATION - INSTALADOR v1.0.0.0         ${RESET}"
+echo -e "${CYAN}${BOLD}      github.com/empresa-ia/the-agentic-corporation         ${RESET}"
+echo -e "${CYAN}${BOLD}============================================================${RESET}"
 echo ""
 echo -e "  Plugin:  ${BOLD}$PLUGIN_DIR${RESET}"
 echo -e "  Destino: ${BOLD}$DESTINO_LABEL${RESET}"
@@ -100,8 +114,8 @@ echo -e "  Modo:    ${BOLD}$TARGET_MODE${RESET}"
 echo ""
 
 # ── Verificações ───────────────────────────────────────────────────────────
-if [ ! -d "$SQUADS_DIR" ]; then
-  echo -e "${RED}ERRO: Pasta de squads não encontrada em $SQUADS_DIR${RESET}"
+if [ ! -d "$DEPARTAMENTOS_DIR" ]; then
+  echo -e "${RED}ERRO: Pasta de departamentos não encontrada em $DEPARTAMENTOS_DIR${RESET}"
   exit 1
 fi
 
@@ -143,7 +157,7 @@ if [ "$TARGET_MODE" = "vps" ]; then
   trap 'rm -rf "$TMP_STAGE"' EXIT
 fi
 
-for AGENT_FILE in "$SQUADS_DIR"/*/agents/*.md; do
+for AGENT_FILE in "$DEPARTAMENTOS_DIR"/*/agents/*.md; do
   [ -f "$AGENT_FILE" ] || continue
   TOTAL=$((TOTAL + 1))
 
@@ -213,7 +227,7 @@ if [ "$TOTAL_INSTALADOS" -gt 0 ]; then
   echo -e "   ${BOLD}$DESTINO_LABEL${RESET}"
   echo ""
   echo -e "  Para usar, inicie uma nova sessão do Claude Code e chame:"
-  echo -e "  ${CYAN}\"acionar jc-agent-manager\"${RESET}  ou  ${CYAN}\"/jc\"${RESET}"
+  echo -e "  ${CYAN}\"acionar agent-manager\"${RESET}  ou  ${CYAN}\"/jc\"${RESET}"
 else
   echo -e "${RED}Nenhum agente foi instalado. Verifique a estrutura do plugin.${RESET}"
   exit 1

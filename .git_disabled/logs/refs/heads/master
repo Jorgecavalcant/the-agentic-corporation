@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 521fc47fb146268b58bb40d818cf0f62f5eafbf1 Jorgecavalcant <jorgecavalcanteprofissional@gmail.com> 1775247574 -0300	commit (initial): feat: v1.0.0.1 — 59 agentes, nomes em português hierárquico, 9 novos
+521fc47fb146268b58bb40d818cf0f62f5eafbf1 8e31bb9491a7fda2efbe0a5eede5e2657c75513a Jorgecavalcant <jorgecavalcanteprofissional@gmail.com> 1775255446 -0300	commit: docs: adiciona README.md para exibição no GitHub
+8e31bb9491a7fda2efbe0a5eede5e2657c75513a 96c3c597f9370bbc584c0bb949b87fe48618fd74 Jorgecavalcant <jorgecavalcanteprofissional@gmail.com> 1775439182 -0300	commit: feat: v1.0.0.2 — Metodologia PRD+SPEC e agente analista-solucoes
+96c3c597f9370bbc584c0bb949b87fe48618fd74 7f86534473ed70c6f6f8eee47484e288f70aa6f4 Jorgecavalcant <jorgecavalcanteprofissional@gmail.com> 1775441797 -0300	commit: fix: versão 1.0.0.1 → 1.0.0.2 no rodapé do README
+7f86534473ed70c6f6f8eee47484e288f70aa6f4 4fd942e0f69a2f0de67295a97bc8eff8e5fd0316 Jorgecavalcant <jorgecavalcanteprofissional@gmail.com> 1775807690 -0300	commit: feat: v1.0.0.3 — padrão Advisor Strategy e instalador multi-alvo
+4fd942e0f69a2f0de67295a97bc8eff8e5fd0316 53206ca34ac4adbd506164563bfb2f27e6d50087 Jorgecavalcant <jorgecavalcanteprofissional@gmail.com> 1776034115 -0300	commit: docs: README atualizado para v1.0.0.3 — 65 agentes, Advisor Strategy, instalador multi-alvo

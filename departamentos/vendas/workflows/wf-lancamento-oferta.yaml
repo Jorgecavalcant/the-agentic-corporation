@@ -1,0 +1,69 @@
+---
+name: wf-lancamento-oferta.yaml
+description: Especialista da empresa.
+dept: vendas
+role: operacional
+idioma: pt-BR
+empresa: ${COMPANY_NAME:-Empresa IA}
+---
+name: wf-lancamento-oferta
+description: Workflow para criar e lançar uma nova oferta (promoção, novo plano, bundle)
+version: "1.0.0"
+
+trigger:
+  comando: "*vendas:oferta"
+  entradas_obrigatorias:
+    - produto
+    - objetivo_oferta  # aquisição, retenção, upsell, reativação
+
+steps:
+
+  - id: analise_base
+    agente: analista-receita
+    acao: "Analisar dados atuais para embasar a oferta"
+    entradas: [produto, objetivo_oferta]
+    saidas: [ltv_atual, cac_atual, churn_atual, ticket_medio, willingness_to_pay]
+    tipo: sequencial
+
+  - id: construcao_oferta
+    agente: especialista-ofertas
+    acao: "Construir oferta com value stack e pricing"
+    entradas: [produto, objetivo_oferta, analise_base]
+    saidas: [oferta_completa, value_stack, pricing, garantia, bonos]
+    tipo: sequencial
+    depende: [analise_base]
+
+  - id: estrategia_lancamento
+    tipo: paralelo
+    depende: [construcao_oferta]
+    steps:
+      - id: leads_oferta
+        agente: especialista-leads
+        acao: "Definir público-alvo e segmentação da oferta"
+        entradas: [oferta_completa, objetivo_oferta]
+        saidas: [publico_alvo, canais, lead_scoring_oferta]
+
+      - id: conversao_oferta
+        agente: especialista-conversao
+        acao: "Criar script e processo de conversão da oferta"
+        entradas: [oferta_completa, objetivo_oferta]
+        saidas: [script_oferta, objecoes_oferta, fechamento_oferta]
+
+  - id: revisao_final
+    agente: orchestrator
+    acao: "Revisar e aprovar pacote completo da oferta"
+    entradas: [todos os outputs anteriores]
+    saidas: [pacote_oferta_aprovado]
+    tipo: sequencial
+    depende: [estrategia_lancamento]
+    checklist: checklist-qualidade-vendas.md
+
+entregaveis:
+  - Oferta completa (produto + bônus + garantia + preço)
+  - Público-alvo e segmentação
+  - Script de vendas e tratamento de objeções
+  - Estimativa de impacto no MRR
+
+## 📚 BASE DE CONHECIMENTO & RAG
+Como parte do ecossistema da Empresa 100% IA, você **NÃO atua no escuro**.
+- Sempre que receber uma query, **antes de inferir a resposta**, procure no diretório do projeto local usando suas ferramentas de leitura.

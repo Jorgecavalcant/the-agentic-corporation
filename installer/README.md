@@ -1,10 +1,13 @@
-# Instalador — JC Super Plugin
+# Instalador — The Agentic Corporation
 
-Este instalador copia os agentes do plugin para `~/.claude/agents/`, tornando-os disponíveis em qualquer sessão do Claude Code.
+Este instalador gerencia os agentes do ecossistema inteligente, copiando-os de forma automática para `~/.claude/agents/` ou `~/.gemini/antigravity/agents/`.
 
 ---
 
 ## Como instalar
+
+### Pré-requisitos
+Certifique-se de ter configurado o seu arquivo `.env` na raiz do projeto ou na pasta do instalador, seguindo o modelo providenciado em `.env.example`.
 
 ### Windows (recomendado)
 
@@ -14,6 +17,8 @@ Ou pelo terminal:
 ```
 install.bat
 ```
+
+*(Se quiser testar a flag para antigravity ou vps, rode via terminal: `install.bat --antigravity`)*
 
 ### macOS / Linux / Git Bash
 
@@ -41,77 +46,31 @@ chmod +x uninstall.sh
 
 ## O que é instalado
 
-| Agente | Função |
-|--------|--------|
-| `jc-agent-manager` | Porta de entrada — distribui todas as demandas |
-| `jc-cco` | Compliance: LGPD, CVM 175, BCB, contratos |
-| `jc-compliance-officer` | Compliance técnico de código e features |
-| `jc-cfo` | Saúde financeira, MRR, precificação |
-| `jc-analista-financeiro` | MRR/ARR, churn, LTV/CAC, cohorts |
-| `jc-analista-receita` | Pricing, unit economics, modelos de receita |
-| `adv-tributarista` | Direito tributário, Simples Nacional |
-| `adv-digital-lgpd` | Direito digital e proteção de dados |
-| `adv-empresarial` | Contratos, societário, M&A |
-| `adv-regulatorio-fintech` | CVM 175, BACEN, regulação fintech |
-| `adv-trabalhista` | CLT, PJ, MEI, questões bancárias |
-| `adv-propriedade-intelectual` | Software, marca, patente, copyright |
-| `adv-consumidor-saas` | EULA, Termos de Uso, CDC |
-| `adv-analista-contratos` | Análise forense de contratos |
-| `adv-entretenimento-musical` | Entretenimento, música, procuração artística |
-| `jc-cmo` | Estratégia de marketing, conteúdo, SEO |
-| `gerente-marketing` | Brand management, campanhas |
-| `redator` | Copy, conteúdo, e-mails, landing pages |
-| `designer` | UI, visual, identidade de marca |
-| `gestor-trafego` | Meta Ads, Google Ads, ROI, funis |
-| `estrategista-marca` | Arquétipos, naming, posicionamento |
-| `especialista-storytelling` | Narrativa, casos de sucesso, roteiros |
-| `jc-coo` | Processos operacionais, SLAs, coordenação |
-| `jc-monitor` | Saúde da VPS, containers, alertas |
-| `jc-integrations-engineer` | Asaas, Meta, BCB, Open Banking, webhooks |
-| `jc-n8n-specialist` | Automações N8N, WhatsApp, backups |
-| `jc-chatbot-developer` | Chatwoot, câmaras de atendimento, fluxos |
-| `jc-chro` | Cultura, onboarding de agentes |
-| `jc-documentador` | Documentação técnica, wikis, changelogs |
-| `jc-qa-lead` | Validação de entregas, testes, pré-deploy |
-| `jc-cpo` | Roadmap dos produtos, priorização |
-| `jc-dir-metodo-planejar` | Método Planejar — features, IA, white-label |
-| `jc-dir-agrocredit` | AgroCredit — crédito rural, risco agrícola |
-| `jc-dir-fiado-pro` | Fiado Pro — Smart Credit Tracker |
-| `jc-pesquisador` | Discovery, benchmarks, análise de mercado |
-| `jc-cto` | Arquitetura técnica, decisões de engenharia |
-| `jc-dev-backend` | FastAPI, Node.js, APIs REST, autenticação |
-| `jc-dev-frontend` | Next.js 14, React, Tailwind, dashboards |
-| `jc-dba` | PostgreSQL 16, pgvector, migrations, queries |
-| `jc-devops` | Docker, Caddy, SSL, deploy, VPS Hetzner |
-| `jc-ia-engineer` | RAG, pgvector, embeddings, Claude, prompts |
-| `jc-especialista-seguranca` | OWASP, LGPD, CVM, pentest, auditoria |
-| `jc-dir-vendas` | Estratégia de receita, MRR, parceiros B2B |
-| `especialista-ofertas` | Ofertas, value stacks (Hormozi) |
-| `especialista-leads` | Geração e qualificação BANT de leads |
-| `especialista-conversao` | SPIN Selling, Challenger Sale, fechamento |
-| `especialista-retencao` | Churn, customer success, playbook |
-| `analista-receita` | MRR, ARR, pricing de vendas |
+A arquitetura atual (v2.0.0) reflete uma empresa corporativa completa contendo 96+ agentes organizados em 9 departamentos funcionais (Estratégia, Tecnologia, Marketing, Vendas/Negociação, Produto, Finanças, Pessoas, Operações, Jurídico).
 
-**Total: 38 agentes instalados**
+O **Manifesto Oficial** detalhado com cada agente pode ser encontrado no arquivo `manifest.json`.
+
+**Destacamos a porta de entrada:**
+- `agent-manager`: O Orquestrador Master capaz de triar, escalar e processar demandas usando a estratégia de Roteamento Dinâmico pelos Departamentos.
 
 ---
 
 ## Após a instalação
 
-Abra uma nova sessão do **Claude Code** e diga:
+Abra uma nova sessão do **Claude Code** (ou **Antigravity**) e diga:
 
 ```
-acionar jc-agent-manager
+acionar agent-manager
 ```
 
-O orquestrador central identificará sua demanda e acionará o agente correto automaticamente.
+Ou use o alias configurado no seu ambiente (ex: `/jc`).
+O orquestrador central identificará sua demanda e acionará o departamento e o agente corporativo correto de forma autônoma.
 
 ---
 
 ## Atualização
 
-Para atualizar os agentes após mudanças no plugin, basta rodar o instalador novamente.
-Os arquivos existentes serão sobrescritos com a versão mais recente.
+Para atualizar as instruções de todos os agentes após editar a base de conhecimento ou os prompts no modo White-Label, basta rodar o instalador novamente. Os arquivos existentes serão sobrescritos com segurança (e o BOM format será removido).
 
 ---
 
@@ -123,5 +82,5 @@ Os arquivos existentes serão sobrescritos com a versão mais recente.
 | `install.bat` | Instalador para Windows |
 | `uninstall.sh` | Desinstalador para macOS, Linux e Git Bash |
 | `uninstall.bat` | Desinstalador para Windows |
-| `manifest.json` | Manifesto completo do plugin com todos os agentes e squads |
-| `README.md` | Este arquivo |
+| `manifest.json` | Manifesto completo do plugin |
+| `README.md` | Este arquivo de instruções |

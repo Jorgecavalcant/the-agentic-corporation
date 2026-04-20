@@ -1,0 +1,51 @@
+departamento: financas-departamento
+description: Roteamento de demandas financeiras para o agente correto
+
+domains:
+  orchestrator:
+    agent: orchestrator
+    keywords:
+      - saúde financeira
+      - sustentabilidade
+      - break-even
+      - runway
+      - decisão financeira
+      - viabilidade
+      - relatório financeiro
+      - precificação estratégica
+    examples:
+      - "A empresa é financeiramente sustentável?"
+      - "Vale a pena contratar mais um desenvolvedor agora?"
+
+  analista-financeiro:
+    agent: analista-financeiro
+    keywords:
+      - mrr
+      - arr
+      - churn
+      - ltv
+      - cac
+      - cohort
+      - retenção
+      - métricas saas
+      - nrr
+      - burn rate
+      - projeção
+    examples:
+      - "Qual o MRR atual do Método Planejar?"
+      - "Calcular LTV/CAC do último trimestre"
+
+  analista-receita:
+    agent: analista-receita
+    keywords:
+      - pricing
+      - preço
+      - plano
+      - upgrade
+      - unit economics
+      - gross margin
+      - concorrente preço
+      - experimento de preço
+    examples:
+      - "Vale aumentar o preço do Essencial para R$39?"
+      - "Como estruturar os planos do AgroCredit?"

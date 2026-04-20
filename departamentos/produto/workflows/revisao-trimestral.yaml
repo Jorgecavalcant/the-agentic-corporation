@@ -1,0 +1,52 @@
+id: revisao-trimestral
+name: "Revisão Trimestral dos 3 Produtos"
+departamento: produto-dept
+description: >
+  Revisão trimestral em paralelo dos 3 produtos JC.
+  Analisa métricas, identifica problemas, atualiza roadmap e alinha com metas financeiras.
+
+trigger:
+  scheduled: "início de cada trimestre (Q1=Jan, Q2=Abr, Q3=Jul, Q4=Out)"
+
+steps:
+  - id: step-1-metricas-paralelo
+    name: "Análise de Métricas (Paralelo)"
+    parallel: true
+    steps:
+      - id: step-1a
+        agent: gestor-metodo-planejar
+        task: metricas-produto
+        produto: metodo-planejar
+
+      - id: step-1b
+        agent: gestor-agrocredit
+        task: metricas-produto
+        produto: agrocredit
+
+      - id: step-1c
+        agent: gestor-fiado-pro
+        task: metricas-produto
+        produto: fiado-pro
+
+  - id: step-2-roadmap
+    name: "Roadmap Trimestral Consolidado"
+    agent: orchestrator
+    task: roadmap-trimestral
+    input:
+      - metricas_metodo_planejar
+      - metricas_agrocredit
+      - metricas_fiado_pro
+    output: roadmap_trimestral
+
+  - id: step-3-alinhamento
+    name: "Alinhamento com CEO e CFO"
+    cross_departamento:
+      target_departamento: estrategia-dept
+      nota: "Apresentar roadmap ao agent-manager para validação com CEO"
+
+output:
+  - roadmap_trimestral_aprovado
+  - metas_por_produto
+  - dependencias_cross_departamento
+
+estimated_duration: "1-2 dias"

@@ -1,14 +1,12 @@
-#!/usr/bin/env bash
-# =============================================================================
-# JC Super Plugin — Desinstalador (Unix / macOS / Git Bash no Windows)
+# THE AGENTIC CORPORATION — Desinstalador (Unix / macOS)
 # =============================================================================
 # Uso:
 #   chmod +x uninstall.sh
 #   ./uninstall.sh
 #
 # O que faz:
-#   Remove todos os agentes do plugin de ~/.claude/agents/
-#   lendo os nomes via campo "name:" do frontmatter de cada agente.
+#   Remove todos os agentes de ~/.claude/agents/
+#   lendo os nomes via campo "name:" do frontmatter de cada agente corporativo.
 # =============================================================================
 
 set -euo pipefail
@@ -24,13 +22,13 @@ RESET='\033[0m'
 # ── Caminhos ───────────────────────────────────────────────────────────────
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
-SQUADS_DIR="$PLUGIN_DIR/squads"
+DEPARTAMENTOS_DIR="$PLUGIN_DIR/departamentos"
 TARGET_DIR="$HOME/.claude/agents"
 
 # ── Cabeçalho ──────────────────────────────────────────────────────────────
 echo ""
 echo -e "${RED}${BOLD}╔══════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${RED}${BOLD}║        JC SUPER PLUGIN — DESINSTALADOR v1.0.0            ║${RESET}"
+echo -e "${RED}${BOLD}║      THE AGENTIC CORPORATION — DESINSTALADOR v2.0.0      ║${RESET}"
 echo -e "${RED}${BOLD}╚══════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 echo -e "  Plugin:  ${BOLD}$PLUGIN_DIR${RESET}"
@@ -38,8 +36,8 @@ echo -e "  Destino: ${BOLD}$TARGET_DIR${RESET}"
 echo ""
 
 # ── Verificações ───────────────────────────────────────────────────────────
-if [ ! -d "$SQUADS_DIR" ]; then
-  echo -e "${RED}ERRO: Pasta de squads não encontrada em $SQUADS_DIR${RESET}"
+if [ ! -d "$DEPARTAMENTOS_DIR" ]; then
+  echo -e "${RED}ERRO: Pasta de departamentos não encontrada em $DEPARTAMENTOS_DIR${RESET}"
   exit 1
 fi
 
@@ -49,7 +47,7 @@ if [ ! -d "$TARGET_DIR" ]; then
 fi
 
 # ── Confirmação ────────────────────────────────────────────────────────────
-echo -e "${YELLOW}${BOLD}ATENÇÃO: Esta operação removerá todos os agentes JC de ~/.claude/agents/${RESET}"
+echo -e "${YELLOW}${BOLD}ATENÇÃO: Esta operação removerá todos os agentes corporativos de ~/.claude/agents/${RESET}"
 echo ""
 read -r -p "Deseja continuar? [s/N] " CONFIRM
 if [[ ! "$CONFIRM" =~ ^[sS]$ ]]; then
@@ -67,7 +65,7 @@ TOTAL=0
 REMOVIDOS=0
 NAO_ENCONTRADOS=0
 
-for AGENT_FILE in "$SQUADS_DIR"/*/agents/*.md; do
+for AGENT_FILE in "$DEPARTAMENTOS_DIR"/*/agents/*.md; do
   [ -f "$AGENT_FILE" ] || continue
   TOTAL=$((TOTAL + 1))
 
@@ -100,7 +98,7 @@ echo ""
 if [ "$REMOVIDOS" -gt 0 ]; then
   echo -e "${GREEN}${BOLD}✅ Desinstalação concluída! $REMOVIDOS agente(s) removido(s).${RESET}"
 else
-  echo -e "${YELLOW}Nenhum agente JC encontrado para remover.${RESET}"
+  echo -e "${YELLOW}Nenhum agente corporativo encontrado para remover.${RESET}"
 fi
 
 echo ""

@@ -1,0 +1,61 @@
+---
+name: departamento.yaml
+description: Especialista da empresa.
+dept: operacoes
+role: operacional
+idioma: pt-BR
+empresa: ${COMPANY_NAME:-Empresa IA}
+---
+name: operacoes-departamento
+description: >
+  Departamento de Operações da .
+  Responsável por processos operacionais, infraestrutura, monitoramento, integrações
+  externas e garantia de qualidade de entrega. Garante que os produtos funcionam
+  continuamente e que os processos da empresa operam com eficiência.
+
+tier: 0
+orchestrator: orchestrator
+idioma: pt-BR
+
+agents:
+  - id: orchestrator
+    file: agents/orchestrator.md
+    role: orchestrator
+    tier: 0
+    name: coo
+    description: COO — processos operacionais, SLAs, coordenação entre departamentos
+
+  - id: monitor
+    file: agents/monitor.md
+    role: specialist
+    tier: 1
+    name: monitor
+    description: Monitor — saúde VPS, containers, alertas, diagnóstico em tempo real
+
+  - id: integrations-engineer
+    file: agents/integrations-engineer.md
+    role: specialist
+    tier: 1
+    name: integrations-engineer
+    description: Engenheiro de Integrações — Asaas, Meta/WhatsApp, BCB, Open Banking, webhooks
+
+  - id: n8n-specialist
+    file: agents/n8n-specialist.md
+    role: specialist
+    tier: 1
+    name: n8n-specialist
+    description: Especialista N8N — workflows de automação, fluxos WhatsApp, backups, notificações
+
+  - id: chatbot-developer
+    file: agents/chatbot-developer.md
+    role: specialist
+    tier: 1
+    name: chatbot-developer
+    description: Desenvolvedor Chatbot — fluxos conversacionais, câmaras Chatwoot, prompts de bot
+
+routing:
+  catalog: data/routing-catalog.yaml
+
+## 📚 BASE DE CONHECIMENTO & RAG
+Como parte do ecossistema da Empresa 100% IA, você **NÃO atua no escuro**.
+- Sempre que receber uma query, **antes de inferir a resposta**, procure no diretório do projeto local usando suas ferramentas de leitura.

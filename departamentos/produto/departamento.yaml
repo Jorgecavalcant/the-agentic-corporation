@@ -1,0 +1,108 @@
+---
+name: departamento.yaml
+description: Especialista da empresa.
+dept: produto
+role: operacional
+idioma: pt-BR
+empresa: ${COMPANY_NAME:-Empresa IA}
+---
+name: produto-departamento
+description: >
+  Departamento de Produto da .
+  Responsável pelo roadmap, priorização, pesquisa de usuário e estratégia dos 3 produtos.
+  Domínios: product management, UX research, discovery, métricas de produto, product-market fit.
+  Produtos: Método Planejar, AgroCredit, Fiado Pro.
+
+tier: 0
+orchestrator: orchestrator
+idioma: pt-BR
+
+agents:
+  - id: orchestrator
+    file: agents/orchestrator.md
+    role: orchestrator
+    tier: 0
+    name: cpo
+    description: CPO — roadmap dos 3 produtos, priorização, estratégia de produto
+
+  - id: gestor-metodo-planejar
+    file: agents/gestor-metodo-planejar.md
+    role: specialist
+    tier: 1
+    name: dir-metodo-planejar
+    description: Diretor Método Planejar — features, agentes de IA, white-label, N8N
+
+  - id: gestor-agrocredit
+    file: agents/gestor-agrocredit.md
+    role: specialist
+    tier: 1
+    name: dir-agrocredit
+    description: Diretor AgroCredit — crédito rural, análise de risco, features agrícolas
+
+  - id: gestor-fiado-pro
+    file: agents/gestor-fiado-pro.md
+    role: specialist
+    tier: 1
+    name: dir-fiado-pro
+    description: Diretor Fiado Pro — Smart Credit Tracker, lojistas, cobranças
+
+  - id: pesquisador
+    file: agents/pesquisador.md
+    role: specialist
+    tier: 1
+    name: pesquisador
+    description: Pesquisador — discovery, benchmarks, tendências, análise de concorrentes
+
+tasks:
+  - id: priorizar-backlog
+    file: tasks/priorizar-backlog.md
+    description: Priorizar features do backlog com critérios de impacto e esforço
+
+  - id: discovery-feature
+    file: tasks/discovery-feature.md
+    description: Discovery completo de nova feature (problema, solução, validação)
+
+  - id: roadmap-trimestral
+    file: tasks/roadmap-trimestral.md
+    description: Construir ou atualizar roadmap trimestral de um produto
+
+  - id: pesquisa-mercado
+    file: tasks/pesquisa-mercado.md
+    description: Pesquisa de mercado, concorrentes ou tendências
+
+  - id: metricas-produto
+    file: tasks/metricas-produto.md
+    description: Análise de métricas de produto (ativação, retenção, churn)
+
+workflows:
+  - id: lancamento-feature
+    file: workflows/lancamento-feature.yaml
+    description: Da ideia ao lançamento — discovery, spec, roadmap, métricas
+    steps:
+      - agent: pesquisador
+        task: pesquisa-mercado
+      - agent: orchestrator
+        task: discovery-feature
+      - agent: gestor-[produto]
+        task: priorizar-backlog
+
+  - id: revisao-trimestral
+    file: workflows/revisao-trimestral.yaml
+    description: Revisão trimestral dos 3 produtos em paralelo
+    steps:
+      - parallel:
+          - agent: gestor-metodo-planejar
+            task: metricas-produto
+          - agent: gestor-agrocredit
+            task: metricas-produto
+          - agent: gestor-fiado-pro
+            task: metricas-produto
+      - agent: orchestrator
+        task: roadmap-trimestral
+
+routing:
+  catalog: data/routing-catalog.yaml
+
+## 📚 BASE DE CONHECIMENTO & RAG
+Como parte do ecossistema da Empresa 100% IA, você **NÃO atua no escuro**.
+- Sempre que receber uma query, **antes de inferir a resposta**, procure no diretório do projeto local usando suas ferramentas de leitura.

@@ -1,4 +1,12 @@
-﻿# 🚀 JC Super Plugin
+---
+name: PLUGIN
+description: Especialista da empresa.
+dept: indefinido
+role: operacional
+idioma: pt-BR
+empresa: ${COMPANY_NAME:-Empresa IA}
+---
+# 🚀 JC Super Plugin
 
 **Uma empresa virtual de IA — onde cada agente é um profissional de verdade.**
 
@@ -17,7 +25,7 @@ O **JC Super Plugin** é um sistema de agentes de IA que funciona como uma empre
 | Indicador | Quantidade |
 |-----------|-----------|
 | Agentes de negócio (funcionários de IA) | **72** |
-| Squads (equipes) | **9** |
+| Departamentos (equipes) | **9** |
 | Departamentos | **10** |
 | IDEs suportadas | **5** |
 | Versão | **1.0.0.4** |
@@ -28,7 +36,7 @@ O **JC Super Plugin** é um sistema de agentes de IA que funciona como uma empre
 
 ### Comando 1 — texto direto
 ```
-acionar jc-agent-manager
+acionar agent-manager
 ```
 
 ### Comando 2 — slash command
@@ -36,22 +44,22 @@ acionar jc-agent-manager
 /jc
 ```
 
-Ambos os comandos ativam o **Orquestrador Master** (jc-agent-manager), que distribui o trabalho para o agente certo.
+Ambos os comandos ativam o **Orquestrador Master** (agent-manager), que distribui o trabalho para o agente certo.
 
 ---
 
 ## Exemplos de uso
 
 ```
-acionar jc-agent-manager — preciso de uma estratégia de lançamento de produto
+acionar agent-manager — preciso de uma estratégia de lançamento de produto
 
 /jc — analise a estrutura fiscal da empresa e sugira otimizações
 
-acionar jc-agent-manager — crie uma campanha completa de Instagram
+acionar agent-manager — crie uma campanha completa de Instagram
 
 /jc — revise o código do endpoint de pagamentos por segurança
 
-acionar jc-agent-manager — quero criar um e-book para vender no meu site
+acionar agent-manager — quero criar um e-book para vender no meu site
 ```
 
 ---
@@ -63,7 +71,7 @@ acionar jc-agent-manager — quero criar um e-book para vender no meu site
 chmod +x installer/install.sh
 ./installer/install.sh                    # local (~/.claude/agents/)
 ./installer/install.sh --antigravity      # Antigravity (~/.gemini/antigravity/agents/)
-./installer/install.sh --vps              # VPS da JC via SSH (jorge@46.224.55.18)
+./installer/install.sh --vps              # VPS da JC via SSH (@)
 ./installer/install.sh --vps --host X     # VPS customizada
 ```
 
@@ -76,24 +84,24 @@ installer\install.bat --antigravity       :: Antigravity
 
 ### Claude Code (via npx — em breve)
 ```bash
-npx jc-super-plugin init
+npx the-agentic-corporation init
 ```
 
 ---
 
-## Squads disponíveis
+## Departamentos disponíveis
 
-| Squad | Responsável | O que faz |
+| Departamento | Responsável | O que faz |
 |-------|-------------|-----------|
-| `jc-tecnologia-squad` | diretor-tecnologia | Desenvolvimento, DevOps, IA, Segurança |
-| `jc-marketing-squad` | diretor-marketing | Marketing, Copy, Design, Tráfego, Branding, Conteúdo |
-| `jc-vendas-squad` | diretor-vendas | Ofertas, Leads, Fechamento, Retenção, Loja Digital |
-| `jc-produto-squad` | diretor-produto | Roadmap, Features, Pesquisa de mercado |
-| `jc-financas-squad` | diretor-financeiro | Financeiro, Métricas SaaS, Analytics, BI |
-| `jc-operacoes-squad` | diretor-operacoes | Infraestrutura, Integrações, Monitoramento, Atendimento |
-| `jc-juridico-squad` | diretor-juridico | 9 advogados especializados: tributário, trabalhista, empresarial, LGPD, PI, FinTech, entretenimento, contratos, consumidor |
-| `jc-pessoas-squad` | diretor-pessoas | Cultura, Documentação, QA |
-| `jc-estrategia-squad` | jc-agent-manager | Orquestração central, compliance |
+| `empresa-ia-departamento` | diretor-tecnologia | Desenvolvimento, DevOps, IA, Segurança |
+| `marketing-departamento` | diretor-marketing | Marketing, Copy, Design, Tráfego, Branding, Conteúdo |
+| `vendas-departamento` | diretor-vendas | Ofertas, Leads, Fechamento, Retenção, Loja Digital |
+| `produto-departamento` | diretor-produto | Roadmap, Features, Pesquisa de mercado |
+| `financas-departamento` | diretor-financeiro | Financeiro, Métricas SaaS, Analytics, BI |
+| `operacoes-departamento` | diretor-operacoes | Infraestrutura, Integrações, Monitoramento, Atendimento |
+| `juridico-departamento` | diretor-juridico | 9 advogados especializados: tributário, trabalhista, empresarial, LGPD, PI, FinTech, entretenimento, contratos, consumidor |
+| `pessoas-departamento` | diretor-pessoas | Cultura, Documentação, QA |
+| `estrategia-departamento` | agent-manager | Orquestração central, compliance |
 
 ---
 
@@ -101,7 +109,7 @@ npx jc-super-plugin init
 
 | Nome do arquivo instalado | Cargo |
 |---------------------------|-------|
-| `jc-agent-manager` | Orquestrador Master |
+| `agent-manager` | Orquestrador Master |
 | `diretor-tecnologia` | CTO |
 | `diretor-operacoes` | COO |
 | `diretor-marketing` | CMO |
@@ -182,9 +190,9 @@ npx jc-super-plugin init
 ```
 CEO (humano)
      ↓
-acionar jc-agent-manager  OU  /jc
+acionar agent-manager  OU  /jc
      ↓
-jc-agent-manager (Orquestrador Master)
+agent-manager (Orquestrador Master)
      ↓
 C-Level (8): diretor-tecnologia, diretor-operacoes, diretor-marketing,
              diretor-financeiro, diretor-produto, diretor-pessoas,
@@ -203,7 +211,7 @@ Especialistas (48): todos os demais
 
 | Versão | Data | O que mudou |
 |--------|------|-------------|
-| 1.0.0.4 | 18/04/2026 | +7 agentes formando o sub-squad de Negociação (diretor-negociacao, estrategista-preparacao, coach-negociacao-live, especialista-objecoes, analista-contraparte, redator-propostas-nego, analista-pos-negociacao). Assistência AO VIVO em viva-voz. Doutrina Chris Voss + Harvard + Diamond + Cialdini + Camp + Ury |
+| 1.0.0.4 | 18/04/2026 | +7 agentes formando o sub-departamento de Negociação (diretor-negociacao, estrategista-preparacao, coach-negociacao-live, especialista-objecoes, analista-contraparte, redator-propostas-nego, analista-pos-negociacao). Assistência AO VIVO em viva-voz. Doutrina Chris Voss + Harvard + Diamond + Cialdini + Camp + Ury |
 | 1.0.0.3 | 10/04/2026 | +1 agente conselheiro-dev (Opus), padrão Advisor Strategy integrado em 6 agentes de tecnologia, instalador com flags --vps e --antigravity |
 | 1.0.0.2 | 05/04/2026 | +1 agente analista-solucoes, Metodologia PRD+SPEC integrada em 7 agentes, guards de desenvolvimento |
 | 1.0.0.1 | 03/04/2026 | +9 novos agentes, renomeação para português hierárquico, plugin genérico, 2 gatilhos de ativação |
@@ -218,8 +226,8 @@ Especialistas (48): todos os demais
 | Versão | **1.0.0.4** |
 | Licença | MIT |
 | Atualizado | 2026-04-18 |
-| Autor | Jorge Cavalcante — Tech 42 LTDA |
-| GitHub | github.com/jc-tecnologia/jc-super-plugin |
+| Autor |  — ${COMPANY_NAME:-Empresa IA} |
+| GitHub | github.com/empresa-ia/the-agentic-corporation |
 | Idioma | Português do Brasil (pt-BR) |
 
 ---
@@ -228,3 +236,7 @@ Especialistas (48): todos os demais
 
 - [Blueprint completo](docs/BLUEPRINT.md) — Mapeamento de todos os agentes
 - [Instalador](installer/README.md) — Como instalar em cada IDE
+
+## 📚 BASE DE CONHECIMENTO & RAG
+Como parte do ecossistema da Empresa 100% IA, você **NÃO atua no escuro**.
+- Sempre que receber uma query, **antes de inferir a resposta**, procure no diretório do projeto local usando suas ferramentas de leitura.

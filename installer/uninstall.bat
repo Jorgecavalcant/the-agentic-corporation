@@ -1,6 +1,6 @@
 @echo off
 :: =============================================================================
-:: JC Super Plugin — Desinstalador (Windows)
+:: THE AGENTIC CORPORATION — Desinstalador (Windows)
 :: =============================================================================
 :: Uso: Duplo clique em uninstall.bat  OU  execute pelo terminal
 ::
@@ -13,20 +13,20 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "$ErrorActionPreference = 'Stop';" ^
 "$installerDir = Split-Path -Parent '%~f0';" ^
 "$pluginDir = Split-Path -Parent $installerDir;" ^
-"$squadsDir = Join-Path $pluginDir 'squads';" ^
+"$departamentosDir = Join-Path $pluginDir 'departamentos';" ^
 "$targetDir = Join-Path $env:USERPROFILE '.claude\agents';" ^
 "" ^
 "Write-Host '';" ^
 "Write-Host '╔══════════════════════════════════════════════════════════╗' -ForegroundColor Red;" ^
-"Write-Host '║        JC SUPER PLUGIN — DESINSTALADOR v1.0.0            ║' -ForegroundColor Red;" ^
+"Write-Host '║      THE AGENTIC CORPORATION — DESINSTALADOR v2.0.0      ║' -ForegroundColor Red;" ^
 "Write-Host '╚══════════════════════════════════════════════════════════╝' -ForegroundColor Red;" ^
 "Write-Host '';" ^
 "Write-Host \"  Plugin:  $pluginDir\";" ^
 "Write-Host \"  Destino: $targetDir\";" ^
 "Write-Host '';" ^
 "" ^
-"if (-not (Test-Path $squadsDir)) {" ^
-"  Write-Host \"ERRO: Pasta de squads nao encontrada em $squadsDir\" -ForegroundColor Red;" ^
+"if (-not (Test-Path $departamentosDir)) {" ^
+"  Write-Host \"ERRO: Pasta de departamentos nao encontrada em $departamentosDir\" -ForegroundColor Red;" ^
 "  exit 1;" ^
 "}" ^
 "" ^
@@ -35,7 +35,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "  exit 0;" ^
 "}" ^
 "" ^
-"Write-Host 'ATENCAO: Esta operacao remover todos os agentes JC de ~/.claude/agents/' -ForegroundColor Yellow;" ^
+"Write-Host 'ATENCAO: Esta operacao remover todos os agentes corporativos de ~/.claude/agents/' -ForegroundColor Yellow;" ^
 "Write-Host '';" ^
 "$confirm = Read-Host 'Deseja continuar? [s/N]';" ^
 "if ($confirm -notmatch '^[sS]$') {" ^
@@ -48,7 +48,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "Write-Host '';" ^
 "" ^
 "$total = 0; $removidos = 0; $naoEncontrados = 0;" ^
-"$agentFiles = Get-ChildItem -Path $squadsDir -Recurse -Filter '*.md' | Where-Object { $_.DirectoryName -like '*\agents' };" ^
+"$agentFiles = Get-ChildItem -Path $departamentosDir -Recurse -Filter '*.md' | Where-Object { $_.DirectoryName -like '*\agents' };" ^
 "" ^
 "foreach ($file in $agentFiles) {" ^
 "  $total++;" ^
@@ -76,7 +76,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "if ($removidos -gt 0) {" ^
 "  Write-Host \"✅ Desinstalacao concluida! $removidos agente(s) removido(s).\" -ForegroundColor Green;" ^
 "} else {" ^
-"  Write-Host 'Nenhum agente JC encontrado para remover.' -ForegroundColor Yellow;" ^
+"  Write-Host 'Nenhum agente corporativo encontrado para remover.' -ForegroundColor Yellow;" ^
 "}" ^
 "Write-Host '';"
 

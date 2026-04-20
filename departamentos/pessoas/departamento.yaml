@@ -1,0 +1,47 @@
+---
+name: departamento.yaml
+description: Especialista da empresa.
+dept: pessoas
+role: operacional
+idioma: pt-BR
+empresa: ${COMPANY_NAME:-Empresa IA}
+---
+name: pessoas-departamento
+description: >
+  Departamento de Pessoas e Cultura da .
+  Responsável pela gestão dos agentes de IA como "colaboradores", onboarding de novos
+  agentes, cultura da empresa, propósito estratégico e alinhamento de valores.
+  A JC tem agentes como equipe — este departamento garante que funcionam com excelência e propósito.
+
+tier: 0
+orchestrator: orchestrator
+idioma: pt-BR
+
+agents:
+  - id: orchestrator
+    file: agents/orchestrator.md
+    role: orchestrator
+    tier: 0
+    name: chro
+    description: CHRO — gestão dos agentes como colaboradores, cultura, onboarding
+
+  - id: documentador
+    file: agents/documentador.md
+    role: specialist
+    tier: 1
+    name: documentador
+    description: Documentador — documentação técnica, wikis, changelogs, guias de uso
+
+  - id: qa-lead
+    file: agents/qa-lead.md
+    role: specialist
+    tier: 1
+    name: qa-lead
+    description: QA Lead — validação de entregas, casos de teste, checklist pré-deploy, revisão de código
+
+routing:
+  catalog: data/routing-catalog.yaml
+
+## 📚 BASE DE CONHECIMENTO & RAG
+Como parte do ecossistema da Empresa 100% IA, você **NÃO atua no escuro**.
+- Sempre que receber uma query, **antes de inferir a resposta**, procure no diretório do projeto local usando suas ferramentas de leitura.

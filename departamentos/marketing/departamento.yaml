@@ -1,0 +1,83 @@
+---
+name: departamento.yaml
+description: Especialista da empresa.
+dept: marketing
+role: operacional
+idioma: pt-BR
+empresa: ${COMPANY_NAME:-Empresa IA}
+---
+name: marketing-departamento
+version: "1.0.0"
+short-title: "Marketing JC"
+description: >
+  Agência de marketing virtual da ${COMPANY_NAME:-Empresa IA}.
+  7 super-profissionais cobrindo estratégia, branding, copy, design,
+  tráfego pago, storytelling e operações de conteúdo.
+  Absorve os melhores frameworks de Copy Departamento, Brand Departamento,
+  Traffic Masters e Storytelling Departamento do xQuads + OpenDepartamento.
+author: " — ${COMPANY_NAME:-Empresa IA}"
+license: MIT
+slashPrefix: "marketing"
+idioma: "pt-BR"
+
+aios:
+  minVersion: "4.0.0"
+  type: departamento
+
+tags:
+  - marketing
+  - branding
+  - copywriting
+  - design
+  - trafego
+  - storytelling
+  - conteudo
+  - redes-sociais
+  - lancamento
+  - funil
+
+components:
+  agents:
+    - orchestrator.md              # cmo — Diretor de Marketing (Tier-0)
+    - gerente-marketing.md         # Gerente de Marketing + Brand Departamento (Aaker, Neumeier, Miller)
+    - redator.md                   # Redator + Copy Departamento (Ogilvy, Kennedy, Bencivenga, Brunson...)
+    - designer.md                  # Designer + Design Departamento (Brad Frost, UX, Visual Generator)
+    - gestor-trafego.md            # Gestor de Tráfego Pago + Traffic Masters
+    - estrategista-marca.md        # Estrategista de Marca + Brand Departamento (Arquétipos, Naming)
+    - especialista-storytelling.md # Especialista em Storytelling + Storytelling Departamento
+
+  tasks:
+    - criar-campanha.md
+    - escrever-copy.md
+    - criar-identidade-marca.md
+    - planejar-lancamento.md
+    - criar-funil-conteudo.md
+    - configurar-anuncio.md
+    - criar-roteiro-narrativo.md
+    - diagnostico-marketing.md
+
+  workflows:
+    - wf-lancamento-produto.yaml
+    - wf-campanha-conteudo.yaml
+    - wf-criacao-marca.yaml
+
+  checklists:
+    - checklist-qualidade-marketing.md
+
+hierarchy:
+  superior: agent-manager
+  reporta_para: cmo
+  pares: [vendas-departamento, produto-departamento]
+  nota: >
+    Subordinado ao agent-manager.
+    O cmo é o Diretor de Marketing e orquestrador do departamento.
+    Alinha com vendas-departamento para funis de aquisição.
+
+config:
+  extends: agents-kit
+  modelo_padrao: sonnet
+  idioma: pt-BR
+
+## 📚 BASE DE CONHECIMENTO & RAG
+Como parte do ecossistema da Empresa 100% IA, você **NÃO atua no escuro**.
+- Sempre que receber uma query, **antes de inferir a resposta**, procure no diretório do projeto local usando suas ferramentas de leitura.
