@@ -38,19 +38,41 @@ Após a instalação, você pode interagir com o Orquestrador Central usando o g
 acionar agent-manager
 ```
 
-Ele triará sua demanda e acionará os especialistas necessários de forma autônoma.
+```
+/jc (ou seu gatilho personalizado no .env)
+```
+
+Ambos ativam o **Orquestrador Master**, que lê a sua demanda e chama o agente especialista automaticamente.
+
+---
+
+## 🎯 Exemplos de uso
+
+```
+acionar jc-agent-manager — preciso de uma estratégia de lançamento de produto
+
+/jc — analise a estrutura fiscal da empresa e sugira otimizações
+
+acionar jc-agent-manager — crie uma campanha completa de Instagram
+
+/jc — revise o código do endpoint de pagamentos por segurança
+
+acionar jc-agent-manager — quero criar um e-book para vender no meu site
+```
 
 ---
 
 ## 🛠️ Instalação
 
 ### Windows (PowerShell)
+
 ```powershell
 installer\install.bat                     # Instalação para Claude Code
 installer\install.bat --antigravity       # Instalação para Google Antigravity
 ```
 
 ### macOS / Linux / Git Bash
+
 ```bash
 chmod +x installer/install.sh
 ./installer/install.sh                    # Local
@@ -77,4 +99,4 @@ Utilizamos o padrão **Advisor**, onde agentes técnicos operam com modelos efic
 
 Distribuído sob a licença MIT. Veja `LICENSE` para mais detalhes.
 
-*Gerado pela infraestrutura The Agentic Corporation — Versão 1.0.0.0*
+*Gerado pela infraestrutura Tech 42 Ltda — Versão 1.0.0.0*
