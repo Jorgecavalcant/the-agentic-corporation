@@ -96,7 +96,23 @@ foreach ($file in $agentFiles) {
         $color = "Green"
     }
     
-    Copy-Item $file.FullName $dest -Force
+    $fileContent = Get-Content $file.FullName -Raw -Encoding UTF8
+    
+    # Injeção de Identidade: Substituir ${VAR} ou ${VAR:-Default} pelos valores do .env
+    $envVars = [System.Collections.IDictionary]([Environment]::GetEnvironmentVariables("Process"))
+    foreach ($key in $envVars.Keys) {
+        if ($key -match "^(COMPANY_NAME|CEO_NAME|VPS_HOST|ORCHESTRATOR_TRIGGER)$") {
+            $val = $envVars[$key]
+            # Replace pattern ${VAR} and ${VAR:-Default}
+            $pattern = '\$\{' + $key + '(?::-[^}]*)?\}'
+            $fileContent = [regex]::Replace($fileContent, $pattern, $val)
+        }
+    }
+
+    # Salva o conteúdo processado (com os dados reais) no destino
+    [IO.File]::WriteAllText($dest, $fileContent, (New-Object System.Text.UTF8Encoding($false)))
+
+    # Remove BOM se presente (via bytes para garantir limpeza total)
     $raw = [IO.File]::ReadAllBytes($dest)
     if ($raw.Count -ge 3 -and $raw[0] -eq 239 -and $raw[1] -eq 187 -and $raw[2] -eq 191) {
         $newLen = $raw.Count - 3

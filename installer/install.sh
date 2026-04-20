@@ -22,12 +22,32 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
-# ── Strip de BOM (UTF-8 EF BB BF) ──────────────────────────────────────────
-strip_bom() {
+# ── Strip de BOM e Injeção de Identidade ──────────────────────────────────
+strip_bom_and_inject() {
   local file="$1"
+  # Strip BOM
   if [ "$(head -c 3 "$file" | od -An -tx1 | tr -d ' \n')" = "efbbbf" ]; then
-    tail -c +4 "$file" > "${file}.nobom" && mv "${file}.nobom" "$file"
+    tail -c +4 "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
   fi
+
+  # Injeção de Identidade (Substituir ${VAR} ou ${VAR:-Default})
+  # Usamos sed para trocar os placeholders pelos valores do .env carregado
+  local company="${COMPANY_NAME:-Empresa IA}"
+  local ceo="${CEO_NAME:-CEO}"
+  local vps="${VPS_HOST:-user@ip}"
+  local trigger="${ORCHESTRATOR_TRIGGER:-agent-manager}"
+
+  # Escapar barras para o sed
+  company=$(echo "$company" | sed 's/\//\\\//g')
+  ceo=$(echo "$ceo" | sed 's/\//\\\//g')
+  vps=$(echo "$vps" | sed 's/\//\\\//g')
+  trigger=$(echo "$trigger" | sed 's/\//\\\//g')
+
+  # Substituição global em cada arquivo
+  sed -i "s/\${COMPANY_NAME\(:-[^}]*\)\?}/$company/g" "$file"
+  sed -i "s/\${CEO_NAME\(:-[^}]*\)\?}/$ceo/g" "$file"
+  sed -i "s/\${VPS_HOST\(:-[^}]*\)\?}/$vps/g" "$file"
+  sed -i "s/\${ORCHESTRATOR_TRIGGER\(:-[^}]*\)\?}/$trigger/g" "$file"
 }
 
 # ── Carregar Configurações (.env) ──────────────────────────────────────────
@@ -179,7 +199,7 @@ for AGENT_FILE in "$DEPARTAMENTOS_DIR"/*/agents/*.md; do
   if [ "$TARGET_MODE" = "vps" ]; then
     # Copia com nome correto para a staging area e remove BOM
     cp "$AGENT_FILE" "$TMP_STAGE/$AGENT_NAME.md"
-    strip_bom "$TMP_STAGE/$AGENT_NAME.md"
+    strip_bom_and_inject "$TMP_STAGE/$AGENT_NAME.md"
     echo -e "  ${GREEN}✓  $AGENT_NAME (preparado)${RESET}"
     INSTALADOS=$((INSTALADOS + 1))
   else
@@ -187,12 +207,12 @@ for AGENT_FILE in "$DEPARTAMENTOS_DIR"/*/agents/*.md; do
     DEST="$TARGET_DIR/$AGENT_NAME.md"
     if [ -f "$DEST" ]; then
       cp "$AGENT_FILE" "$DEST"
-      strip_bom "$DEST"
+      strip_bom_and_inject "$DEST"
       echo -e "  ${CYAN}↻  $AGENT_NAME${RESET}"
       ATUALIZADOS=$((ATUALIZADOS + 1))
     else
       cp "$AGENT_FILE" "$DEST"
-      strip_bom "$DEST"
+      strip_bom_and_inject "$DEST"
       echo -e "  ${GREEN}✓  $AGENT_NAME${RESET}"
       INSTALADOS=$((INSTALADOS + 1))
     fi
