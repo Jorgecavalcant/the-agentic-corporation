@@ -1,5 +1,5 @@
 ---
-name: analista-receita
+name: analista-receita-financeira
 description: 
 dept: financas
 role: specialist

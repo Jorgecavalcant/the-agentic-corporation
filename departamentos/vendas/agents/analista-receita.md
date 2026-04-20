@@ -1,5 +1,5 @@
 ---
-name: analista-receita
+name: analista-receita-comercial
 description: 
 dept: vendas
 role: specialist

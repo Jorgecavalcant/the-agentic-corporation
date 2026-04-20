@@ -1,5 +1,5 @@
 ---
-name: diretor-juridico
+name: diretor-compliance-juridico
 description: 
 dept: estrategia
 role: specialist

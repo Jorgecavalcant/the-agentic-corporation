@@ -15,7 +15,7 @@
       "tier": 0,
       "agents": [
         { "file": "departamentos/estrategia/agents/orchestrator.md", "name": "agent-manager", "role": "orchestrator" },
-        { "file": "departamentos/estrategia/agents/cco.md", "name": "diretor-juridico", "role": "specialist" }
+        { "file": "departamentos/estrategia/agents/cco.md", "name": "diretor-compliance-juridico", "role": "specialist" }
       ]
     },
     {
