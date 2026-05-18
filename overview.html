@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Agentic Corporation — Visão Geral</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1f2937;
+    --border: #374151;
+    --accent: #6366f1;
+    --accent2: #8b5cf6;
+    --accent3: #06b6d4;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --green: #10b981;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --orange: #f97316;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Starfield background ─────────────────────────── */
+  #stars {
+    position: fixed; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse at 20% 50%, #1a1f3a 0%, #0a0e1a 70%);
+    overflow: hidden;
+  }
+  #stars::before, #stars::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 70%, rgba(255,255,255,.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,.15) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,.2) 0%, transparent 100%);
+    background-size: 300px 300px;
+    animation: drift 60s linear infinite;
+    opacity: .5;
+  }
+  #stars::after { animation-delay: -30s; background-size: 250px 250px; }
+  @keyframes drift { from { transform: translateY(0) } to { transform: translateY(-300px) } }
+
+  /* ── Layout ───────────────────────────────────────── */
+  .container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+  /* ── Header ───────────────────────────────────────── */
+  header { text-align: center; padding: 3rem 0 2rem; }
+  .logo-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    padding: .4rem 1.2rem; border-radius: 999px; font-size: .75rem;
+    letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1.5rem;
+    box-shadow: 0 0 20px rgba(99,102,241,.4);
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, var(--accent3) 50%, var(--accent2) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1; margin-bottom: .75rem;
+  }
+  .tagline { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2.5rem; }
+
+  /* ── Stats bar ────────────────────────────────────── */
+  .stats-bar {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .stat-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: .5rem 1.25rem;
+    font-size: .875rem;
+    display: flex; align-items: center; gap: .5rem;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .stat-pill:hover { border-color: var(--accent); box-shadow: 0 0 12px rgba(99,102,241,.3); }
+  .stat-pill .n { font-weight: 700; font-size: 1.1rem; color: var(--accent3); }
+
+  /* ── Tabs ─────────────────────────────────────────── */
+  .tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+  .tab {
+    padding: .5rem 1.25rem; border-radius: 8px; cursor: pointer;
+    font-size: .875rem; font-weight: 500; color: var(--muted);
+    background: transparent; border: 1px solid transparent;
+    transition: all .2s;
+  }
+  .tab:hover { color: var(--text); background: var(--surface2); }
+  .tab.active { color: var(--text); background: var(--accent); border-color: var(--accent); box-shadow: 0 0 16px rgba(99,102,241,.4); }
+
+  /* ── Tab panels ───────────────────────────────────── */
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadein .3s ease; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+
+  /* ── Org chart (svg) ──────────────────────────────── */
+  #org-canvas { width: 100%; overflow-x: auto; }
+  svg#org { display: block; margin: 0 auto; }
+
+  /* ── Department grid ──────────────────────────────── */
+  .dept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.25rem; }
+  .dept-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    cursor: pointer;
+  }
+  .dept-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.4); border-color: var(--accent); }
+  .dept-header {
+    padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .dept-icon { font-size: 2rem; flex-shrink: 0; }
+  .dept-title { font-size: 1.05rem; font-weight: 700; }
+  .dept-sub { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+  .dept-count {
+    margin-left: auto; background: var(--surface2);
+    padding: .25rem .75rem; border-radius: 999px;
+    font-size: .75rem; color: var(--accent3); font-weight: 700;
+    white-space: nowrap;
+  }
+  .dept-body { padding: 1rem 1.5rem; }
+  .agent-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+  .agent-item {
+    display: flex; align-items: center; gap: .6rem;
+    font-size: .825rem; color: var(--muted);
+    padding: .3rem .6rem; border-radius: 8px;
+    transition: background .15s, color .15s;
+  }
+  .agent-item:hover { background: var(--surface2); color: var(--text); }
+  .agent-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .tier-0 { background: #f59e0b; }
+  .tier-1 { background: var(--accent); }
+  .tier-2 { background: var(--green); }
+  .agent-role { font-size: .7rem; color: #6b7280; margin-left: auto; }
+  .dept-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .75rem; }
+  .tag {
+    font-size: .68rem; padding: .2rem .6rem; border-radius: 999px;
+    background: var(--surface2); color: var(--muted); border: 1px solid var(--border);
+  }
+
+  /* ── Architecture panel ───────────────────────────── */
+  .arch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .arch-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+    transition: border-color .2s;
+  }
+  .arch-card:hover { border-color: var(--accent3); }
+  .arch-card h3 { font-size: .9rem; font-weight: 700; margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem; }
+  .arch-card ul { list-style: none; display: flex; flex-direction: column; gap: .35rem; }
+  .arch-card li { font-size: .8rem; color: var(--muted); padding-left: 1rem; position: relative; }
+  .arch-card li::before { content: '→'; position: absolute; left: 0; color: var(--accent3); }
+
+  /* ── Flow diagram ─────────────────────────────────── */
+  .flow-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; padding: 1rem 0; }
+  .flow-node {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: .75rem 1.5rem;
+    text-align: center; min-width: 220px;
+    position: relative; font-size: .875rem;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .flow-node:hover { border-color: var(--accent); box-shadow: 0 0 16px rgba(99,102,241,.3); }
+  .flow-node.gold { border-color: #f59e0b; background: rgba(245,158,11,.08); }
+  .flow-node.blue { border-color: var(--accent); background: rgba(99,102,241,.08); }
+  .flow-node.green { border-color: var(--green); background: rgba(16,185,129,.08); }
+  .flow-arrow { color: var(--muted); font-size: 1.5rem; line-height: 1; margin: 0; }
+  .flow-row { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+
+  /* ── Timeline ─────────────────────────────────────── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: .5rem; top: .5rem; bottom: .5rem;
+    width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3));
+    border-radius: 1px;
+  }
+  .tl-item { position: relative; margin-bottom: 1.5rem; }
+  .tl-dot {
+    position: absolute; left: -1.55rem; top: .3rem;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+    box-shadow: 0 0 8px rgba(99,102,241,.6);
+  }
+  .tl-item.latest .tl-dot { background: var(--accent3); box-shadow: 0 0 12px rgba(6,182,212,.8); }
+  .tl-date { font-size: .75rem; color: var(--muted); margin-bottom: .2rem; }
+  .tl-title { font-size: .95rem; font-weight: 600; margin-bottom: .3rem; }
+  .tl-desc { font-size: .825rem; color: var(--muted); }
+
+  /* ── Search ───────────────────────────────────────── */
+  .search-wrap { margin-bottom: 1.5rem; }
+  .search-input {
+    width: 100%; padding: .75rem 1.25rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text); font-size: .95rem;
+    outline: none; transition: border-color .2s, box-shadow .2s;
+  }
+  .search-input:focus { border-color: var(--accent); box-shadow: 0 0 16px rgba(99,102,241,.3); }
+  .search-input::placeholder { color: var(--muted); }
+  .search-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: .75rem; margin-top: 1rem; }
+  .search-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: .75rem 1rem;
+    font-size: .85rem; transition: border-color .2s;
+  }
+  .search-card:hover { border-color: var(--accent); }
+  .search-card .sc-name { font-weight: 600; margin-bottom: .2rem; }
+  .search-card .sc-dept { font-size: .75rem; color: var(--accent3); margin-bottom: .3rem; }
+  .search-card .sc-desc { color: var(--muted); font-size: .78rem; line-height: 1.4; }
+
+  /* ── Legend ───────────────────────────────────────── */
+  .legend { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1.5rem; font-size: .8rem; }
+  .legend-item { display: flex; align-items: center; gap: .4rem; color: var(--muted); }
+
+  /* ── Responsive ───────────────────────────────────── */
+  @media (max-width: 640px) {
+    .container { padding: 1rem; }
+    .dept-grid { grid-template-columns: 1fr; }
+    .flow-row { flex-direction: column; align-items: center; }
+  }
+
+  /* ── Gradient accent lines ────────────────────────── */
+  .section-label {
+    font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent3); margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+
+  /* ── Scrollbar ────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <div class="logo-badge">⚡ v1.0.0.0 — Lançamento Oficial</div>
+    <h1>The Agentic Corporation</h1>
+    <p class="tagline">Infraestrutura completa de IA corporativa com 70 agentes organizados em 9 departamentos estratégicos.</p>
+    <div class="stats-bar">
+      <div class="stat-pill"><span class="n">70</span> Agentes de IA</div>
+      <div class="stat-pill"><span class="n">9</span> Departamentos</div>
+      <div class="stat-pill"><span class="n">3</span> Níveis hierárquicos</div>
+      <div class="stat-pill"><span class="n">40+</span> Tarefas padronizadas</div>
+      <div class="stat-pill"><span class="n">10+</span> Conectores externos</div>
+      <div class="stat-pill">🌐 White-Label</div>
+      <div class="stat-pill">🔒 RAG-First</div>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="departments">Departamentos</button>
+    <button class="tab" data-tab="flow">Fluxo de Trabalho</button>
+    <button class="tab" data-tab="architecture">Arquitetura</button>
+    <button class="tab" data-tab="search">Buscar Agentes</button>
+    <button class="tab" data-tab="timeline">Histórico</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL: DEPARTMENTS
+  ═══════════════════════════════════════════════════ -->
+  <div class="panel active" id="tab-departments">
+    <div class="legend">
+      <div class="legend-item"><div class="agent-dot tier-0"></div> C-Level / Estratégico</div>
+      <div class="legend-item"><div class="agent-dot tier-1"></div> Gestão / Orquestrador</div>
+      <div class="legend-item"><div class="agent-dot tier-2"></div> Operacional / Especialista</div>
+    </div>
+    <div class="dept-grid" id="dept-grid"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL: FLOW
+  ═══════════════════════════════════════════════════ -->
+  <div class="panel" id="tab-flow">
+    <div class="section-label">Como um pedido flui pelo sistema</div>
+    <div class="flow-wrap">
+      <div class="flow-node gold">
+        <strong>👤 Usuário / CEO</strong><br>
+        <small style="color:#9ca3af">/jc — pedido em linguagem natural</small>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node blue">
+        <strong>🧠 Master Orchestrator</strong><br>
+        <small style="color:#9ca3af">agent-manager — Estratégia</small>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div style="text-align:center; color:var(--muted); font-size:.8rem; margin:-8px 0 4px">roteamento inteligente para departamentos</div>
+      <div class="flow-row">
+        <div class="flow-node" style="min-width:140px; font-size:.8rem">⚙️ Tecnologia<br><small style="color:#6b7280">CTO + 10 agentes</small></div>
+        <div class="flow-node" style="min-width:140px; font-size:.8rem">📣 Marketing<br><small style="color:#6b7280">CMO + 7 agentes</small></div>
+        <div class="flow-node" style="min-width:140px; font-size:.8rem">💼 Vendas<br><small style="color:#6b7280">Dir. + 13 agentes</small></div>
+        <div class="flow-node" style="min-width:140px; font-size:.8rem">📦 Produto<br><small style="color:#6b7280">CPO + 6 agentes</small></div>
+        <div class="flow-node" style="min-width:140px; font-size:.8rem">💰 Finanças<br><small style="color:#6b7280">CFO + 3 agentes</small></div>
+        <div class="flow-node" style="min-width:140px; font-size:.8rem">🔧 Operações<br><small style="color:#6b7280">COO + 9 agentes</small></div>
+        <div class="flow-node" style="min-width:140px; font-size:.8rem">👥 Pessoas<br><small style="color:#6b7280">CHRO + 2 agentes</small></div>
+        <div class="flow-node" style="min-width:140px; font-size:.8rem">⚖️ Jurídico<br><small style="color:#6b7280">Dir. + 9 agentes</small></div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node green">
+        <strong>✅ Entrega consolidada</strong><br>
+        <small style="color:#9ca3af">Resultado revisado + próximo passo único</small>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem">
+      <div class="section-label">Padrões de comunicação</div>
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h3>🎯 Padrão Advisor</h3>
+          <ul>
+            <li>Agentes eficientes consultam conselheiros</li>
+            <li>Decisões de alta complexidade → Opus</li>
+            <li>Resultados retornam ao agente base</li>
+            <li>Evita desperdício de tokens</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h3>📚 RAG-First</h3>
+          <ul>
+            <li>Base de conhecimento local consultada primeiro</li>
+            <li>Inferências apenas quando necessário</li>
+            <li>Documentos em <code>docs/</code></li>
+            <li>Tarefas em <code>tasks/</code> e <code>checklists/</code></li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h3>🏷️ White-Label</h3>
+          <ul>
+            <li><code>${COMPANY_NAME}</code> como placeholder</li>
+            <li><code>${CEO_NAME}</code> configurável</li>
+            <li>Zero dados hardcoded</li>
+            <li>Credenciais apenas em <code>.env</code></li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h3>🗜️ TOKEN-OPTIMIZER</h3>
+          <ul>
+            <li>Compressão semântica 70% de retenção</li>
+            <li>Script: <code>_jc-core/utils/optimizer.py</code></li>
+            <li>Protocolo em <code>docs/COMPRESS_PROTOCOL.md</code></li>
+            <li>Refactoring em lote disponível</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL: ARCHITECTURE
+  ═══════════════════════════════════════════════════ -->
+  <div class="panel" id="tab-architecture">
+    <div class="arch-grid">
+      <div class="arch-card">
+        <h3>📁 Estrutura de Arquivos</h3>
+        <ul>
+          <li><code>departamentos/</code> — 9 departamentos com agentes</li>
+          <li><code>_jc-core/</code> — templates, utils, best-practices</li>
+          <li><code>docs/</code> — blueprint, organograma, spec</li>
+          <li><code>installer/</code> — scripts de instalação</li>
+          <li><code>.env</code> — configuração segura (gitignored)</li>
+        </ul>
+      </div>
+      <div class="arch-card">
+        <h3>🏗️ Hierarquia de Agentes</h3>
+        <ul>
+          <li><strong style="color:#f59e0b">Tier 0</strong> — C-Level (CEO, CTO, CMO…)</li>
+          <li><strong style="color:var(--accent)">Tier 1</strong> — Gestão / Orquestradores</li>
+          <li><strong style="color:var(--green)">Tier 2</strong> — Especialistas / Operacional</li>
+          <li>Escalação automática entre tiers</li>
+          <li>YAML frontmatter por agente</li>
+        </ul>
+      </div>
+      <div class="arch-card">
+        <h3>🔌 Conectores & Integrações</h3>
+        <ul>
+          <li>MCP (Model Context Protocol)</li>
+          <li>n8n — automações e workflows</li>
+          <li>GitHub API — gestão de código</li>
+          <li>Google Calendar — agendamentos</li>
+          <li>WhatsApp / Telegram — atendimento</li>
+          <li>Asaas — pagamentos</li>
+          <li>MinIO / S3 — armazenamento</li>
+          <li>Chatwoot — CS platform</li>
+          <li>SSH/VPS — infraestrutura</li>
+          <li>BCB Open Banking — fintech</li>
+        </ul>
+      </div>
+      <div class="arch-card">
+        <h3>🛡️ Segurança & Compliance</h3>
+        <ul>
+          <li>LGPD — privacidade de dados</li>
+          <li>CVM 175 — regulação financeira</li>
+          <li>OWASP — segurança de aplicação</li>
+          <li>Zero dados hardcoded</li>
+          <li>Auditoria via <code>especialista-seguranca</code></li>
+          <li>Revisor técnico obrigatório</li>
+        </ul>
+      </div>
+      <div class="arch-card">
+        <h3>🖥️ Plataformas Suportadas</h3>
+        <ul>
+          <li>Claude Code (CLI)</li>
+          <li>Google Antigravity</li>
+          <li>Cursor</li>
+          <li>VS Code + Copilot</li>
+          <li>Instalador: bash / PowerShell</li>
+          <li>Deploy: local, VPS ou cloud</li>
+        </ul>
+      </div>
+      <div class="arch-card">
+        <h3>📄 Documentação Chave</h3>
+        <ul>
+          <li><code>README.md</code> — visão geral e instalação</li>
+          <li><code>PRD.md</code> — requisitos do produto</li>
+          <li><code>SPEC.md</code> — especificação técnica</li>
+          <li><code>STATE.md</code> — status e roadmap</li>
+          <li><code>docs/BLUEPRINT.md</code> — blueprint v2.0</li>
+          <li><code>docs/ORGANOGRAMA.md</code> — hierarquia</li>
+        </ul>
+      </div>
+      <div class="arch-card">
+        <h3>⚙️ Configuração (.env)</h3>
+        <ul>
+          <li><code>VPS_HOST</code> — acesso SSH ao servidor</li>
+          <li><code>COMPANY_NAME</code> — branding white-label</li>
+          <li><code>CEO_NAME</code> — nome do executivo</li>
+          <li><code>ORCHESTRATOR_TRIGGER</code> — gatilho (padrão: <code>jc</code>)</li>
+          <li>Credenciais de APIs externas</li>
+        </ul>
+      </div>
+      <div class="arch-card">
+        <h3>🚀 Ativação</h3>
+        <ul>
+          <li><code>/jc [pedido]</code> — gatilho principal</li>
+          <li><code>acionar agent-manager — [pedido]</code></li>
+          <li>Agente roteia automaticamente</li>
+          <li>Execução paralela entre departamentos</li>
+          <li>Revisão de qualidade integrada</li>
+          <li>Próximo passo único entregue</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL: SEARCH
+  ═══════════════════════════════════════════════════ -->
+  <div class="panel" id="tab-search">
+    <div class="search-wrap">
+      <input type="text" class="search-input" id="search-input" placeholder="Buscar agente por nome, função ou departamento… (ex: segurança, advogado, frontend)" oninput="doSearch(this.value)">
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       PANEL: TIMELINE
+  ═══════════════════════════════════════════════════ -->
+  <div class="panel" id="tab-timeline">
+    <div class="section-label">Histórico de versões</div>
+    <div class="timeline">
+      <div class="tl-item latest">
+        <div class="tl-dot"></div>
+        <div class="tl-date">20 de Abril, 2026</div>
+        <div class="tl-title">v1.0.0.0 — Lançamento Oficial 🎉</div>
+        <div class="tl-desc">The Agentic Corporation. Sanitização white-label completa. 70 agentes em 9 departamentos. Renomeação de empresa e identidade corporativa definitiva.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">18 de Abril, 2026</div>
+        <div class="tl-title">v1.0.0.4 — Departamento de Negociação</div>
+        <div class="tl-desc">+7 agentes especializados em negociação baseados na metodologia Chris Voss (FBI). Inclui Coach de Negociação ao Vivo e Especialista em Objeções.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">10 de Abril, 2026</div>
+        <div class="tl-title">v1.0.0.3 — Padrão Advisor</div>
+        <div class="tl-desc">+1 Advisor Dev (Opus) para decisões de alta complexidade. Implementação do padrão Advisor para escalação inteligente entre agentes.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">05 de Abril, 2026</div>
+        <div class="tl-title">v1.0.0.2 — Metodologia PRD+SPEC</div>
+        <div class="tl-desc">+1 Analista de Soluções. Introdução da metodologia de documentação PRD (Requisitos) + SPEC (Especificação Técnica).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">03 de Abril, 2026</div>
+        <div class="tl-title">v1.0.0.1 — Nomenclatura em Português</div>
+        <div class="tl-desc">+9 agentes. Padronização de nomes em pt-BR. Dois gatilhos de ativação (/jc e acionar agent-manager).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">02 de Abril, 2026</div>
+        <div class="tl-title">v1.0.0 — Lançamento Inicial</div>
+        <div class="tl-desc">Primeira versão com 38 agentes. Estrutura base dos departamentos, Master Orchestrator e infraestrutura de instalação.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem">
+      <div class="section-label">Roadmap e status</div>
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h3>✅ Concluído</h3>
+          <ul>
+            <li>70 agentes com RPI completo</li>
+            <li>9 departamentos operacionais</li>
+            <li>Instaladores multi-plataforma</li>
+            <li>White-label completo</li>
+            <li>TOKEN-OPTIMIZER</li>
+            <li>Padrão Advisor implementado</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h3>🔄 Em andamento</h3>
+          <ul>
+            <li>Blueprint v2.0 — consolidação</li>
+            <li>Expansão RAG por departamento</li>
+            <li>Dashboards de performance</li>
+            <li>Integração BCB Open Banking</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h3>🎯 Próximas versões</h3>
+          <ul>
+            <li>API pública de ativação</li>
+            <li>Interface web de gerenciamento</li>
+            <li>Logs e auditoria automática</li>
+            <li>Expansão para novos nichos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════
+const departments = [
+  {
+    id: 'estrategia',
+    icon: '🎯',
+    name: 'Estratégia',
+    role: 'C-Level / Governança',
+    color: '#f59e0b',
+    agents: [
+      { name: 'Master Orchestrator', file: 'orchestrator.md', tier: 0, desc: 'agent-manager — roteia e coordena todos os departamentos' },
+      { name: 'CCO', file: 'cco.md', tier: 1, desc: 'Chief Compliance Officer — conformidade estratégica' },
+      { name: 'Compliance Officer', file: 'compliance-officer.md', tier: 2, desc: 'Operações de conformidade e regulação' },
+    ],
+    tags: ['Governança', 'Compliance', 'Orquestração']
+  },
+  {
+    id: 'tecnologia',
+    icon: '⚙️',
+    name: 'Tecnologia',
+    role: 'Engenharia & TI',
+    color: '#6366f1',
+    agents: [
+      { name: 'CTO', file: 'orchestrator.md', tier: 0, desc: 'Chief Technology Officer — estratégia técnica' },
+      { name: 'Dev Backend', file: 'dev-backend.md', tier: 2, desc: 'Desenvolvimento backend e APIs' },
+      { name: 'Dev Frontend', file: 'dev-frontend.md', tier: 2, desc: 'Desenvolvimento frontend e UI' },
+      { name: 'DBA', file: 'dba.md', tier: 2, desc: 'Administrador de banco de dados' },
+      { name: 'DevOps', file: 'devops.md', tier: 2, desc: 'CI/CD, infraestrutura e deploy' },
+      { name: 'IA Engineer', file: 'ia-engineer.md', tier: 2, desc: 'Engenharia de IA e ML' },
+      { name: 'Especialista de Segurança', file: 'especialista-seguranca.md', tier: 2, desc: 'OWASP, auditorias e pentest' },
+      { name: 'Revisor Técnico', file: 'revisor-tecnico.md', tier: 2, desc: 'Revisão de código e qualidade' },
+      { name: 'Conselheiro Dev (Advisor)', file: 'conselheiro-dev.md', tier: 1, desc: 'Opus — decisões de alta complexidade' },
+      { name: 'Gerente de Infraestrutura', file: 'gerente-infraestrutura.md', tier: 1, desc: 'VPS, cloud e servidores' },
+      { name: 'Gerente de Integrações', file: 'gerente-integracoes.md', tier: 1, desc: 'APIs externas e conectores' },
+    ],
+    tags: ['Backend', 'Frontend', 'DevOps', 'Segurança', 'IA/ML']
+  },
+  {
+    id: 'marketing',
+    icon: '📣',
+    name: 'Marketing',
+    role: 'Crescimento & Marca',
+    color: '#ec4899',
+    agents: [
+      { name: 'CMO', file: 'orchestrator.md', tier: 0, desc: 'Chief Marketing Officer — direção de marketing' },
+      { name: 'Gerente de Marketing', file: 'gerente-marketing.md', tier: 1, desc: 'Operações e campanhas' },
+      { name: 'Redator (Copywriter)', file: 'redator.md', tier: 2, desc: 'Copy baseado em Ogilvy, Kennedy, Bencivenga' },
+      { name: 'Designer Visual', file: 'designer.md', tier: 2, desc: 'Design e identidade visual' },
+      { name: 'Gestor de Tráfego', file: 'gestor-trafego.md', tier: 2, desc: 'Ads, Meta, Google — tráfego pago' },
+      { name: 'Estrategista de Marca', file: 'estrategista-marca.md', tier: 2, desc: 'Posicionamento e branding' },
+      { name: 'Especialista em Storytelling', file: 'especialista-storytelling.md', tier: 2, desc: 'Narrativas e stories' },
+      { name: 'Especialista em Conteúdo', file: 'especialista-conteudo.md', tier: 2, desc: 'Conteúdo orgânico e editorial' },
+    ],
+    tags: ['Copy', 'Design', 'Ads', 'Branding', 'Conteúdo']
+  },
+  {
+    id: 'vendas',
+    icon: '💼',
+    name: 'Vendas',
+    role: 'Revenue & Negociações',
+    color: '#10b981',
+    agents: [
+      { name: 'Diretor de Vendas', file: 'orchestrator.md', tier: 0, desc: 'Estratégia de vendas e revenue' },
+      { name: 'Especialista em Ofertas', file: 'especialista-ofertas.md', tier: 2, desc: 'Grand Slam Offer — criação de ofertas irresistíveis' },
+      { name: 'Especialista em Leads', file: 'especialista-leads.md', tier: 2, desc: 'Geração e qualificação de leads' },
+      { name: 'Especialista em Conversão', file: 'especialista-conversao.md', tier: 2, desc: 'Funil de vendas e conversão' },
+      { name: 'Especialista em Retenção', file: 'especialista-retencao.md', tier: 2, desc: 'CS e redução de churn' },
+      { name: 'Gestor de Loja Digital', file: 'gestor-loja-digital.md', tier: 2, desc: 'E-commerce e loja virtual' },
+      { name: 'Diretor de Negociação', file: 'diretor-negociacao.md', tier: 1, desc: 'Metodologia Chris Voss (FBI)' },
+      { name: 'Estrategista de Preparação', file: 'estrategista-preparacao.md', tier: 2, desc: 'Prep para negociações complexas' },
+      { name: 'Coach de Negociação Live', file: 'coach-negociacao-live.md', tier: 2, desc: 'Suporte em tempo real durante negociação' },
+      { name: 'Especialista em Objeções', file: 'especialista-objecoes.md', tier: 2, desc: 'Tratamento de objeções e rebate' },
+      { name: 'Analista de Contraparte', file: 'analista-contraparte.md', tier: 2, desc: 'Análise de perfil do negociador adversário' },
+      { name: 'Redator de Propostas', file: 'redator-propostas-nego.md', tier: 2, desc: 'Propostas e contratos de negociação' },
+      { name: 'Analista Pós-Negociação', file: 'analista-pos-negociacao.md', tier: 2, desc: 'Análise e aprendizado de negociações' },
+      { name: 'Analista de Receita', file: 'analista-receita.md', tier: 2, desc: 'MRR, ARR e métricas SaaS' },
+    ],
+    tags: ['Leads', 'Conversão', 'Negociação', 'Revenue', 'Chris Voss']
+  },
+  {
+    id: 'produto',
+    icon: '📦',
+    name: 'Produto',
+    role: 'Product Management',
+    color: '#06b6d4',
+    agents: [
+      { name: 'CPO', file: 'orchestrator.md', tier: 0, desc: 'Chief Product Officer — estratégia de produto' },
+      { name: 'Pesquisador (Discovery)', file: 'pesquisador.md', tier: 2, desc: 'Research e discovery de produto' },
+      { name: 'Gerente Design/UX', file: 'gerente-design-ux.md', tier: 1, desc: 'UX/UI e experiência do usuário' },
+      { name: 'Analista de Soluções', file: 'analista-solucoes.md', tier: 2, desc: 'Análise de viabilidade e soluções' },
+      { name: 'PM — Método Planejar', file: 'gestor-metodo-planejar.md', tier: 2, desc: 'Product Manager do Método Planejar' },
+      { name: 'PM — AgroCredit', file: 'gestor-agrocredit.md', tier: 2, desc: 'Product Manager do AgroCredit' },
+      { name: 'PM — Fiado Pro', file: 'gestor-fiado-pro.md', tier: 2, desc: 'Product Manager do Fiado Pro' },
+    ],
+    tags: ['Discovery', 'UX/UI', 'Roadmap', 'SaaS']
+  },
+  {
+    id: 'financas',
+    icon: '💰',
+    name: 'Finanças',
+    role: 'Finance & BI',
+    color: '#f59e0b',
+    agents: [
+      { name: 'CFO', file: 'orchestrator.md', tier: 0, desc: 'Chief Financial Officer — estratégia financeira' },
+      { name: 'Analista Financeiro', file: 'analista-financeiro.md', tier: 2, desc: 'Fluxo de caixa, DRE, projeções' },
+      { name: 'Analista de Receita', file: 'analista-receita.md', tier: 2, desc: 'Métricas SaaS, MRR/ARR, churn' },
+      { name: 'Analista de Dados (BI)', file: 'analista-dados.md', tier: 2, desc: 'Business Intelligence e dashboards' },
+    ],
+    tags: ['Financeiro', 'BI', 'SaaS Metrics', 'DRE']
+  },
+  {
+    id: 'operacoes',
+    icon: '🔧',
+    name: 'Operações',
+    role: 'Automações & CS',
+    color: '#8b5cf6',
+    agents: [
+      { name: 'COO', file: 'orchestrator.md', tier: 0, desc: 'Chief Operations Officer — operações corporativas' },
+      { name: 'Monitor', file: 'monitor.md', tier: 2, desc: 'Monitoramento de sistemas em tempo real' },
+      { name: 'Integrations Engineer', file: 'integrations-engineer.md', tier: 2, desc: 'Integrações entre sistemas' },
+      { name: 'N8N Specialist', file: 'n8n-specialist.md', tier: 2, desc: 'Automações com n8n e workflows' },
+      { name: 'Chatbot Developer', file: 'chatbot-developer.md', tier: 2, desc: 'Chatbots WhatsApp, Telegram, Web' },
+      { name: 'Gestor de Atendimento', file: 'gestor-atendimento.md', tier: 1, desc: 'Customer Service e suporte' },
+      { name: 'Historiador (Context)', file: 'historiador.md', tier: 2, desc: 'Gerenciamento de memória e contexto' },
+      { name: 'Conferente de Entrega', file: 'conferente-entrega.md', tier: 2, desc: 'QA de entregáveis e outputs' },
+      { name: 'Auditor de Infraestrutura', file: 'auditor-infraestrutura.md', tier: 2, desc: 'Auditoria de servidores e infra' },
+      { name: 'Técnico de Limpeza', file: 'tecnico-limpeza.md', tier: 2, desc: 'Manutenção e limpeza de servidores' },
+    ],
+    tags: ['n8n', 'Chatbot', 'Automação', 'CS', 'Monitoramento']
+  },
+  {
+    id: 'pessoas',
+    icon: '👥',
+    name: 'Pessoas',
+    role: 'People & Culture',
+    color: '#f97316',
+    agents: [
+      { name: 'CHRO', file: 'orchestrator.md', tier: 0, desc: 'Chief Human Resources Officer — cultura e pessoas' },
+      { name: 'Documentador', file: 'documentador.md', tier: 2, desc: 'Documentação técnica e de processos' },
+      { name: 'QA Lead', file: 'qa-lead.md', tier: 1, desc: 'Qualidade funcional e testes' },
+    ],
+    tags: ['RH', 'Documentação', 'QA', 'Cultura']
+  },
+  {
+    id: 'juridico',
+    icon: '⚖️',
+    name: 'Jurídico',
+    role: 'Legal & Compliance',
+    color: '#ef4444',
+    agents: [
+      { name: 'Diretor Jurídico', file: 'orchestrator.md', tier: 0, desc: 'Estratégia jurídica corporativa' },
+      { name: 'Adv. Tributarista', file: 'adv-tributarista.md', tier: 2, desc: 'Direito tributário e fiscal' },
+      { name: 'Adv. Trabalhista', file: 'adv-trabalhista.md', tier: 2, desc: 'Direito trabalhista e CLT' },
+      { name: 'Adv. Empresarial', file: 'adv-empresarial.md', tier: 2, desc: 'Direito empresarial e societário' },
+      { name: 'Adv. Digital / LGPD', file: 'adv-digital-lgpd.md', tier: 2, desc: 'LGPD, privacidade e direito digital' },
+      { name: 'Adv. Consumidor / SaaS', file: 'adv-consumidor-saas.md', tier: 2, desc: 'Relações de consumo e contratos SaaS' },
+      { name: 'Adv. Propriedade Intelectual', file: 'adv-propriedade-intelectual.md', tier: 2, desc: 'IP, marcas, patentes e direitos autorais' },
+      { name: 'Adv. Regulatório FinTech', file: 'adv-regulatorio-fintech.md', tier: 2, desc: 'CVM 175, BCB, regulação financeira' },
+      { name: 'Adv. Entretenimento', file: 'adv-entretenimento-musical.md', tier: 2, desc: 'Direito do entretenimento e musical' },
+      { name: 'Analista de Contratos', file: 'adv-analista-contratos.md', tier: 2, desc: 'Revisão e análise de contratos' },
+    ],
+    tags: ['LGPD', 'Tributário', 'Trabalhista', 'FinTech', 'IP']
+  },
+];
+
+// ═══════════════════════════════════════════════════
+// RENDER DEPARTMENTS
+// ═══════════════════════════════════════════════════
+function renderDepts() {
+  const grid = document.getElementById('dept-grid');
+  grid.innerHTML = departments.map(d => `
+    <div class="dept-card" onclick="toggleCard(this)">
+      <div class="dept-header" style="border-left: 3px solid ${d.color}">
+        <div class="dept-icon">${d.icon}</div>
+        <div>
+          <div class="dept-title">${d.name}</div>
+          <div class="dept-sub">${d.role}</div>
+        </div>
+        <div class="dept-count">${d.agents.length} agentes</div>
+      </div>
+      <div class="dept-body">
+        <ul class="agent-list">
+          ${d.agents.map(a => `
+            <li class="agent-item" title="${a.desc}">
+              <div class="agent-dot tier-${a.tier}"></div>
+              ${a.name}
+              <span class="agent-role">${['C-Level','Gestão','Especialista'][a.tier]}</span>
+            </li>
+          `).join('')}
+        </ul>
+        <div class="dept-tags">
+          ${d.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleCard(card) {
+  // cards are always open; click ripple effect
+  card.style.transform = 'scale(0.98)';
+  setTimeout(() => card.style.transform = '', 150);
+}
+
+// ═══════════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════════
+const allAgents = departments.flatMap(d =>
+  d.agents.map(a => ({ ...a, dept: d.name, deptIcon: d.icon, deptColor: d.color }))
+);
+
+function doSearch(q) {
+  const el = document.getElementById('search-results');
+  if (!q.trim()) { el.innerHTML = ''; return; }
+  const t = q.toLowerCase();
+  const results = allAgents.filter(a =>
+    a.name.toLowerCase().includes(t) ||
+    a.desc.toLowerCase().includes(t) ||
+    a.dept.toLowerCase().includes(t) ||
+    ['C-Level','Gestão','Especialista'][a.tier].toLowerCase().includes(t)
+  );
+  if (!results.length) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:.875rem;padding:1rem 0">Nenhum agente encontrado.</div>';
+    return;
+  }
+  el.innerHTML = results.map(a => `
+    <div class="search-card">
+      <div class="sc-name">${a.deptIcon} ${a.name}</div>
+      <div class="sc-dept" style="color:${a.deptColor}">${a.dept} · ${'C-Level,Gestão,Especialista'.split(',')[a.tier]}</div>
+      <div class="sc-desc">${a.desc}</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════════
+document.getElementById('tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+});
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+renderDepts();
+
+// Focus search on tab open
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    if (t.dataset.tab === 'search') {
+      setTimeout(() => document.getElementById('search-input').focus(), 50);
+    }
+  });
+});
+</script>
+</body>
+</html>
